@@ -4,6 +4,41 @@ Dated notes on what changed in the skill and which build's finding drove it.
 Builds live in `OtherWorlds/Ultimate Websites/builds/`; each carries a
 `BUILD-REPORT.md`.
 
+## 2026-09-16: transition idioms and the flow continuum grammar
+
+Asked how to direct the skill toward flowing, blended pages, and found three
+places where that direction had nowhere to land.
+
+**The boundary between two acts was unowned.** The device kit is entirely
+per-act, so what happens where one act meets the next defaulted to a hard edge,
+because a section is an opaque block and two opaque blocks meet at a line.
+Added `devices.md` §11: cut, handoff and dissolve as named page-level idioms,
+picked once and held, plus the mechanics for dissolve. Feather the media rather
+than the section, keep one continuous ground, fake the overlap in the paint
+since the engine lays acts out in document order, long acts only because
+`drift` scoping breaks on short ones, and `mask-image` rather than `clip-path`,
+which cannot feather. Step 2 now names the idiom alongside the grammar.
+
+**No grammar was seamless without paying for worldflight.** Filmic one-shot
+opens on a full-bleed scrub and gets its continuity from one camera; continuous
+world is a fixed canvas with no sections at all and is the most expensive and
+most fragile thing the skill builds. Added `uniqueness.md` §2.9, flow continuum:
+acts that genuinely differ with no visible boundary between any two, organised
+around change of state, chrome as a membrane rather than a bar, a close that
+settles into one saturated ground instead of dimming toward nothing. Its two
+built-in failure modes are written into the grammar: undifferentiated mush,
+which needs the acts pushed further apart precisely because the seams no longer
+mark the change, and the missing peak, which a uniformly blended page cannot
+have unless the rate of blending is itself authored as a curve.
+
+**The aesthetic range had no row for it.** Added organic/liquid to
+`uniqueness.md` §5, and clarified that the AI-purple ban covers that gradient,
+not gradients: a gradient-led page built from the brand's own colours is a brief
+decision, while gradient text, outer glow and zero-offset halos stay banned in
+every family. Interview question 7 now offers the dissolve fork explicitly,
+since "flowing" and "liquid" previously resolved to premium-minimal or to
+worldflight's cost. No engine changes.
+
 ## 2026-09-04: approved ten-site rebuild, public release 0.3.0
 
 Nate approved the rebuilt ten-site collection and requested that its process

@@ -28,7 +28,11 @@ the shape was never a decision anybody made.
 
 This file is the structure axis. Read it after the interview and before the
 score table. It has three parts that are not optional: pick a **grammar**,
-invent a **signature move**, and pass the **fingerprint gate**.
+invent a **signature move**, and pass the **fingerprint gate**. A fourth
+decision sits with the grammar and is made in the same pass: the **transition
+idiom**, which is what happens at the boundary between two acts
+([devices.md §11](devices.md)). Most grammars here imply one; §2.9 is built on
+one.
 
 ---
 
@@ -50,7 +54,7 @@ is a filmic one-shot with extra headings.
 
 ### 2.1 Filmic one-shot
 
-The original skeleton, and now one choice among eight rather than the house
+The original skeleton, and now one choice among nine rather than the house
 style.
 
 **Fits:** a single linear argument with one emotional arc. Consumer products,
@@ -71,7 +75,7 @@ spotlight and a magnetic CTA.
 **Leans on:** `scrub`, `pin`, `drift`, `kinetic`. **Bans:** nothing structural,
 which is exactly why it is the default drift and why four builds landed here.
 
-**Use it when the interview earns it, and say in the report why the other seven
+**Use it when the interview earns it, and say in the report why the other eight
 did not fit.** This grammar now carries a burden of proof the others do not.
 
 ---
@@ -348,6 +352,82 @@ what the acts do, not on what the page can do.
 
 ---
 
+### 2.9 Flow continuum
+
+Acts that differ from each other, with no visible boundary between any two of
+them. The page's organising logic is **change of state**, not an argument or a
+geography: each act is the same material in a different condition, and the
+scroll is the transition.
+
+**Fits:** anything whose subject is a process, a phase change, or a gradient
+between two conditions. Water and climate, skincare and formulation, sound and
+ambient media, sleep and recovery, materials, a slow craft measured in time
+rather than in steps.
+
+**The scroll feels like:** one thing becoming another, continuously. The visitor
+cannot say where a section started, and asking them to would be a strange
+question about this page.
+
+**This is not the filmic one-shot and not a continuous world.** Filmic
+seamlessness comes from one camera and one film, and it opens on a full-bleed
+`scrub`; a continuous world is one fixed canvas with no sections at all
+(§2.4, worldflight). Here sections genuinely exist, they genuinely differ, and
+what is unified is the **boundary treatment**: the dissolve idiom in
+[devices.md §11](devices.md), held across the whole page. That is the grammar.
+It is also why this is not the blending of two grammars that §2 forbids: the
+seam is the organising decision, not a softening applied to somebody else's
+structure.
+
+**Forbids:** hard cuts of any kind; opaque per-section backgrounds; edge-to-edge
+`clip-path` wipes; section rules, dividers, or any chrome that draws a line
+across the page; abutting parallax bands (they overlap or they are not in this
+grammar); more than one `scrub`; the full-bleed scrub hero, which belongs to
+filmic; discrete step or chapter indicators of any kind, since a step count is a
+claim about boundaries this page does not have.
+
+**Nav, hero, close:** the chrome is a **membrane**, not a bar. One persistent
+element carrying the wordmark, the one CTA, and the page's current tint, taking
+its colour from the live `drift` value so the chrome is continuous with the
+ground behind it. No section links, because named sections imply edges. The hero
+is **already mid-blend**: copy emerging out of an ambient field rather than laid
+over a settled establishing shot, with the first dissolve beginning before the
+headline has finished arriving, so the format is legible from the first screen.
+The close **settles**, and settling is not fading out: the accumulated ground
+arrives at one final saturated colour, every mask resolves to fully opaque, the
+CTA is the only object left at full contrast, and it holds. A close that dims
+toward nothing has broken the hard rule in SKILL.md, not honoured this grammar.
+
+**Leans on:** `drift` at 4 to 5 stops across four to six long acts;
+`parallax` with overlapping planes; `reveal` feathered through `mask-image`;
+`flow` + `in` at long cue windows; a pointer-driven gradient field where the
+brand earns one. **Bans:** `pan` (a rail is a row of discrete items with gaps
+between them), hard `drift` steps, `count` unless the figures are real and the
+page can hold them without a bounded card.
+
+**The mush problem, and how to resolve it.** Softness is the failure mode built
+into this grammar. Remove every boundary and a page reads as one long
+undifferentiated wash, which is the "one idea shown five times" defect from
+SKILL.md wearing a nicer coat, and it fails the variety law and the feeling
+curve at the same time.
+
+**Differentiate the acts harder than you would elsewhere, precisely because the
+seams will not do it for you.** On a cut page the boundary announces that
+something changed; here nothing does, so the change has to be in the act itself:
+scale, density, subject distance, whether the page is moving or responding. Four
+or more device families is a floor here, not a target. Two adjacent acts at the
+same feeling are more damaging in this grammar than in any other, because there
+is no edge between them to make the repetition legible as a choice.
+
+**And the peak is the maximum-bleed moment.** feel.md wants one engineered peak
+with the largest span and the most visible change. A page that blends uniformly
+from top to bottom has no peak by construction. Author the *rate* of blending as
+a curve: hold the earlier boundaries tighter and shorter, then give the peak the
+widest feather, the longest span, and the largest colour interval on the page.
+The act before it blends least. That contrast is what makes the peak legible
+without a cut.
+
+---
+
 ## 3. The signature move
 
 Every build must invent **one bespoke interaction that exists on that site
@@ -457,6 +537,7 @@ The full range is available when the brand's vibe asks for it:
 | Retro | Specific to a decade, not vaguely nostalgic | Heritage brands, music, anything with a real lineage |
 | Dense | Information-forward, small type, high count | Data products, catalogues, reference, finance |
 | Editorial | Paper, folios, measure, restraint | Long-form substance |
+| Organic / liquid | Tidal, continuous, no hard edges | Water, climate, skincare, sound, sleep, materials, anything about a change of state |
 | Premium-minimal | Quiet, dark, one accent, air | Luxury, and only when asked for |
 
 Go where the interview points. If the human says "loud" and the page comes back
@@ -478,3 +559,13 @@ Two specific traps stay banned in every family, because they are not aesthetics,
 they are defaults with a look: the cream-and-brass artisan palette
 (taste.md, Colour) and violet-to-blue AI gradients. Both are what a page reaches
 for when nobody chose.
+
+**The AI-purple ban is about that gradient, not about gradients.** An organic /
+liquid page is gradient-led by definition and cannot be built without them.
+What the ban actually forbids is the unchosen one: violet to blue, neon glow,
+glowing buttons. Build the field out of the brand's own colours, keep the whole
+set inside one theme family the way `drift` requires, and say in the report that
+the gradients were a brief decision rather than a default. Three things stay
+banned in every family including this one, because they are cheap rather than
+soft: gradient *text*, outer glow, and zero-offset coloured halo shadows
+(taste.md).

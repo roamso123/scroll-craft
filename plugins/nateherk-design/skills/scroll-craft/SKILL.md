@@ -10,9 +10,10 @@ description: >
   Use for "scrollcraft", "scroll craft", "layered hero", "premium hero",
   "cinematic hero", "scrollytelling", "scroll animation site", "a site where
   scrolling plays a video", "Apple-style landing page", "3D scroll world",
-  "interactive landing page", "make my brand a scroll experience", "this looks
-  like a template", or requests for a distinctive website that feels like an
-  experience rather than a document.
+  "interactive landing page", "make my brand a scroll experience", "flowy
+  blended site", "liquid gradient site", "sections that dissolve into each
+  other", "this looks like a template", or requests for a distinctive website
+  that feels like an experience rather than a document.
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
 ---
 
@@ -47,7 +48,9 @@ Four rules follow from that, and they are the spine of this skill:
    expensive and most fragile thing you can build, and it exists only to hide
    cuts between scenes. Vary the device instead and the cut disappears for free,
    because the visitor is not watching one film. Chain only when the brief is
-   literally "one continuous journey."
+   literally "one continuous journey." A dissolved boundary is not a chain:
+   the flow continuum grammar gets seamlessness from masks and a shared ground,
+   with no single flight to reroll. See devices.md §11.
 4. **A different world is not a different page.** The device kit varies how a
    page looks. Structure is a separate axis, and it has to be decided
    deliberately or every build inherits the same skeleton. The first four builds
@@ -117,14 +120,19 @@ Keep it short. Eight questions, asked in one pass:
    one.
 6. **How far from premium-minimal they want to go.** Offer the range in
    [uniqueness.md §5](references/uniqueness.md): brutalist, maximalist, playful,
-   retro, dense, editorial, premium-minimal. Their answer governs the aesthetic
-   family, not your taste.
-7. **One unbroken world, or distinct scenes?** Should the whole page feel like
-   one continuous place the scroll flies through (worldflight, see
-   [references/worldflight.md](references/worldflight.md)), or like separate
-   scenes, chapters, or cuts? This is the single biggest structural fork, and it
-   is their call, not a device you pick later. Offer both plainly; neither is
-   the default.
+   retro, dense, editorial, organic/liquid, premium-minimal. Their answer governs
+   the aesthetic family, not your taste.
+7. **One unbroken world, distinct scenes, or scenes that dissolve into each
+   other?** Should the whole page feel like one continuous place the scroll flies
+   through (worldflight, see
+   [references/worldflight.md](references/worldflight.md)), like separate scenes,
+   chapters, or cuts, or like sections that genuinely differ while no boundary
+   between them is ever visible (flow continuum,
+   [uniqueness.md §2.9](references/uniqueness.md))? This is the single biggest
+   structural fork, and it is their call, not a device you pick later. Offer all
+   three plainly; none is the default. The third is the one to offer when they
+   ask for something flowing, blended, or liquid, and it costs a fraction of
+   worldflight.
 8. **What assets do they already have?** Footage, photos, product shots, a
    brand kit, clips of themselves. Real assets anchor the world and cut
    generation cost; the answer decides what gets graded and encoded versus
@@ -247,15 +255,20 @@ record the chosen journey and proceed within the authorized scope.
 
 ## Step 2: Grammar, gate, then score
 
-Three things in order, and the first two come before any act planning. Full
+Four things in order, and the first three come before any act planning. Full
 detail in [references/uniqueness.md](references/uniqueness.md).
 
-**Pick a grammar.** Start with the eight defined grammars and their constraints.
+**Pick a grammar.** Start with the nine defined grammars and their constraints.
 A new grammar is allowed when its navigation, sequence, ending, and explicit
 bans describe a different structure; a new label alone earns no credit. Filmic one-shot is the one the first four
 builds all used, so choosing it again means saying in the report why the other
-seven did not fit the interview. Nav, hero and close all follow from the
+eight did not fit the interview. Nav, hero and close all follow from the
 grammar; they are not decided separately.
+
+**Pick the transition idiom.** Cut, handoff, or dissolve: what happens at the
+boundary between two acts. It is a page-level decision, most grammars imply one,
+and left undecided it defaults to a hard edge because a section is an opaque
+block. See [devices.md §11](references/devices.md).
 
 **Invent the signature move.** One bespoke interaction that lives on this site
 alone, coded in the page, not a parameter change to a kit device. Question 5 of
@@ -287,13 +300,15 @@ Then assign each beat a device. Do it deliberately and write it down as a table:
 | Commitment | `pin` + pointer | The page stops moving and starts responding |
 
 That table is a **filmic** score. It is the right shape for one grammar and the
-wrong shape for the other seven, so read your grammar's leans-on and bans list
+wrong shape for the other eight, so read your grammar's leans-on and bans list
 before filling in a row.
 
 Checks before you build:
 
 - The grammar's bans hold. A grammar that forbids `pin` forbids it here too,
   however well it would have worked.
+- The transition idiom is named and holds at every boundary. Mixing cut and
+  dissolve on one page reads as accident, not range.
 - Four or more distinct device families. Fewer means the page has one idea.
 - No device family twice in a row.
 - At most two `scrub` acts. Video is the heaviest thing on the page, and the
@@ -431,7 +446,8 @@ machine-made.
 | Shipping without one bespoke signature move | Invent one. A recoloured spotlight or a retuned tilt is not one. See uniqueness.md §3 |
 | A build that clears fewer than 4 of 6 fingerprint dimensions against any existing row | Change the plan, not `FINGERPRINTS.md` |
 | Editing the engine to get a bespoke behaviour | Bespoke JS in the page, driven off `--sc-p` and your own `data-sc-*` |
-| Reaching for filmic one-shot because it is what the last build did | Pick from all eight grammars, and say why the other seven lost |
+| Leaving the act boundary undecided, so the page meets at hard edges by default | Name the transition idiom in Step 2 and hold it page-wide. See devices.md §11 |
+| Reaching for filmic one-shot because it is what the last build did | Pick from all nine grammars, and say why the other eight lost |
 | A full-frame dark overlay to fix contrast | A scrim only where the text sits |
 | Text baked into a generated image | Real markup, always. It is selectable, translatable and sharp |
 | Invented statistics in a counter | Only real numbers. No number, no counter |
@@ -443,10 +459,10 @@ machine-made.
 ## Output
 
 The build folder, including `BRIEF.md`, then a short report: the grammar and why
-the other seven lost, the signature move, the fingerprint gate result against
-each existing row, the journey, the feeling curve and the peak, the feel-check
-diff (intended curve against felt curve, and what you changed), the score table
-(device per beat), what you
+the other eight lost, the signature move, the transition idiom, the fingerprint
+gate result against each existing row, the journey, the feeling curve and the
+peak, the feel-check diff (intended curve against felt curve, and what you
+changed), the score table (device per beat), what you
 generated, what you verified with screenshots, and anything you could not
 verify. Say if the brief was self-authored rather than interviewed. Give the
 local URL. Keep it brief; the page is the deliverable.

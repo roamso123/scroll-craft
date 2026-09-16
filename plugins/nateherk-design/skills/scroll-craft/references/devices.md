@@ -6,6 +6,10 @@ does the visitor's hand actually do here."
 Pick per beat, never per page. The variety law from SKILL.md Step 2 applies:
 four or more families, never the same one twice in a row.
 
+Sections 10 and 11 are not devices. `drift` is a property of acts, and the
+transition idiom is a property of the boundaries between them. Both are page-level
+decisions, made once.
+
 Every act publishes `--sc-p` (0 to 1) on its own element, so anything you want
 to drive that the kit does not cover, you can drive from CSS with `calc()`
 against that variable. Reach for that before asking for a new device.
@@ -539,6 +543,88 @@ the change land on a hard edge. That is also what a cutlist or a chaptered page
 wants on its own terms: a cut is not an interpolation, and interpolating between
 two chapter grounds is precisely the softness those grammars exist to refuse.
 Drift is for pages that are one continuous place.
+
+---
+
+## 11. Transition idioms: what happens between acts
+
+Everything above is per-act. **The boundary between two acts is not owned by any
+device**, so it defaults to whatever the markup happens to do, which is a hard
+edge: a section is an opaque block, and two opaque blocks meet at a line. That
+default is invisible while you are choosing devices and obvious the moment you
+scroll the page.
+
+Pick a boundary treatment once, deliberately, and hold it for the whole page.
+There are three, and mixing them reads as accident rather than range.
+
+| Idiom | The boundary is | Built from |
+|---|---|---|
+| **Cut** | A visible line, on purpose | Opaque per-section grounds, hard `reveal` wipes, no drift |
+| **Handoff** | Softened but present | `drift` across a shared ground, cue windows that do not overlap |
+| **Dissolve** | Absent. Acts bleed into each other | Feathered media masks over one continuous ground, opacity driven from `--sc-p` |
+
+**The variety law is about acts, not boundaries.** Four-plus device families and
+no family twice in a row still holds under every idiom. What a unified boundary
+treatment buys you is a page whose acts differ while its seams do not, and that
+is a different thing from a page with one idea.
+
+Cut is the cutlist grammar's whole point and the chaptered grammar's chapter
+break. Handoff is the filmic default. Dissolve is what a *flow continuum*
+(uniqueness.md §2.9) requires, and it is the one with real mechanics to get
+right, so the rest of this section is about it.
+
+### Dissolve, in practice
+
+**Feather the media, not the section.** A gradient mask on the media inside an
+act, over a page ground that nothing else paints:
+
+```css
+[data-sc-act] [data-sc-stage] .sc-bleed {
+  mask-image: linear-gradient(to bottom,
+    transparent 0%, #000 14%, #000 86%, transparent 100%);
+}
+```
+
+`.sc-bleed` is your class, not the engine's: the mask is authored markup and CSS
+like everything else in the page. The ground shows through at both ends of every
+act, so there is no edge to see. Set an opaque `background` on a section and you
+have re-drawn the line the mask just removed.
+
+**Acts cannot overlap in scroll space.** The engine lays them out in document
+order, so the overlap is faked in the paint: drive each stage's media opacity
+from its own `--sc-p` so it is 0 at both ends and full through the middle
+(`calc()` against `--sc-p`, or a pair of cue windows). Adjacent pinned stages
+then cross at the boundary, because a pinned stage is fixed for its travel and
+is still on screen while the next one arrives.
+
+**Long acts only.** Dissolve needs `drift` for the ground, and drift's scoping
+rule in §10 breaks the moment several short acts are part-way through at once.
+Four to six long acts, 4 to 5 drift stops, small steps.
+
+**Keep the mask static and drive `transform` and `opacity`.** Recomputing a
+large gradient mask every frame is not free. When the feather itself has to
+travel, register the stop as an `@property` so it interpolates, and check the
+frame budget on a mid-range phone before committing to it.
+
+**`clip-path` cannot feather.** It is the sanctioned wipe for a *cut*; a
+dissolve is `mask-image` or nothing. An edge-to-edge `clip-path` wipe in a
+dissolve page is the cut idiom leaking back in.
+
+Three consequences worth knowing before you build one:
+
+- **It survives reduced motion better than most things here.** The idiom is
+  mostly opacity, and reduced motion keeps the opacity that carries
+  comprehension (taste.md, Motion). Parallax-heavy pages lose their depth
+  entirely; this one loses very little.
+- **Contrast gets harder, not easier.** The ground under a line of copy is
+  changing continuously, so the brightest frame under a headline is rarely the
+  one you would have guessed. Mask the media away from the text column
+  (taste.md, "Text over media") rather than reaching for a scrim, and let the
+  harness measure it.
+- **A slow blend can trip the dead-scroll report.** That is the harness doing
+  its job. If a long quiet dissolve is the intent, it is authored silence and it
+  belongs in BRIEF.md (SKILL.md Step 0), so the verification pass can tell it
+  from a page that stopped working.
 
 ---
 

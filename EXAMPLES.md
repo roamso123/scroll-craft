@@ -55,7 +55,7 @@ cell of a very large space.
 Read this before planning, not after. Each line is a shape that a new build
 cannot reuse without spending one of its six dimensions.
 
-- **Grammar:** filmic one-shot is used four times. The other seven grammars in
+- **Grammar:** filmic one-shot is used four times. The other eight grammars in
   uniqueness.md §2 are all unclaimed.
 - **Nav:** fixed minimal top bar with a wordmark and exactly one CTA, four
   times. No build has yet tried app chrome, a folio, a waypoint map, an object
