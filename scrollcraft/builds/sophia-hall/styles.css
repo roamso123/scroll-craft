@@ -1,0 +1,533 @@
+/* ============================================================================
+   Sophia Hall — page styles.
+   Grammar: continuous ribbon. Two absolutes, enforced here rather than by
+   discipline: (1) no visible right angle anywhere, (2) no section ever shows
+   an edge — grounds are washes that bleed across every boundary.
+   ========================================================================== */
+
+.sc-sr {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
+body { overflow-x: clip; }
+main { position: relative; z-index: 1; }
+
+/* Breath helpers. Everything alive on this page reads from these two, so the
+   page moves as one organism rather than as a dozen independent loops. */
+:root {
+  --breath: var(--sh-breath, 0);
+  --effort: var(--sh-effort, 0);
+  --swell: calc(1 + var(--breath) * 0.028 + var(--effort) * 0.05);
+}
+
+/* ------------------------------------------------------------- the field --
+   Four soft washes, fixed, drifting with the breath. They are what makes the
+   page one continuous surface: every section is painted on top of the same
+   living ground and none of them carries a background of its own. */
+.field { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.wash { position: absolute; display: block; border-radius: 50%; will-change: transform; }
+.wash--a {
+  width: 92vw; height: 92vw; top: -34vw; right: -26vw;
+  background: radial-gradient(circle at 42% 42%, var(--sh-accent-soft), transparent 68%);
+  transform: scale(var(--swell));
+}
+.wash--b {
+  width: 86vw; height: 86vw; bottom: -30vw; left: -28vw;
+  background: radial-gradient(circle at 56% 44%, var(--sh-mint), transparent 66%);
+  transform: scale(calc(2 - var(--swell)));
+}
+.wash--c {
+  width: 60vw; height: 60vw; top: 34%; left: 44%;
+  background: radial-gradient(circle at 50% 50%,
+    color-mix(in oklab, var(--sc-accent) 9%, transparent), transparent 70%);
+  transform: translate3d(calc(var(--breath) * 1.4vw), calc(var(--breath) * -1vh), 0)
+             scale(var(--swell));
+}
+.wash--d {
+  width: 54vw; height: 54vw; bottom: 8%; right: 30%;
+  background: radial-gradient(circle at 50% 50%,
+    color-mix(in oklab, var(--sc-ink) 7%, transparent), transparent 72%);
+  transform: scale(calc(2 - var(--swell)));
+}
+
+/* ---------------------------------------------------------------- chrome --
+   A floating pill, not a bar: the ribbon grammar has no straight edges, and a
+   full-width header would draw one across the top of every screen. */
+.bar {
+  position: fixed; z-index: var(--sc-z-chrome);
+  top: clamp(0.75rem, 1.6vh, 1.4rem); left: 50%; translate: -50% 0;
+  width: min(72rem, calc(100vw - 2 * clamp(0.75rem, 3vw, 2rem)));
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  gap: var(--sc-4);
+  padding: 0.5rem 0.55rem 0.5rem 1.15rem;
+  border-radius: var(--sc-r-pill);
+  background: color-mix(in oklab, var(--sc-surface) 82%, transparent);
+  backdrop-filter: blur(14px) saturate(1.3);
+  box-shadow: 0 1px 2px hsl(var(--sc-shadow-color) / 0.06),
+              0 14px 34px -14px hsl(var(--sc-shadow-color) / 0.22);
+}
+.bar__mark {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: var(--sc-font-display); font-weight: 600;
+  font-size: var(--sc-t-sm); letter-spacing: var(--sc-track-snug);
+  text-decoration: none; color: var(--sc-ink);
+}
+.bar__mark img { width: 30px; height: 30px; }
+.bar__cta {
+  justify-self: end;
+  padding: 0.7rem 1.25rem; border-radius: var(--sc-r-pill);
+  background: var(--sc-accent); color: var(--sc-accent-ink);
+  font-weight: 700; font-size: var(--sc-t-sm); text-decoration: none;
+  box-shadow: 0 2px 4px hsl(var(--sc-shadow-color) / 0.16),
+              0 10px 22px -8px color-mix(in oklab, var(--sc-accent) 55%, transparent);
+  transition: transform var(--sc-d-base) var(--sc-ease-out);
+}
+.bar__cta:hover { transform: translateY(-1px) scale(1.02); }
+
+/* the effort readout: the signature move's face */
+.pulse {
+  justify-self: center;
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  padding: 0.3rem 0.85rem 0.3rem 0.35rem;
+  border-radius: var(--sc-r-pill);
+  background: color-mix(in oklab, var(--sc-accent) calc(6% + var(--effort) * 16%), transparent);
+  transition: background 600ms linear;
+}
+.pulse__ring { width: 30px; height: 30px; transform: rotate(-90deg); }
+.pulse__track, .pulse__lit {
+  fill: none; stroke-width: 4; stroke-linecap: round;
+  stroke-dasharray: 107; /* 2πr, r = 17 */
+}
+.pulse__track { stroke: color-mix(in oklab, var(--sc-ink) 12%, transparent); }
+.pulse__lit {
+  stroke: var(--sc-accent);
+  stroke-dashoffset: calc(107 - 107 * (0.12 + var(--effort) * 0.88));
+  transform-origin: 22px 22px;
+  scale: calc(1 + var(--breath) * 0.06);
+}
+.pulse__read { font-family: var(--sc-font-display); line-height: 1; }
+.pulse__read b { font-size: var(--sc-t-base); font-weight: 600; font-variant-numeric: tabular-nums; }
+.pulse__read i { font-style: normal; font-size: 0.66em; color: var(--sc-ink-soft); margin-left: 0.2em; }
+.pulse__label {
+  font-size: var(--sc-t-xs); color: var(--sc-ink-soft); letter-spacing: var(--sc-track-wide);
+  text-transform: uppercase; min-width: 4.6em;
+}
+
+/* ------------------------------------------------------------------ type -- */
+.kicker {
+  margin: 0 0 var(--sc-4);
+  font-size: var(--sc-t-xs); letter-spacing: var(--sc-track-wide);
+  text-transform: uppercase; color: var(--sc-ink-soft); font-weight: 600;
+}
+.link {
+  font-weight: 600; color: var(--sc-ink);
+  text-decoration-color: var(--sc-accent); text-decoration-thickness: 2px;
+}
+
+/* ------------------------------------------------------------- 1 · hero -- */
+.hero__stage { display: grid; place-items: center; }
+.plane { position: absolute; inset: 0; pointer-events: none; }
+.plane--subject { pointer-events: auto; }
+
+.blob { position: absolute; display: block; border-radius: 52% 48% 44% 56% / 48% 52% 48% 52%; }
+.blob--far {
+  width: 72vmax; height: 72vmax; right: -16vmax; top: -22vmax;
+  background: radial-gradient(circle at 44% 46%,
+    color-mix(in oklab, var(--sc-accent) 20%, transparent), transparent 66%);
+  transform: scale(var(--swell)) rotate(calc(var(--breath) * 2deg));
+}
+.blob--mid {
+  width: 46vmax; height: 46vmax; right: 2vmax; bottom: -14vmax;
+  background: radial-gradient(circle at 50% 42%, var(--sh-mint), transparent 70%);
+  transform: scale(calc(2 - var(--swell)));
+}
+.arc {
+  position: absolute; right: -6vmax; bottom: -28vmax;
+  width: 66vmax; height: 66vmax; border-radius: 50%;
+  border: 1.5px solid color-mix(in oklab, var(--sc-ink) 14%, transparent);
+  scale: calc(1 + var(--breath) * 0.012);
+}
+
+.hero__portrait {
+  position: absolute; right: clamp(1rem, 7vw, 7rem); bottom: 0;
+  width: auto; height: min(78svh, 46rem); max-width: none;
+}
+
+/* The foreground is two low blooms with a gap where she stands, so the plane
+   that overtakes her never crosses her face or the copy. */
+.fore {
+  position: absolute; inset: auto 0 -6vmax 0; height: 34vmax; display: block;
+  background:
+    radial-gradient(38vmax 16vmax at 8% 100%, color-mix(in oklab, var(--sc-accent) 16%, transparent), transparent 70%),
+    radial-gradient(30vmax 13vmax at 96% 100%, var(--sh-mint), transparent 72%);
+  transform: scale(var(--swell));
+}
+/* Planes travel past the stage floor and clip there. This hides the line. */
+.hero__floor {
+  position: absolute; inset: auto 0 0 0; height: 18vh; z-index: 5; pointer-events: none;
+  background: linear-gradient(to top, var(--sc-canvas), transparent);
+}
+
+.hero__copy {
+  left: var(--sc-gutter); bottom: clamp(4rem, 16vh, 10rem);
+  max-width: min(34rem, 62vw);
+}
+.hero__h { font-size: var(--sc-t-4xl); margin: 0; max-width: 13ch; }
+.hero__sub {
+  margin: var(--sc-5) 0 0; max-width: 34ch;
+  font-size: var(--sc-t-lg); color: var(--sc-ink-soft); text-wrap: pretty;
+}
+.hero__social {
+  margin: var(--sc-6) 0 0; display: flex; flex-wrap: wrap; gap: 0.65rem;
+  align-items: center; font-size: var(--sc-t-sm); font-weight: 600;
+}
+.hero__social span { color: var(--sc-ink-soft); }
+.hero__social a {
+  padding: 0.42rem 0.9rem; border-radius: var(--sc-r-pill);
+  background: color-mix(in oklab, var(--sc-surface) 70%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--sc-ink) 9%, transparent);
+  text-decoration: none; color: var(--sc-ink);
+  transition: transform var(--sc-d-base) var(--sc-ease-out),
+              background var(--sc-d-base) var(--sc-ease-out);
+}
+.hero__social a:hover {
+  transform: translateY(-2px);
+  background: var(--sc-surface);
+}
+
+/* ------------------------------------------------------------ 2 · proof --
+   A flow section straight after a pinned act takes reduced top padding: the
+   stage needs a viewport to leave and full section air would delay the first
+   content by another screen. */
+.proof { padding-block: clamp(2rem, 5vw, 4rem) var(--sc-section); }
+.proof__wrap {
+  display: grid; gap: clamp(1.5rem, 3.5vw, 3rem);
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+.proof__face {
+  margin: 0; width: clamp(7rem, 13vw, 11rem); aspect-ratio: 1;
+  border-radius: 50%; overflow: hidden;
+  box-shadow: 0 3px 8px hsl(var(--sc-shadow-color) / 0.10),
+              0 22px 48px -20px hsl(var(--sc-shadow-color) / 0.34);
+  scale: calc(1 + var(--breath) * 0.008);
+}
+.proof__face img { width: 100%; height: 100%; object-fit: cover; }
+.proof__h { font-size: var(--sc-t-2xl); margin: 0 0 var(--sc-4); max-width: 18ch; }
+.proof__lead .sc-body { font-size: var(--sc-t-base); }
+
+.tiles {
+  grid-column: 1 / -1; margin: var(--sc-7) 0 0;
+  display: grid; gap: clamp(0.75rem, 1.4vw, 1.25rem);
+  grid-template-columns: repeat(3, 1fr);
+}
+.tile {
+  padding: clamp(1.25rem, 2vw, 1.75rem) clamp(1.4rem, 2.2vw, 2rem);
+  border-radius: var(--sc-r-lg);
+  background: color-mix(in oklab, var(--sc-surface) 76%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--sc-ink) 7%, transparent),
+              0 12px 30px -22px hsl(var(--sc-shadow-color) / 0.4);
+}
+.tile dt {
+  font-size: var(--sc-t-xs); letter-spacing: var(--sc-track-wide);
+  text-transform: uppercase; color: var(--sc-ink-soft); font-weight: 600;
+}
+.tile dd {
+  margin: 0.35rem 0 0;
+  font-family: var(--sc-font-display); font-weight: 600;
+  font-size: var(--sc-t-2xl); line-height: 1; letter-spacing: var(--sc-track-tight);
+}
+.tile dd small {
+  display: block; margin-top: 0.5rem;
+  font-family: var(--sc-font-text); font-size: var(--sc-t-xs);
+  font-weight: 500; letter-spacing: 0; color: var(--sc-ink-soft);
+}
+
+/* ---------------------------------------------------- 3 · method (peak) -- */
+.method__stage { display: grid; place-items: center; text-align: center; }
+.ring { position: absolute; width: min(74vmin, 34rem); aspect-ratio: 1; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring__halo {
+  fill: color-mix(in oklab, var(--sc-accent) calc(4% + var(--effort) * 6%), transparent);
+  stroke: none;
+  transform-origin: 200px 200px;
+  scale: calc(1 + var(--breath) * 0.05 + var(--effort) * 0.06);
+}
+.ring__track {
+  fill: none; stroke: color-mix(in oklab, var(--sc-ink) 10%, transparent); stroke-width: 2;
+}
+.ring__lit {
+  fill: none; stroke: var(--sc-accent); stroke-width: 4; stroke-linecap: round;
+  stroke-dasharray: 942.5;                 /* 2πr, r = 150 */
+  stroke-dashoffset: calc(942.5 - 942.5 * (0.18 + var(--effort) * 0.6));
+  transform-origin: 200px 200px;
+  scale: calc(1 + var(--breath) * 0.035);
+}
+.ring__word {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-size: var(--sc-t-xs); letter-spacing: var(--sc-track-wide);
+  text-transform: uppercase; color: var(--sc-ink-soft);
+  transform: translateY(calc(var(--breath) * -0.5rem));
+}
+.method__lines {
+  position: relative; z-index: 2;
+  width: min(42rem, 84vw); display: grid;
+}
+.method__lines .line {
+  grid-area: 1 / 1; margin: 0; align-self: center;
+  font-family: var(--sc-font-display); font-weight: 500;
+  font-size: var(--sc-t-xl); line-height: 1.24; letter-spacing: var(--sc-track-snug);
+  text-wrap: balance;
+}
+.line--turn { color: var(--sc-ink); font-size: var(--sc-t-2xl); }
+
+/* The light plate. Density where the text is, shaped to the copy, so the
+   washes and the ring keep their full strength everywhere else. */
+.plate {
+  position: absolute; z-index: 1; pointer-events: none;
+  width: min(52rem, 92vw); height: min(26rem, 52vh);
+  background: radial-gradient(closest-side ellipse,
+    color-mix(in oklab, var(--sc-canvas) 92%, transparent) 0%,
+    color-mix(in oklab, var(--sc-canvas) 74%, transparent) 52%,
+    transparent 100%);
+}
+.plate--close { height: min(30rem, 60vh); }
+.plate--hero { display: none; }
+
+/* ------------------------------------------------------- 4 · programmes -- */
+.programmes [data-sc-stage] { display: grid; align-items: center; }
+.rail {
+  gap: clamp(1rem, 2.2vw, 3rem); align-items: stretch;
+  padding-inline: var(--sc-gutter);
+}
+.rail__lead, .rail__end {
+  flex: 0 0 auto; width: min(30rem, 78vw); align-self: center;
+  display: grid; gap: var(--sc-4); align-content: center;
+}
+.rail__lead h2 { font-size: var(--sc-t-3xl); margin: 0; }
+.rail__end { width: min(25rem, 72vw); }
+
+.prog {
+  /* The rail must actually overflow, and on a 1920 monitor a 22rem cap left
+     only 0.3 of a viewport of travel. Measured, not assumed. */
+  flex: 0 0 auto; width: clamp(17rem, 25vw, 25rem);
+  display: grid; gap: var(--sc-4); align-content: start;
+  padding: clamp(1.5rem, 2.2vw, 2.25rem);
+  border-radius: var(--sc-r-lg) var(--sc-r-lg) var(--sc-r-lg) var(--sc-r-lg);
+  background: color-mix(in oklab, var(--sc-surface) 86%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--sc-ink) 8%, transparent),
+              0 4px 10px hsl(var(--sc-shadow-color) / 0.05),
+              0 30px 60px -34px hsl(var(--sc-shadow-color) / 0.4);
+  /* staggered settle, driven from the act's own progress */
+  opacity: calc(0.55 + var(--sc-p, 1) * 1.6);
+}
+.prog:nth-of-type(2) { transform: translateY(calc((1 - min(1, var(--sc-p, 1) * 2.4)) * 1.4rem)); }
+.prog:nth-of-type(3) { transform: translateY(calc((1 - min(1, var(--sc-p, 1) * 1.8)) * 1.8rem)); }
+.prog:nth-of-type(4) { transform: translateY(calc((1 - min(1, var(--sc-p, 1) * 1.4)) * 2.2rem)); }
+.prog__art {
+  width: 100%; aspect-ratio: 16 / 9; display: grid; place-items: center;
+  border-radius: var(--sc-r-md);
+  background: radial-gradient(circle at 50% 120%, var(--sh-accent-soft), var(--sh-mint));
+  color: var(--sc-ink);
+}
+.prog__art svg { width: 44%; height: auto; }
+.prog h3 {
+  margin: 0; font-family: var(--sc-font-display); font-weight: 600;
+  font-size: var(--sc-t-xl); letter-spacing: var(--sc-track-snug); line-height: 1.05;
+}
+.spec { margin: 0; display: grid; gap: 0.5rem; }
+.spec > div { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.75rem; align-items: baseline; }
+.spec dt {
+  font-size: var(--sc-t-xs); letter-spacing: var(--sc-track-wide);
+  text-transform: uppercase; color: var(--sc-ink-soft); font-weight: 600;
+}
+.spec dd { margin: 0; font-size: var(--sc-t-sm); font-weight: 500; }
+
+/* ----------------------------------------------------------- 5 · voices -- */
+.voices { padding-block: clamp(2rem, 5vw, 4rem) var(--sc-section); }
+.voices__h { font-size: var(--sc-t-2xl); max-width: 24ch; margin: 0 0 var(--sc-8); }
+.voices__grid {
+  display: grid; gap: clamp(1rem, 2vw, 1.75rem);
+  grid-template-columns: repeat(2, 1fr);
+  align-items: start;
+}
+.quote {
+  margin: 0; padding: clamp(1.6rem, 2.4vw, 2.4rem);
+  border-radius: var(--sc-r-lg);
+  background: color-mix(in oklab, var(--sc-surface) 82%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--sc-ink) 7%, transparent),
+              0 26px 54px -34px hsl(var(--sc-shadow-color) / 0.42);
+}
+.quote:nth-of-type(even) { border-radius: var(--sc-r-lg) var(--sc-r-lg) var(--sc-r-lg) 6rem; }
+.quote:nth-of-type(odd)  { border-radius: var(--sc-r-lg) var(--sc-r-lg) 6rem var(--sc-r-lg); }
+.quote blockquote { margin: 0; }
+.quote p {
+  margin: 0; font-size: var(--sc-t-lg); line-height: 1.5; text-wrap: pretty;
+  font-family: var(--sc-font-display); font-weight: 400;
+}
+.quote figcaption {
+  margin-top: var(--sc-5); display: grid;
+  grid-template-columns: auto 1fr; grid-template-rows: auto auto;
+  column-gap: 0.85rem; align-items: center;
+}
+.av {
+  grid-row: 1 / 3; width: 2.9rem; height: 2.9rem; border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--sc-font-display); font-weight: 600; font-size: var(--sc-t-sm);
+  color: var(--sc-ink);
+}
+.av--1 { background: var(--sh-accent-soft); }
+.av--2 { background: var(--sh-mint); }
+.av--3 { background: color-mix(in oklab, var(--sc-accent) 22%, var(--sc-canvas)); }
+.av--4 { background: color-mix(in oklab, var(--sc-ink) 14%, var(--sc-canvas)); }
+.quote figcaption b { font-weight: 700; font-size: var(--sc-t-sm); align-self: end; }
+.quote figcaption small { color: var(--sc-ink-soft); font-size: var(--sc-t-xs); align-self: start; }
+
+/* ------------------------------------------------------------ 6 · shelf -- */
+.shelf { padding-block: var(--sc-section); border-radius: 50% 50% 0 0 / 6vw 6vw 0 0; }
+.shelf__h { font-size: var(--sc-t-2xl); margin: 0 0 var(--sc-8); max-width: 16ch; }
+.awards {
+  list-style: none; margin: 0 0 var(--sc-8); padding: 0;
+  display: grid; gap: clamp(0.75rem, 1.6vw, 1.5rem);
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+.award {
+  display: grid; justify-items: center; text-align: center; gap: 0.4rem;
+  padding: clamp(1.5rem, 2.2vw, 2.25rem) 1.25rem;
+  border-radius: var(--sc-r-pill) var(--sc-r-pill) var(--sc-r-lg) var(--sc-r-lg);
+  background: color-mix(in oklab, var(--sc-surface) 78%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--sc-ink) 8%, transparent);
+}
+.medal {
+  width: 4.4rem; height: 4.4rem; display: grid; place-items: center;
+  border-radius: 50%; margin-bottom: 0.5rem;
+  color: var(--sh-gold);
+  background: radial-gradient(circle at 38% 34%,
+    color-mix(in oklab, var(--sh-gold) 26%, var(--sc-surface)),
+    color-mix(in oklab, var(--sh-gold) 8%, var(--sc-surface)));
+  scale: calc(1 + var(--breath) * 0.012);
+}
+.medal svg { width: 70%; height: 70%; }
+.award b { font-family: var(--sc-font-display); font-weight: 600; font-size: var(--sc-t-base); }
+.award span { font-size: var(--sc-t-sm); color: var(--sc-ink-soft); }
+.shelf__body { font-size: var(--sc-t-base); }
+
+/* ------------------------------------------------------------ 7 · close -- */
+.close__stage { display: grid; grid-template-rows: 1fr auto; }
+.close__inner { position: relative; display: grid; place-items: center; padding-inline: var(--sc-gutter); }
+.settle { position: absolute; width: min(84vmin, 42rem); aspect-ratio: 1; }
+.settle svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.settle__track { fill: none; stroke: color-mix(in oklab, var(--sc-ink) 9%, transparent); stroke-width: 2; }
+.settle__lit {
+  fill: none; stroke: var(--sc-accent); stroke-width: 5; stroke-linecap: round;
+  stroke-dasharray: 1030.4;                /* 2πr, r = 164 */
+  /* It fills as the visitor recovers: an emptying effort draws a closing ring. */
+  stroke-dashoffset: calc(1030.4 * (0.08 + var(--effort) * 0.72));
+  transform-origin: 210px 210px;
+  scale: calc(1 + var(--breath) * 0.02);
+  transition: stroke-dashoffset 400ms linear;
+}
+.close__card { position: relative; z-index: 2; text-align: center; display: grid; justify-items: center; }
+.session {
+  margin: 0 0 var(--sc-6); display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem; border-radius: var(--sc-r-pill);
+  background: color-mix(in oklab, var(--sc-surface) 76%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--sc-ink) 8%, transparent);
+}
+.session > div { padding: 0.45rem 1.1rem; border-radius: var(--sc-r-pill); }
+.session dt {
+  font-size: var(--sc-t-xs); letter-spacing: var(--sc-track-wide);
+  text-transform: uppercase; color: var(--sc-ink-soft); font-weight: 600;
+}
+.session dd {
+  margin: 0.15rem 0 0; font-family: var(--sc-font-display); font-weight: 600;
+  font-size: var(--sc-t-lg); line-height: 1; font-variant-numeric: tabular-nums;
+}
+.close__h { font-size: var(--sc-t-3xl); margin: 0 0 var(--sc-6); max-width: 15ch; }
+.cta {
+  display: inline-block; padding: 1.05rem 2.2rem; border-radius: var(--sc-r-pill);
+  background: var(--sc-accent); color: var(--sc-accent-ink);
+  font-weight: 700; font-size: var(--sc-t-lg); text-decoration: none;
+  box-shadow: 0 3px 6px hsl(var(--sc-shadow-color) / 0.16),
+              0 18px 40px -14px color-mix(in oklab, var(--sc-accent) 60%, transparent);
+}
+.close__note { margin: var(--sc-5) 0 0; font-size: var(--sc-t-sm); color: var(--sc-ink-soft); }
+
+.foot {
+  display: grid; gap: var(--sc-4); justify-items: center; text-align: center;
+  padding: var(--sc-6) var(--sc-gutter) clamp(1.5rem, 4vh, 2.5rem);
+}
+.foot__mark {
+  display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;
+  font-family: var(--sc-font-display); font-weight: 600; font-size: var(--sc-t-sm);
+}
+.foot__links { display: flex; flex-wrap: wrap; gap: 0.35rem; justify-content: center; }
+.foot__links a {
+  padding: 0.4rem 0.95rem; border-radius: var(--sc-r-pill); text-decoration: none;
+  font-size: var(--sc-t-sm); font-weight: 600;
+  background: color-mix(in oklab, var(--sc-surface) 70%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--sc-ink) 8%, transparent);
+}
+.foot__fine { margin: 0; max-width: 54ch; font-size: var(--sc-t-xs); color: var(--sc-ink-soft); }
+
+/* --------------------------------------------------------------- mobile -- */
+@media (max-width: 860px) {
+  .bar { grid-template-columns: 1fr auto; padding-left: 0.9rem; }
+  .pulse { grid-column: 2; grid-row: 1; }
+  .bar__cta { grid-column: 1 / -1; grid-row: 2; justify-self: stretch; text-align: center; }
+  .bar__mark span { display: none; }
+  .pulse__label { display: none; }
+
+  .hero__h { font-size: var(--sc-t-2xl); max-width: none; }
+  .hero__copy { max-width: none; bottom: clamp(2rem, 9vh, 5rem); }
+  .hero__sub { font-size: var(--sc-t-base); max-width: none; }
+  /* Portrait crop of the art: she moves up and right so the copy owns the
+     lower half of a tall frame instead of overlapping her. */
+  /* The two-row pill bar owns the top of a phone screen, so the figure starts
+     below it: a cropped head is the one thing a portrait cannot survive. */
+  .hero__portrait { height: 38svh; right: -9vw; bottom: auto; top: 11svh; }
+  /* Parallax gives the subject plane ~90px of travel, which is enough to walk
+     the figure down into the headline at one end of the act. Clipping the
+     plane, not the image, keeps her out of the copy band at every frame. */
+  .plane--subject { clip-path: inset(0 0 44% 0); }
+  .plate--hero {
+    display: block; left: 50%; translate: -50% 0;
+    bottom: 0; width: 140vw; height: 62svh;
+    background: radial-gradient(closest-side ellipse at 50% 76%,
+      color-mix(in oklab, var(--sc-canvas) 96%, transparent) 0%,
+      color-mix(in oklab, var(--sc-canvas) 82%, transparent) 46%,
+      transparent 100%);
+  }
+  .hero__floor { height: 26vh; }
+
+  .proof__wrap { grid-template-columns: 1fr; justify-items: start; }
+  .tiles { grid-template-columns: repeat(2, 1fr); }
+  .voices__grid { grid-template-columns: 1fr; }
+  .method__lines .line { font-size: var(--sc-t-lg); }
+  .line--turn { font-size: var(--sc-t-xl); }
+  .prog { width: min(21rem, 82vw); }
+  .rail__lead, .rail__end { width: min(21rem, 82vw); }
+  .close__h { font-size: var(--sc-t-2xl); }
+  /* Stacked, the three figures push the first row off the top of the stage.
+     Three narrow columns keep the whole session on screen. */
+  .session { display: grid; grid-template-columns: repeat(3, 1fr); border-radius: var(--sc-r-lg); }
+  .session > div { padding: 0.45rem 0.4rem; }
+  .session dd { font-size: var(--sc-t-base); }
+  .cta { padding: 1rem 1.8rem; }
+}
+
+/* ------------------------------------------------------- reduced motion --
+   The breath freezes at rest and every shape holds its resting size. Nothing
+   that carries meaning disappears: the ring, the readout and the session
+   figures all still render, they simply stop moving. */
+@media (prefers-reduced-motion: reduce) {
+  :root { --breath: 0; --effort: 0; --swell: 1; }
+  .prog { opacity: 1; transform: none !important; }
+  .settle__lit { transition: none; }
+  .bar__cta:hover, .hero__social a:hover { transform: none; }
+  /* The rail becomes a native scroll region (engine), so it needs real
+     end padding or the last card sits against the edge. */
+  .rail { padding-inline: var(--sc-gutter); }
+}

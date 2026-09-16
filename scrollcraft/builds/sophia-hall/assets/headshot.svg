@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300" role="img" aria-label="Sophia Hall, head and shoulders">
+  <title>Sophia Hall</title>
+  <defs>
+    <radialGradient id="hbg" cx="0.34" cy="0.26" r="0.95">
+      <stop offset="0" stop-color="#FFF1EB"/>
+      <stop offset="1" stop-color="#E7F0EB"/>
+    </radialGradient>
+    <linearGradient id="hfig" x1="0.05" y1="0" x2="0.95" y2="1">
+      <stop offset="0" stop-color="#1C5849"/>
+      <stop offset="0.55" stop-color="#123C33"/>
+      <stop offset="1" stop-color="#0A2620"/>
+    </linearGradient>
+    <linearGradient id="hrim" x1="1" y1="0.1" x2="0.3" y2="0.9">
+      <stop offset="0" stop-color="#F4573C"/>
+      <stop offset="0.8" stop-color="#F4573C" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="300" fill="url(#hbg)"/>
+
+  <!-- ponytail behind -->
+  <path d="M188 64c30 10 40 42 33 74-5 24-18 38-20 58l-26 4c-3-24-14-40-17-60-4-24 6-72 30-76z" fill="#0E332B"/>
+
+  <!-- bust: head, neck, shoulders, one closed silhouette -->
+  <path fill="url(#hfig)" d="M150 34c30 0 48 24 48 58 0 20-7 38-19 47v12c30 8 54 22 70 40 13 15 22 34 26 55v54H25v-54c4-21 13-40 26-55 16-18 40-32 70-40v-12c-12-9-19-27-19-47 0-34 18-58 48-58z"/>
+
+  <!-- key light and the coral rim down her lit side -->
+  <path fill="#FFFFFF" opacity="0.10" d="M150 34c30 0 48 24 48 58 0 20-7 38-19 47v12c30 8 54 22 70 40 13 15 22 34 26 55v54h-26v-54c-4-21-13-40-26-55-16-18-40-32-70-40v-12c12-9 19-27 19-47 0-34-10-58-22-58z"/>
+  <path fill="none" stroke="url(#hrim)" stroke-width="6" stroke-linecap="round"
+        d="M179 139c30 8 54 22 70 40 13 15 22 34 26 55"/>
+
+  <!-- hair, then the coral band over it -->
+  <path fill="#0E332B" d="M104 92c-2-30 18-50 46-50s46 18 46 46c-11-13-26-20-46-20-19 0-33 6-42 18-2 3-3 6-4 10 0-2 0-3 0-4z"/>
+  <path fill="#F4573C" d="M107 76c9-20 24-30 43-30s34 10 43 30c-13-9-27-13-43-13s-30 4-43 13z"/>
+</svg>

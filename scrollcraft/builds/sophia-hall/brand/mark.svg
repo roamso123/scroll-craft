@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Sophia Hall monogram">
+  <title>Sophia Hall monogram</title>
+  <!-- the breath ring: open, never closed, rounded caps. The same ring is the
+       site's peak device and its closing shape. -->
+  <circle cx="60" cy="60" r="51" fill="none" stroke="#F4573C" stroke-width="7"
+          stroke-linecap="round" stroke-dasharray="248 72" transform="rotate(128 60 60)"/>
+  <g fill="none" stroke="#0E3B32" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- S -->
+    <path d="M53 41c-15-4-24 6-16 14 8 8 19 11 13 20-5 8-16 7-21 1"/>
+    <!-- H, crossbar curved: no straight line anywhere in the mark -->
+    <path d="M69 41v38"/>
+    <path d="M91 41v38"/>
+    <path d="M69 61c7-5 15 5 22 0"/>
+  </g>
+</svg>

@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sophia Hall · Independent trainer, Austin</title>
+<meta name="description" content="Sophia Hall coaches strength the patient way: eleven years independent, 1,380 people, one method that starts with your breath.">
+<link rel="icon" href="brand/mark.svg">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="scrollcraft.css">
+<link rel="stylesheet" href="brand/theme.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<span data-sc-progress></span>
+<div class="sc-grain" aria-hidden="true"></div>
+
+<!-- The ground: one continuous field of soft washes that bleed across every
+     section boundary, so the page never shows an edge. -->
+<div class="field" aria-hidden="true">
+  <span class="wash wash--a"></span>
+  <span class="wash wash--b"></span>
+  <span class="wash wash--c"></span>
+  <span class="wash wash--d"></span>
+</div>
+
+<header class="bar">
+  <a class="bar__mark" href="#top" aria-label="Sophia Hall, back to top">
+    <img src="brand/mark.svg" width="34" height="34" alt="">
+    <span>Sophia&nbsp;Hall</span>
+  </a>
+
+  <!-- The effort loop's readout. Lives in the chrome so it outlives every act. -->
+  <div class="pulse" id="pulse" aria-live="off">
+    <svg class="pulse__ring" viewBox="0 0 44 44" aria-hidden="true">
+      <circle class="pulse__track" cx="22" cy="22" r="17"/>
+      <circle class="pulse__lit" cx="22" cy="22" r="17"/>
+    </svg>
+    <span class="pulse__read"><b id="rate">58</b><i>bpm</i></span>
+    <span class="pulse__label" id="zone">resting</span>
+  </div>
+
+  <a class="bar__cta" href="#start">Book a consult</a>
+</header>
+
+<main id="top">
+
+  <!-- 1 · RECOGNITION · parallax + kinetic. Four planes, four rates. -->
+  <section class="hero" data-sc-act="pin" data-sc-span="2.4" data-sc-drift="#FBFAF7">
+    <div data-sc-stage class="hero__stage">
+
+      <div class="plane plane--far" data-sc-parallax="-1.3" aria-hidden="true">
+        <span class="blob blob--far"></span>
+      </div>
+      <div class="plane plane--mid" data-sc-parallax="-0.7" aria-hidden="true">
+        <span class="blob blob--mid"></span>
+        <span class="arc" style="--a:1"></span>
+      </div>
+
+      <div class="plane plane--subject" data-sc-parallax="-0.9">
+        <img class="hero__portrait" src="assets/hero-portrait.svg" width="528" height="1040"
+             alt="Sophia Hall standing in evergreen training gear, weight on one hip, mid-breath.">
+      </div>
+
+      <!-- foreground dips where she stands so nothing ever crosses her face -->
+      <div class="plane plane--fore" data-sc-parallax="0.4" aria-hidden="true">
+        <span class="fore"></span>
+      </div>
+
+      <!-- phone only: the figure and the copy share one column there, so the
+           copy gets its own light plate under it -->
+      <div class="plate plate--hero" aria-hidden="true"></div>
+
+      <div class="sc-copy hero__copy" data-sc-cue="0 0.74 0">
+        <p class="kicker">Independent trainer · Austin, Texas</p>
+        <h1 class="sc-display hero__h" data-sc-kinetic="lines">Train like you plan to keep going.</h1>
+        <p class="hero__sub">Eleven years on my own. One thousand three hundred and eighty people. A method patient enough to survive your actual week.</p>
+        <p class="hero__social">
+          <a href="#">@sophiahalltrains</a><span aria-hidden="true">·</span><a href="#">214K on Instagram</a><span aria-hidden="true">·</span><a href="#">96K on TikTok</a>
+        </p>
+      </div>
+
+      <div class="hero__floor" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- 2 · TRUST · flow + count. The quiet before the peak: no imagery beyond
+       one small portrait, no motion beyond the counters. -->
+  <section class="proof" id="proof">
+    <div class="sc-wrap proof__wrap" data-sc-in data-sc-stagger="70">
+      <figure class="proof__face">
+        <img src="assets/headshot.svg" width="300" height="300" alt="Sophia Hall, head and shoulders.">
+      </figure>
+      <div class="proof__lead">
+        <h2 class="sc-display proof__h">Eleven years of other people's mornings.</h2>
+        <p class="sc-body">I left the gym floor in 2015 and never went back to it. Everything since has been mine: my clients, my hours, my method, my mistakes.</p>
+      </div>
+
+      <dl class="tiles">
+        <div class="tile"><dt>People coached</dt><dd class="sc-nums"><span data-sc-count="0 1,380">0</span></dd></div>
+        <div class="tile"><dt>Sessions run</dt><dd class="sc-nums"><span data-sc-count="0 27,400">0</span></dd></div>
+        <div class="tile"><dt>Years independent</dt><dd class="sc-nums"><span data-sc-count="0 11">0</span></dd></div>
+        <div class="tile"><dt>Average review</dt><dd class="sc-nums"><span data-sc-count="0 4.9">0</span><small>of 5, from 620</small></dd></div>
+        <div class="tile"><dt>Instagram</dt><dd class="sc-nums"><span data-sc-count="0 214,000">0</span></dd></div>
+        <div class="tile"><dt>Newsletter</dt><dd class="sc-nums"><span data-sc-count="0 38,900">0</span><small>Sunday readers</small></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- 3 · INTIMACY · PEAK · pin. The ring alone, then the method, one line at
+       a time. Largest span on the page. -->
+  <section class="method" data-sc-act="pin" data-sc-span="3.6" data-sc-drift="#F5F8F4">
+    <div data-sc-stage class="method__stage">
+
+      <!-- the ground that is already there, so the stage is never empty -->
+      <div class="ring" aria-hidden="true">
+        <svg viewBox="0 0 400 400">
+          <circle class="ring__halo" cx="200" cy="200" r="150"/>
+          <circle class="ring__track" cx="200" cy="200" r="150"/>
+          <circle class="ring__lit" cx="200" cy="200" r="150"/>
+        </svg>
+        <span class="ring__word" id="breathword">inhale</span>
+      </div>
+
+      <!-- A light plate only where the copy sits: not a full-frame overlay, and
+           a sibling of the copy so the verification pass can measure it. -->
+      <div class="plate plate--method" aria-hidden="true"></div>
+
+      <h2 class="sc-sr">The method</h2>
+      <div class="method__lines">
+        <p class="line" data-sc-cue="0.06 0.34 0.15 0.15">Most plans open with a number. A load, a rep count, a weight on a bar.</p>
+        <p class="line" data-sc-cue="0.30 0.56 0.15 0.15">Mine opens with your breath, because it is the only part of you that tells the truth about effort.</p>
+        <p class="line" data-sc-cue="0.52 0.78 0.15 0.15">Four weeks finding it. Four weeks building on it. Then, and only then, we add the number.</p>
+        <p class="line line--turn" data-sc-cue="0.76 1 0.12 0.02" data-sc-kinetic="lines">That is the whole thing. Not complicated. Just patient.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · APPETITE · pan. Heading rides in as the first rail item so the rail
+       is wide enough to actually travel. -->
+  <section class="programmes" id="programmes" data-sc-act="pan" data-sc-span="5" data-sc-drift="#FBF7F3">
+    <div data-sc-stage>
+      <div class="rail" data-sc-pan="0.05">
+
+        <div class="rail__lead">
+          <h2 class="sc-display">Four ways in.</h2>
+          <p class="sc-body">Pick by how much of your week you actually have. Not by how ambitious you feel today.</p>
+        </div>
+
+        <article class="prog">
+          <div class="prog__art" data-sc-tilt="6">
+            <svg viewBox="0 0 200 200" aria-hidden="true"><path d="M30 130c22-52 48-78 70-78s48 26 70 78" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round"/><circle cx="100" cy="150" r="13" fill="currentColor"/></svg>
+          </div>
+          <h3>Foundation</h3>
+          <dl class="spec">
+            <div><dt>Format</dt><dd>One to one</dd></div>
+            <div><dt>Length</dt><dd>Eight weeks</dd></div>
+            <div><dt>Where</dt><dd>South Austin studio</dd></div>
+            <div><dt>For</dt><dd>Starting, or starting again</dd></div>
+          </dl>
+        </article>
+
+        <article class="prog">
+          <div class="prog__art" data-sc-tilt="6">
+            <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="66" cy="100" r="30" fill="none" stroke="currentColor" stroke-width="9"/><circle cx="134" cy="100" r="30" fill="none" stroke="currentColor" stroke-width="9"/><path d="M96 100h8" stroke="currentColor" stroke-width="9" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Strong Hour</h3>
+          <dl class="spec">
+            <div><dt>Format</dt><dd>Small group, four people</dd></div>
+            <div><dt>Length</dt><dd>Rolling, monthly</dd></div>
+            <div><dt>When</dt><dd>Tue and Thu, 6am</dd></div>
+            <div><dt>For</dt><dd>People who train better beside someone</dd></div>
+          </dl>
+        </article>
+
+        <article class="prog">
+          <div class="prog__art" data-sc-tilt="6">
+            <svg viewBox="0 0 200 200" aria-hidden="true"><path d="M40 140c30 0 30-80 60-80s30 80 60 80" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Rebuild</h3>
+          <dl class="spec">
+            <div><dt>Format</dt><dd>One to one, slower</dd></div>
+            <div><dt>Length</dt><dd>Twelve weeks</dd></div>
+            <div><dt>Where</dt><dd>Studio or your home</dd></div>
+            <div><dt>For</dt><dd>After birth, injury, or a long gap</dd></div>
+          </dl>
+        </article>
+
+        <article class="prog">
+          <div class="prog__art" data-sc-tilt="6">
+            <svg viewBox="0 0 200 200" aria-hidden="true"><rect x="62" y="34" width="76" height="132" rx="26" fill="none" stroke="currentColor" stroke-width="9"/><path d="M84 96c10 14 22 14 32 0" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Remote Hall</h3>
+          <dl class="spec">
+            <div><dt>Format</dt><dd>App, with weekly video review</dd></div>
+            <div><dt>Length</dt><dd>Month to month</dd></div>
+            <div><dt>Where</dt><dd>Anywhere</dd></div>
+            <div><dt>For</dt><dd>Travel, shift work, no fixed week</dd></div>
+          </dl>
+        </article>
+
+        <div class="rail__end">
+          <p class="sc-body">Not sure which? That is what the consult is for. It is twenty minutes and it is free.</p>
+          <a class="link" href="#start">Book a consult</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · WARMTH · reveal. Quotes wipe in edge-first, like someone turning to
+       speak. -->
+  <section class="voices" id="voices">
+    <div class="sc-wrap">
+      <h2 class="sc-display voices__h" data-sc-in>Four hundred and twelve five-star reviews. These four are the ones I think about.</h2>
+
+      <div class="voices__grid">
+        <figure class="quote" data-sc-reveal="left" data-sc-reveal-at="0.05 0.45">
+          <blockquote><p>I came in able to do nothing overhead and spent eight weeks on what felt like breathing lessons. Then in week nine I pressed my own bodyweight and understood the whole thing at once.</p></blockquote>
+          <figcaption><span class="av av--1" aria-hidden="true">RM</span><b>Renata M.</b><small>Foundation, then Strong Hour · 3 years in</small></figcaption>
+        </figure>
+
+        <figure class="quote" data-sc-reveal="right" data-sc-reveal-at="0.1 0.5">
+          <blockquote><p>Two babies and a back that had opinions. Sophia is the first coach who did not ask me to be who I was in 2016.</p></blockquote>
+          <figcaption><span class="av av--2" aria-hidden="true">DA</span><b>Dani A.</b><small>Rebuild · 14 months in</small></figcaption>
+        </figure>
+
+        <figure class="quote" data-sc-reveal="left" data-sc-reveal-at="0.16 0.56">
+          <blockquote><p>I travel three weeks out of four. She built the whole programme around hotel rooms and it still moved my deadlift ninety pounds.</p></blockquote>
+          <figcaption><span class="av av--3" aria-hidden="true">TO</span><b>Tobi O.</b><small>Remote Hall · 2 years in</small></figcaption>
+        </figure>
+
+        <figure class="quote" data-sc-reveal="right" data-sc-reveal-at="0.22 0.62">
+          <blockquote><p>Sixty-one years old and I train twice a week with people half my age. Nobody is more surprised than my cardiologist.</p></blockquote>
+          <figcaption><span class="av av--4" aria-hidden="true">HK</span><b>Helen K.</b><small>Strong Hour · 5 years in</small></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · RESPECT · pointer. One wide surface that answers the cursor; the
+       medallions turn as you pass over them. -->
+  <section class="shelf" id="shelf" data-sc-spotlight>
+    <div class="sc-wrap">
+      <h2 class="sc-display shelf__h" data-sc-in>What the work brought back.</h2>
+
+      <ul class="awards">
+        <li class="award" data-sc-tilt="8">
+          <span class="medal" aria-hidden="true"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="28" fill="none" stroke="currentColor" stroke-width="5"/><circle cx="40" cy="40" r="15" fill="currentColor" opacity="0.18"/></svg></span>
+          <b>Coach of the Year</b>
+          <span>Austin Fit Awards · 2022 and 2025</span>
+        </li>
+        <li class="award" data-sc-tilt="8">
+          <span class="medal" aria-hidden="true"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="28" fill="none" stroke="currentColor" stroke-width="5"/><path d="M26 40c8-10 20-10 28 0" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span>
+          <b>Trainer of the Year, finalist</b>
+          <span>National Coaching Alliance · 2023</span>
+        </li>
+        <li class="award" data-sc-tilt="8">
+          <span class="medal" aria-hidden="true"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="28" fill="none" stroke="currentColor" stroke-width="5"/><circle cx="40" cy="40" r="7" fill="currentColor"/></svg></span>
+          <b>Fifty to Watch</b>
+          <span>Cadence Magazine · 2024</span>
+        </li>
+        <li class="award" data-sc-tilt="8">
+          <span class="medal" aria-hidden="true"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="28" fill="none" stroke="currentColor" stroke-width="5"/><path d="M40 24v32M26 40h28" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span>
+          <b>Master Trainer</b>
+          <span>Hale Institute · certified 2019</span>
+        </li>
+      </ul>
+
+      <p class="shelf__body sc-body" data-sc-in>Also: a level two weightlifting certificate I took twice, a nutrition qualification I use less than I expected, and eleven years of not having a boss.</p>
+    </div>
+  </section>
+
+  <!-- 7 · RESOLVE · pin + magnet. The ring comes back, settles to resting, and
+       hands the visitor their own session. LAST element on the page. -->
+  <section class="close" id="start" data-sc-act="pin" data-sc-span="1.3" data-sc-drift="#FBFAF7">
+    <div data-sc-stage class="close__stage">
+      <div class="close__inner">
+        <div class="settle" aria-hidden="true">
+          <svg viewBox="0 0 420 420">
+            <circle class="settle__track" cx="210" cy="210" r="164"/>
+            <circle class="settle__lit" cx="210" cy="210" r="164"/>
+          </svg>
+        </div>
+
+        <div class="plate plate--close" aria-hidden="true"></div>
+
+        <div class="close__card">
+          <p class="kicker">Your session, just now</p>
+          <dl class="session">
+            <div><dt>On the page</dt><dd><span id="s-time">0:00</span></dd></div>
+            <div><dt>Peak rate</dt><dd><span id="s-peak">58</span> bpm</dd></div>
+            <div><dt>Recovered</dt><dd><span id="s-now">58</span> bpm</dd></div>
+          </dl>
+          <h2 class="sc-display close__h" data-sc-cue="0.04" data-sc-kinetic="lines">Twenty minutes, no pitch, and you keep the plan either way.</h2>
+          <a class="cta" href="mailto:sophia@sophiahall.trains" data-sc-magnet="0.26" data-sc-cue="0.04" data-sc-rise="0">Book a consult</a>
+          <p class="close__note">South Austin studio · remote anywhere · replies within a day</p>
+        </div>
+      </div>
+
+      <footer class="foot">
+        <a class="foot__mark" href="#top"><img src="brand/mark.svg" width="28" height="28" alt=""><span>Sophia Hall</span></a>
+        <nav class="foot__links" aria-label="Elsewhere">
+          <a href="#">Instagram</a><a href="#">TikTok</a><a href="#">YouTube</a><a href="#">Newsletter</a>
+        </nav>
+        <p class="foot__fine">Concept demo. Sophia Hall is a fictional trainer; the photography is drawn, and every figure, award and review on this page is invented for the design.</p>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="scrollcraft.js"></script>
+<script src="effort.js"></script>
+<script>ScrollCraft.mount(document.body);</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+/* ============================================================================
+   Sophia Hall — the theme.
+   Six colour roles, two faces, one radius scale. Overriding these rebrands the
+   whole page; nothing else in the build hardcodes a colour.
+   ========================================================================== */
+:root {
+  /* The pairing: evergreen and coral, on a soft white ground. One accent for
+     the whole page. Coral owns action and the breath ring; evergreen owns
+     every word. */
+  --sc-canvas:     #FBFAF7;  /* soft white, not cream                         */
+  --sc-surface:    #FFFFFF;  /* anything lifted off the ground                */
+  --sc-ink:        #0E3B32;  /* evergreen. 11.8:1 on canvas                   */
+  --sc-ink-soft:   #4E6C64;  /* tinted from the ink, never flat grey. 5.4:1   */
+  --sc-accent:     #F4573C;  /* coral                                         */
+  --sc-accent-ink: #22100B;  /* text that sits on coral. 7.4:1                */
+
+  --sh-accent-soft: #FFEDE7; /* coral at wash strength, for fills only        */
+  --sh-mint:        #EAF2EE; /* evergreen at wash strength, for fills only    */
+  --sh-gold:        #E8B23C; /* awards only. Not a second accent: it never
+                                touches type, only the medallion ring art.    */
+
+  --sc-font-display: "Outfit", system-ui, sans-serif;
+  --sc-font-text:    "Manrope", system-ui, sans-serif;
+
+  /* No square lines anywhere. The smallest radius on this site is a pill. */
+  --sc-r-sm:   16px;
+  --sc-r-md:   28px;
+  --sc-r-lg:   44px;
+  --sc-r-pill: 999px;
+
+  /* Shadows tinted to the evergreen, offset and blurred, never a halo. */
+  --sc-shadow-color: 165 40% 12%;
+
+  /* The effort loop writes these. Resting values here so the page renders
+     correctly for one frame before the script mounts, and permanently under
+     reduced motion. */
+  --sh-effort: 0;      /* 0 resting … 1 at full scroll effort               */
+  --sh-breath: 0;      /* -1 … 1, the shared oscillator                     */
+  --sh-rate: 58;       /* beats per minute, readout                         */
+}
