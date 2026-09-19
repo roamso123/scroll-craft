@@ -160,6 +160,12 @@ body { overflow-x: clip; }
   text-transform: uppercase;
   color: var(--sc-ink);
 }
+.chrome__line {
+  font-size: var(--sc-t-sm);
+  line-height: 1.4;
+  color: var(--sc-ink-soft);
+  max-width: 22ch;
+}
 .index__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
 .index__list a {
   display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem;
@@ -733,6 +739,7 @@ body { overflow-x: clip; }
   .chrome__brand { flex-direction: row; align-items: center; gap: 0.6rem; }
   .chrome__mark { width: 3.4rem; }
   .chrome__name { font-size: 0.62rem; letter-spacing: 0.14em; }
+  .chrome__line { display: none; }
   /* The index still jumps on a phone; it just reads as one short row and
      drops out of the way of the brand and the action. */
   .index { order: 3; flex-basis: 100%; overflow-x: auto; scrollbar-width: none; }

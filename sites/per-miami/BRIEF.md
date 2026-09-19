@@ -236,4 +236,21 @@ page. The blur is feathered into the bodywork rather than laid over it as a
 box, and the other eleven cars were checked: no other plate is visible
 anywhere on the page.
 
-Phone: (305) 494-5165. One action label everywhere: **Reserve**.
+Phone: (305) 494-5165. One action label everywhere: **Book**, which is the
+owner's own word for it on every card of their live site. The form's submit is
+**Send request**, because filing a request is a different intent from choosing
+a car.
+
+Their positioning line, "Exotic car rentals in Miami, delivered to you", sits
+in the brand block and in the page title and description. It is not laid over
+the first photograph as a hero claim, which this grammar forbids and which
+would push object one below the fold.
+
+**Three of their lines were left off, deliberately.** "Miami's #1 Exotic Rental
+Agency" and "THE BEST PRICES around Miami" are unsubstantiated superiority
+claims; the taste floor's rule against invented figures is about the same
+liability, and a page that opens with a superlative reads as a page that has
+nothing specific to say, while twelve real published rates are specific. Their
+hero image, a white McLaren 570S Spyder at sunset in front of a glass tower, is
+not one of the supplied rooftop frames and its provenance is unknown, so it is
+not used. All three are one edit away if the owner wants them.

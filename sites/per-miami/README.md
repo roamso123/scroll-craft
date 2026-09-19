@@ -76,6 +76,11 @@ The rate table lives in the `<option data-rate>` attributes in `index.html` and
 is read from there by the estimate line and the key tag, so **prices are
 changed in one place**.
 
+The action label is **Book**, matching the owner's live site, and it is the same
+word in the standing index, on all twelve objects and in the hero. The form's
+submit is **Send request**. Changing either means changing it everywhere; there
+is one word per intent on purpose.
+
 ## The key tag
 
 The one interaction built for this site alone. A valet tag hangs in the corner
