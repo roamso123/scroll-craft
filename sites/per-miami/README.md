@@ -25,11 +25,13 @@ scripts and `assets/`.
 ```
 index.html              the page. Real headings, real labels, real reading order
 per.css                 this page's layer: tokens, chrome, the five acts, the tag
-                        (the rail's cards and the mosaic share one label schema)
+                        (the rail's cards and the mosaic share one label schema).
+                        The hero's backdrop is gradient: no photograph sits
+                        behind or in front of the car's frame
 per.js                  the standing index, the key tag, the booking survey
 scrollcraft.css/.js     the engine, copied unmodified from the skill
 assets/                 fourteen graded photographs at two widths each, the keyed
-                        wordmark, two hero planes, three self-hosted webfonts
+                        wordmark, three self-hosted webfonts
 src/assets.mjs          the asset pipeline that produced assets/ (see below),
                         including the plate blur on the two McLaren rear views
 src/sheet.mjs           builds a contact sheet from a screenshot run

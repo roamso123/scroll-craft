@@ -229,46 +229,34 @@ body { overflow-x: clip; }
 .hero__sky {
   position: absolute; inset: 0;
   background:
-    radial-gradient(120% 80% at 62% 12%, color-mix(in oklab, #0F2E44 70%, transparent) 0%, transparent 62%),
-    linear-gradient(180deg, #0A1C2A 0%, #071219 46%, var(--sc-canvas) 86%);
+    radial-gradient(86% 58% at 74% 6%,
+      color-mix(in oklab, var(--sc-accent) 26%, #05121C) 0%, transparent 62%),
+    radial-gradient(76% 52% at 10% 96%,
+      color-mix(in oklab, var(--per-rate) 13%, #04120F) 0%, transparent 64%),
+    linear-gradient(176deg, #06151F 0%, #05101A 46%, var(--sc-canvas) 88%);
 }
-.hero__plane {
+/* One soft light, travelling faster than anything else, so the ground is not
+   a flat sheet. The keyed skyline and the cropped deck that used to sit here
+   read as smears behind the frame at a 560px source, so the hero's only
+   photograph is the car, in its frame. */
+.hero__glow {
   position: absolute;
-  left: 50%;
-  max-width: none;
-  width: min(1800px, 165vw);
-  height: auto;
+  left: 54%; top: 4%;
+  width: min(1180px, 124vw);
+  aspect-ratio: 2 / 1;
+  translate: -50% 0;
+  background: radial-gradient(50% 50% at 50% 50%,
+    color-mix(in oklab, var(--sc-accent) 20%, transparent) 0%, transparent 72%);
+  filter: blur(26px);
+  z-index: 1;
   pointer-events: none;
 }
-/* Distance is scale, softness and lower contrast, not only rate. */
-.hero__plane--skyline {
-  bottom: 44%;
-  translate: -50% 0;
-  filter: brightness(0.54) saturate(0.6) contrast(1.02) blur(0.3px);
-  opacity: 0.92;
-  z-index: 1;
-}
-.hero__plane--deck {
-  bottom: -16%;
-  translate: -50% 0;
-  width: min(2100px, 200vw);
-  filter: brightness(0.3) saturate(0.38) contrast(1.12);
-  z-index: 4;
-  /* Cut so it dips away from the label. A straight-edged foreground plane
-     covered the hero's Reserve button within one screen of scroll; shaped, it
-     still overtakes the photograph on its way past and leaves the ask
-     legible the whole time. */
-  mask-image: linear-gradient(to right,
-    transparent 0%, transparent 34%,
-    rgba(0, 0, 0, 0.3) 44%,
-    rgba(0, 0, 0, 0.85) 54%, #000 64%);
-}
-/* The floor: planes travel past the stage's bottom edge and get clipped
-   there, so a gradient to the page ground hides the clip line at any scroll
-   position. Above every plane, below the type. */
+/* The floor. With the photographic planes gone this is the foreground: it
+   travels, it overtakes the frame's lower edge, and it beds the whole stage
+   into the page ground. Above the frame, below the type. */
 .hero__floor {
-  position: absolute; inset: auto 0 0 0;
-  height: 26vh;
+  position: absolute; inset: auto 0 -8% 0;
+  height: 34vh;
   background: linear-gradient(to top, var(--sc-canvas) 0%,
     color-mix(in oklab, var(--sc-canvas) 82%, transparent) 38%, transparent 100%);
   z-index: 5;
@@ -789,9 +777,8 @@ body { overflow-x: clip; }
     width: auto;
   }
   .hero__label .label__name { font-size: var(--sc-t-xl); }
-  .hero__plane--skyline { bottom: 40%; top: auto; width: 300vw; filter: brightness(0.5) saturate(0.55) contrast(1.02); }
-  .hero__plane--deck { bottom: -2%; width: 220vw; mask-image: none; }
-  .hero__floor { height: 22vh; }
+  .hero__glow { top: 2%; width: 190vw; filter: blur(30px); }
+  .hero__floor { height: 26vh; }
 
   .rail { padding-inline: var(--sc-gutter); }
   .act-room .sc-wrap { padding-left: var(--sc-gutter); }

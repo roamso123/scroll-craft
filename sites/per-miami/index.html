@@ -44,20 +44,22 @@
 <main>
 
   <!-- 1 · ARRIVAL · parallax. Object one is already in view and already
-       labelled: the collection starts at the top of the page. Four planes,
-       three of them keys or crops of the owner's own frame. -->
+       labelled: the collection starts at the top of the page. The backdrop is
+       gradient, not photography: the keyed skyline and the deck crop read as
+       smears behind the frame at this source resolution, so the only
+       photograph in the hero is the car, in its frame. Depth comes from three
+       rates and two overlaps instead. -->
   <section id="macan" class="act-hero" data-sc-act="pin" data-sc-span="1.9" data-sc-drift="#05070A" aria-labelledby="macan-h">
     <div data-sc-stage class="hero">
 
       <div class="hero__sky" aria-hidden="true"></div>
-      <img class="hero__plane hero__plane--skyline" src="assets/hero-skyline.webp"
-           width="1800" height="261" alt="" aria-hidden="true" data-sc-parallax="-1.1">
+      <div class="hero__glow" aria-hidden="true" data-sc-parallax="-0.9"></div>
 
       <figure class="hero__frame" data-sc-parallax="-0.45">
         <img class="hero__shot" src="assets/macan.webp"
              srcset="assets/macan-m.webp 780w, assets/macan.webp 1400w"
              sizes="(max-width: 1040px) 86vw, 44vw" width="1400" height="1270"
-             alt="A black Porsche Macan parked alone on an open rooftop deck, city skyline behind it.">
+             alt="A black Porsche Macan parked alone on an open rooftop deck.">
       </figure>
 
       <div class="hero__label sc-stack" data-sc-cue="0 1 0 0">
@@ -68,9 +70,7 @@
         <a class="button" href="#reserve" data-car="Porsche Macan">Book</a>
       </div>
 
-      <img class="hero__plane hero__plane--deck" src="assets/hero-deck.webp"
-           width="1800" height="237" alt="" aria-hidden="true" data-sc-parallax="0.9">
-      <div class="hero__floor" aria-hidden="true"></div>
+      <div class="hero__floor" aria-hidden="true" data-sc-parallax="0.55"></div>
       <div class="hero__column" aria-hidden="true"></div>
     </div>
   </section>

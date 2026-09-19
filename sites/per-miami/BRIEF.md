@@ -149,24 +149,33 @@ Its bans hold: no kinetic headline, no spotlight, no magnet, no scrub at all.
 
 ## Hero depth
 
-Four planes, three of them derived from the owner's own frame, moving at
-different rates with real occlusion:
+**The backdrop is gradient, on the owner's instruction.** The first version put
+a keyed skyline behind the frame and a cropped deck in front of it, both
+derived from the hero photograph. At a 560px source they upscale into smears,
+and the owner said so plainly. They are gone, and nothing photographic is left
+in the hero except the car, in its frame.
+
+Depth is still three rates and two overlaps, which is what the layering rule
+actually asks for:
 
 ```
-sky       CSS gradient, no travel
-skyline   the far building, keyed off the sky into genuine alpha   -1.1
-plate     the photograph in its frame, pushing in as it travels    -0.45
-deck      the parking deck, in front of the plate, overlapping it   0.9
-label     real markup at 1x, between the plate and the deck
+ground    the brand gradient: blue high right, green low left, no travel
+glow      one soft light, the only thing behind the frame          -0.9
+plate     the photograph in its frame, pushing in as it travels     -0.45
+floor     a gradient foreground that overtakes the frame's edge      0.55
+label     real markup at 1x, crossing the frame's lower corner
 ```
 
-**A keyed cutout of the hero car was built and rejected.** Every source is a
-560px phone frame, so the matte upscales soft and the inpainted plate behind it
-shows; `lab/macan-cutout-check.png` and `lab/macan-mask-check.png` are the
-evidence, and `node src/assets.mjs cutout` reproduces them. Keeping the car
-inside its photograph and building depth around the plate is the honest version
-at this resolution. Both keys that did ship (the wordmark's black ground, the
-skyline's sky) are clean, and both are in `lab/` to be looked at.
+This is less literal layering than a photographic diorama would give, and it is
+the right trade at this resolution: a clean gradient reads as deliberate, a
+soft crop of a phone photo reads as a mistake. The standing preference for
+dimensional heroes is explicit that simpler directions are honored when given.
+
+**A keyed cutout of the hero car was built and rejected too.** Every source is
+a 560px phone frame, so the matte upscales soft and the inpainted plate behind
+it shows; `lab/macan-cutout-check.png` and `lab/macan-mask-check.png` are the
+evidence, and `node src/assets.mjs cutout` reproduces them. The one key that
+still ships is the wordmark's black ground, which is clean.
 
 ## Palette
 
@@ -190,7 +199,7 @@ the call button. Green never becomes a button; blue never becomes a price.
 
 | Act | Beat | Device | Why this one | Span |
 |---|---|---|---|---|
-| 1 | Object one, in the room | `parallax` (4 planes) + pointer lean | The hero has to be an object already in view with its label, and depth has to come from the scene around it | 1.9 |
+| 1 | Object one, in the room | `parallax` (gradient ground, glow, plate, floor) | The hero has to be an object already in view with its label, and the depth has to come from motion and overlap rather than from photographs of the place | 1.9 |
 | 2 | The collection | `pan` + `tilt` | Lateral travel reads as breadth, which is the whole question a fleet answers. Six objects cost the page nothing in height here, which is why the rail carries the wider half of the range | 5.2 |
 | 3 | Further into the room | `flow` + `in`, asymmetric mosaic, one object as a three-view study | Twelve objects will not all fit one rail at a readable pace, and a second rail would be the same act twice. The mosaic is a different size and rhythm, the study gives the one multi-angle car the treatment its coverage allows, and the quiet tail is the silence | ~3.4 |
 | 4 | The flagship | `reveal` (up, edge to edge) on a `pin` | A wipe is a change of state, and this is the one moment the page raises its voice | 3.3 |
