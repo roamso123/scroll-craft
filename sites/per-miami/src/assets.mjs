@@ -67,7 +67,13 @@ const CARS = [
   { id: "maybach", file: "4b7bef8a-image.jpg" },
   { id: "urus", file: "18244158-image.png" },
   { id: "bentley", file: "697f19ec-image.png" },
+  { id: "r8", file: "d86a3c1a-image.png" },
   { id: "cullinan", file: "568751c0-image.png" },
+  // The McLaren is the one car photographed from three sides, so it is the one
+  // object on the page shown as a study rather than a single frame.
+  { id: "mclaren", file: "c2e73bd7-image.png" },
+  { id: "mclaren-rear", file: "5c6f1d24-image.png" },
+  { id: "mclaren-rear34", file: "a0731aa5-image.png" },
 ];
 
 async function objects() {
@@ -84,6 +90,66 @@ async function objects() {
     await base.clone().resize({ width: 780 }).webp({ quality: 84 }).toFile(`${OUT}/${c.id}-m.webp`);
     const meta = await sharp(`${OUT}/${c.id}.webp`).metadata();
     console.log(`object    ${c.id.padEnd(9)} ${meta.width}x${meta.height}`);
+  }
+}
+
+/* --------------------------------------------------------- 2b  plate blur
+   Two of the McLaren views are shot square on to the back of the car and the
+   registration plate is legible in both. A fleet's plates do not belong on a
+   public page, so they are blurred into the delivered asset rather than left
+   for anyone to read off the screen. Rects are measured in the graded 1400px
+   space and scaled for the phone variant.
+*/
+const PLATES = {
+  "mclaren-rear": [{ left: 606, top: 700, width: 232, height: 165 }],
+  "mclaren-rear34": [{ left: 988, top: 686, width: 215, height: 125 }],
+};
+
+async function redactPlates() {
+  for (const id of Object.keys(PLATES)) {
+    for (const variant of [{ file: `${OUT}/${id}.webp`, scale: 1, q: 88 },
+                           { file: `${OUT}/${id}-m.webp`, scale: 780 / 1400, q: 84 }]) {
+      const meta = await sharp(variant.file).metadata();
+      const patches = [];
+      for (const r of PLATES[id]) {
+        // A hard-edged blurred rectangle reads as a censor box. Take a margin
+        // around the plate, blur the whole thing, then feather the patch's own
+        // alpha so it beds into the bodywork and reads as out of focus.
+        const m = Math.round(34 * variant.scale);
+        const box = {
+          left: Math.max(0, Math.round(r.left * variant.scale) - m),
+          top: Math.max(0, Math.round(r.top * variant.scale) - m),
+          width: Math.round(r.width * variant.scale) + m * 2,
+          height: Math.round(r.height * variant.scale) + m * 2,
+        };
+        box.width = Math.min(box.width, meta.width - box.left);
+        box.height = Math.min(box.height, meta.height - box.top);
+
+        const blurred = await sharp(variant.file).extract(box)
+          .blur(Math.max(9, 26 * variant.scale))
+          .modulate({ brightness: 0.82, saturation: 0.45 })
+          .ensureAlpha()
+          .toBuffer();
+        const feather = Buffer.from(
+          `<svg xmlns="http://www.w3.org/2000/svg" width="${box.width}" height="${box.height}">
+             <defs><filter id="f" x="-30%" y="-30%" width="160%" height="160%">
+               <feGaussianBlur stdDeviation="${Math.max(5, 11 * variant.scale)}"/>
+             </filter></defs>
+             <rect x="${m * 0.55}" y="${m * 0.55}" rx="${m}" ry="${m}"
+                   width="${box.width - m * 1.1}" height="${box.height - m * 1.1}"
+                   fill="#fff" filter="url(#f)"/>
+           </svg>`);
+        patches.push({
+          input: await sharp(blurred)
+            .composite([{ input: feather, blend: "dest-in" }])
+            .png().toBuffer(),
+          left: box.left, top: box.top,
+        });
+      }
+      const out = await sharp(variant.file).composite(patches).webp({ quality: variant.q }).toBuffer();
+      writeFileSync(variant.file, out);
+    }
+    console.log(`redact    ${id}`);
   }
 }
 
@@ -340,7 +406,8 @@ async function heroPlanes() {
 
 const which = process.argv[2] || "all";
 if (which === "all" || which === "wordmark") await wordmark();
-if (which === "all" || which === "objects") await objects();
+if (which === "all" || which === "objects") { await objects(); await redactPlates(); }
+if (which === "plates") await redactPlates();
 if (which === "all" || which === "planes") await heroPlanes();
 // kept for the record: the cutout route this build rejected, and its evidence
 if (which === "cutout") {

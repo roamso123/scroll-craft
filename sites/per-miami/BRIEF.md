@@ -42,10 +42,11 @@ fleet collection." Objects in a room, each with a label and its own Reserve
 button, a jumpable index for navigation, a booking plate at the end.
 
 **8 · What assets exist** — **supplied:** the `PER` wordmark (a 674x362 raster
-on black) and ten photographs at 560x508: nine on the rooftop deck, one (the
-Escalade) against a dark building wall. Two cars in the fleet have no
-photograph yet, and the page says so rather than hiding them. No footage, no
-brand document, no type specimen. No image generation was used and no API key was
+on black) and fourteen photographs at 560x508 covering **all twelve cars**:
+eleven on the rooftop deck, one (the Escalade) against a dark building wall,
+and three separate views of the McLaren GT, which is why that one object is
+shown as a study. A second Corvette angle was supplied and not used; the first
+one frames the car better. No footage, no brand document, no type specimen. No image generation was used and no API key was
 needed: everything on the page is the owner's own photography.
 
 **Booking destination** — **owner answered:** "Stub a real endpoint." The
@@ -62,11 +63,11 @@ Written before the acts existed.
 ```
 1  Arrival     the rooftop at eye height, one car sitting there, its rate
                already stated, nothing asked of the visitor yet
-2  Appetite    the room walks past them: four cars, each labelled like an
+2  Appetite    the room walks past them: six cars, each labelled like an
                exhibit, each one gettable
-3  Weight      the room opens out and the heavy end of the range arrives at a
-               different size and rhythm, then the type goes small: two cars
-               with no photograph yet, as plain labels
+3  Weight      the room opens out and the top of the range arrives at a
+               different size and rhythm, one of them photographed from three
+               sides, then the type goes small and states the whole fleet
 4  Awe         the frame wipes open and the white Rolls-Royce is the whole
                screen at $1,999, the largest number on the page
 5  Resolve     the key tag they have been carrying lands in the form, the ask
@@ -74,9 +75,9 @@ Written before the acts existed.
 ```
 
 No two adjacent acts share a feeling. Act 3 **ends** in the authored silence:
-it opens out into four large photographs, then closes on two plain label rows
-and a phone number, which is the quietest, smallest thing on the page and what
-act 4 has to be a change from. Act 2 walks laterally and act 3 opens
+it opens out into four large objects, then closes on one line of the smallest
+type on the page and a phone number, which is what act 4 has to be a change
+from. Act 2 walks laterally and act 3 opens
 vertically, so appetite and weight are different feelings rather than the same
 one twice. The verification pass should read that tail as intent, not as dead
 scroll.
@@ -185,16 +186,16 @@ the call button. Green never becomes a button; blue never becomes a price.
 | Act | Beat | Device | Why this one | Span |
 |---|---|---|---|---|
 | 1 | Object one, in the room | `parallax` (4 planes) + pointer lean | The hero has to be an object already in view with its label, and depth has to come from the scene around it | 1.9 |
-| 2 | The collection | `pan` + `tilt` | Lateral travel reads as breadth, which is the whole question a fleet answers | 4.4 |
-| 3 | Further into the room | `flow` + `in`, asymmetric mosaic | Ten photographed cars will not fit one rail inside the length budget, and a second rail would be the same act twice. An asymmetric mosaic is a different size and rhythm, and its quiet tail is the silence | ~2.9 |
+| 2 | The collection | `pan` + `tilt` | Lateral travel reads as breadth, which is the whole question a fleet answers. Six objects cost the page nothing in height here, which is why the rail carries the wider half of the range | 5.2 |
+| 3 | Further into the room | `flow` + `in`, asymmetric mosaic, one object as a three-view study | Twelve objects will not all fit one rail at a readable pace, and a second rail would be the same act twice. The mosaic is a different size and rhythm, the study gives the one multi-angle car the treatment its coverage allows, and the quiet tail is the silence | ~3.4 |
 | 4 | The flagship | `reveal` (up, edge to edge) on a `pin` | A wipe is a change of state, and this is the one moment the page raises its voice | 3.3 |
 | 5 | The ask | `flow`, static plate | A form inside a pinned stage is a keyboard trap. The close resolves by holding still | ~2.0 |
 
 Five device families (parallax, pan, flow/in, reveal, pointer). No family twice
 in a row. No `scrub` at all, so no clip weight and no frozen-clip class of
-failure. Measured at **12.6 viewport-heights on desktop and 13.8 on a phone**,
-inside the 8-to-14 budget; the phone crop is 4:3 rather than the source's
-near-square, which is what keeps it there.
+failure. Measured at **13.5 viewport-heights on desktop and 13.2 on a phone**, inside
+the 8-to-14 budget; the phone crop is 4:3 rather than the source's near-square,
+which is what keeps it there.
 
 ## Fleet and prices
 
@@ -206,19 +207,28 @@ be invented precision.
 Price order is the order of the page, low to high, with the flagship as the
 peak.
 
+Every car in the fleet is photographed, so nothing on the page is a label
+standing in for a picture.
+
 | Car | Rate / day | On the page as |
 |---|---|---|
-| Porsche Macan | $199 | act 1, object one, photographed |
-| Audi S5 Sportback | $299 | act 2, rail, photographed |
-| Maserati Grecale | $299 | act 2, rail, photographed |
-| Cadillac Escalade ESV | $399 | act 2, rail, photographed |
-| Corvette C8 Z51 | $449 | act 2, rail, photographed |
-| Mercedes G-Wagon | $699 | act 3, mosaic, photographed |
-| Mercedes GLS 600 Maybach | $799 | act 3, mosaic, photographed |
-| Audi R8 V10 Spyder | $849 | act 3, label only, no photograph yet |
-| McLaren GT | $1,049 | act 3, label only, no photograph yet |
-| Lamborghini Urus | $1,099 | act 3, mosaic, photographed |
-| Bentley Continental GT Speed | $1,199 | act 3, mosaic, photographed |
-| Rolls-Royce Cullinan | $1,999 | act 4, the peak, photographed |
+| Porsche Macan | $199 | act 1, object one |
+| Audi S5 Sportback | $299 | act 2, rail |
+| Maserati Grecale | $299 | act 2, rail |
+| Cadillac Escalade ESV | $399 | act 2, rail |
+| Corvette C8 Z51 | $449 | act 2, rail |
+| Mercedes G-Wagon | $699 | act 2, rail |
+| Mercedes GLS 600 Maybach | $799 | act 2, rail |
+| Audi R8 V10 Spyder | $849 | act 3, mosaic |
+| McLaren GT | $1,049 | act 3, mosaic, as a three-view study |
+| Lamborghini Urus | $1,099 | act 3, mosaic |
+| Bentley Continental GT Speed | $1,199 | act 3, mosaic |
+| Rolls-Royce Cullinan | $1,999 | act 4, the peak |
+
+**The McLaren's registration plate is blurred in both rear views.** It was
+legible in the supplied frames, and a fleet's plates do not belong on a public
+page. The blur is feathered into the bodywork rather than laid over it as a
+box, and the other eleven cars were checked: no other plate is visible
+anywhere on the page.
 
 Phone: (305) 494-5165. One action label everywhere: **Reserve**.

@@ -116,12 +116,19 @@
   var roomObjects = objectsIn(".room > .object");
 
   function nearest(list, axis) {
-    var target = axis === "x" ? window.innerWidth * 0.5 : window.innerHeight * 0.45;
+    // The rail travels on one axis, so distance on that axis is the whole
+    // story. The mosaic is two columns, where a purely vertical measure picks
+    // whichever object happens to sit level with the reader rather than the
+    // one they are looking at, so the horizontal gap counts too, at a fifth of
+    // the weight: enough to break the tie between a tall object on one side and
+    // a short one level with it, not enough to outvote what is actually centred.
+    var tx = window.innerWidth * 0.5, ty = window.innerHeight * 0.45;
     var best = null, bestD = Infinity;
     list.forEach(function (o) {
       var r = o.el.getBoundingClientRect();
-      var c = axis === "x" ? r.left + r.width / 2 : r.top + r.height / 2;
-      var d = Math.abs(c - target);
+      var d = axis === "x"
+        ? Math.abs(r.left + r.width / 2 - tx)
+        : Math.abs(r.top + r.height / 2 - ty) + Math.abs(r.left + r.width / 2 - tx) * 0.18;
       if (d < bestD) { bestD = d; best = o; }
     });
     return best;
@@ -136,10 +143,21 @@
     var hero = document.getElementById("macan").getBoundingClientRect();
     var rail = document.getElementById("collection").getBoundingClientRect();
     var room = document.getElementById("room").getBoundingClientRect();
-    var peak = document.getElementById("cullinan").getBoundingClientRect();
+    var peakEl = document.getElementById("cullinan");
+    var peak = peakEl.getBoundingClientRect();
     var pick;
 
-    if (peak.top <= mid && peak.bottom > mid) { stamp("Rolls-Royce Cullinan"); return; }
+    if (peak.top <= mid && peak.bottom > mid) {
+      // Not the moment the stage arrives: a pinned stage is on screen for a
+      // whole viewport before its progress leaves 0, so stamping on arrival
+      // put the Cullinan on the tag while its frame was still empty, which
+      // both spoiled the wipe and named a car nobody could see. Wait for the
+      // wipe to actually start.
+      var travel = Math.max(peakEl.offsetHeight - window.innerHeight, 1);
+      var pp = (-peak.top) / travel;
+      if (pp > 0.12) stamp("Rolls-Royce Cullinan");
+      return;
+    }
     // the mosaic travels vertically rather than laterally, and a phone has no
     // hover at all, so without this the tag went stale for a whole act there
     if (room.top <= mid && room.bottom > mid) {
@@ -158,7 +176,7 @@
 
   /* hovering or focusing a row in the index stamps it: the quiet act still
      answers to the reader being present */
-  Array.prototype.forEach.call(document.querySelectorAll(".fleet [data-car], .room [data-car]"), function (a) {
+  Array.prototype.forEach.call(document.querySelectorAll(".room [data-car]"), function (a) {
     var car = a.getAttribute("data-car");
     var zone = a.closest(".object") || a.parentNode;
     if (fine) zone.addEventListener("mouseenter", function () {

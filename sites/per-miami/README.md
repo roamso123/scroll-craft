@@ -4,10 +4,9 @@ A scroll-driven site for PER Miami Exotic Rentals, built with the
 `scroll-craft` skill in this repository. One page, no framework, no build step.
 
 Every car, rate, promise and phone number is the owner's own, read from
-`permiamiexoticrentals.com`. All ten photographs are the owner's own. Nothing
-was generated and no image-generation credits were spent. Two cars in the
-fleet have no photograph yet and appear as plain labels, which the page says
-on its face.
+`permiamiexoticrentals.com`. All fourteen photographs are the owner's own, and
+every car in the fleet is now shown with one. Nothing was generated and no
+image-generation credits were spent.
 
 ## Run it
 
@@ -29,9 +28,10 @@ per.css                 this page's layer: tokens, chrome, the five acts, the ta
                         (the rail's cards and the mosaic share one label schema)
 per.js                  the standing index, the key tag, the booking survey
 scrollcraft.css/.js     the engine, copied unmodified from the skill
-assets/                 ten graded photographs at two widths each, the keyed
+assets/                 fourteen graded photographs at two widths each, the keyed
                         wordmark, two hero planes, three self-hosted webfonts
-src/assets.mjs          the asset pipeline that produced assets/ (see below)
+src/assets.mjs          the asset pipeline that produced assets/ (see below),
+                        including the plate blur on the two McLaren rear views
 src/sheet.mjs           builds a contact sheet from a screenshot run
 BRIEF.md                the brief, the feeling curve, the peak, the grammar,
                         the signature move and the score
@@ -73,10 +73,17 @@ changed in one place**.
 
 The one interaction built for this site alone. A valet tag hangs in the corner
 for the whole page and stamps itself with whichever car is in front of the
-reader: the hero, whichever card is centred in the rail, whichever photograph
-is centred in the mosaic, the Rolls-Royce at the peak, or anything the pointer
-touches. On a phone, where there is no hover at all, it follows the scroll. Clicking a
-Reserve outranks the scroll and locks the tag to that car. At the booking plate
+reader: the hero, whichever card is centred in the rail, whichever object is
+centred in the mosaic, the Rolls-Royce once its wipe has started, or anything
+the pointer touches. On a phone, where there is no hover at all, it follows the
+scroll. Clicking a Reserve outranks the scroll and locks the tag to that car.
+
+It says **holding**, and it means it: through the quiet tail before the peak it
+keeps the last car the reader was with rather than blanking, because that is
+the one it will hand to the form. Two objects side by side in the mosaic are
+genuinely ambiguous from scroll position alone; the pointer settles it on
+desktop, and on a phone the mosaic is one column so the question does not
+arise. At the booking plate
 the tag hands itself over: it flies into the car field, which is already set to
 the car it last stamped.
 
@@ -92,16 +99,20 @@ flip and the flight are what go. It is `aria-hidden` because it mirrors the
 ```bash
 npm i sharp
 node src/assets.mjs            # wordmark, car photographs, hero planes
+node src/assets.mjs plates     # just the plate blur, if you re-grade a McLaren view
 node src/assets.mjs cutout     # the keyed hero cutout this build rejected
 ```
 
-The ten source photographs are 560x508 phone frames. They are upscaled to
+**The McLaren's plate is blurred** in `mclaren-rear` and `mclaren-rear34`,
+feathered into the bodywork so it reads as out of focus rather than censored.
+The rects are in `PLATES` in `src/assets.mjs`, measured in the graded 1400px
+space. If you add a photograph where a plate is legible, add its rect there;
+the other eleven cars were checked and none shows one.
+
+The source photographs are 560x508 phone frames. They are upscaled to
 1400px for layout room, with a restrained grade, and **the layout is designed
 around that ceiling**: the peak frame downscales its source rather than
-stretching it. Adding the remaining two cars is a photograph and one block of
-markup: put `audi-r8.webp` in `assets/`, add it to `CARS` in
-`src/assets.mjs`, and move its row out of the label list into the mosaic.
-The single biggest improvement available to this site is higher-resolution
+stretching it. The single biggest improvement available to this site is higher-resolution
 photography of the same cars. Drop larger originals in, re-run the pipeline,
 and nothing else needs to change.
 
