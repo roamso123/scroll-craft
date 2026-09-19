@@ -54,6 +54,11 @@ survey POSTs to `/api/bookings`. Nothing is hosted yet, so a failed POST falls
 back to a plain-text summary plus a call and text link to the real number, and
 the page says so rather than pretending the request was filed.
 
+It asks what the owner's own contact form asks, plus what a delivery needs:
+car, days, dates, where to bring it, name, phone, optional email, and one
+optional free-text note, which is the only field their existing form had for
+the whole request.
+
 ---
 
 ## The feeling curve

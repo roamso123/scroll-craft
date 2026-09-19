@@ -358,6 +358,30 @@
   days.addEventListener("input", updateEstimate);
   updateEstimate();
 
+  /* The dates are the answer, so they own the day count: a visitor who sets
+     the first step to two days and then picks a four-day window should not be
+     quoted for two. Dates drive days whenever both are valid, and the field
+     stays editable for anyone who fills it in before opening a calendar. */
+  var from = document.getElementById("from");
+  var to = document.getElementById("to");
+
+  function spanDays() {
+    if (!from.value || !to.value) return null;
+    var a = new Date(from.value + "T00:00"), b = new Date(to.value + "T00:00");
+    if (isNaN(a) || isNaN(b)) return null;
+    var d = Math.round((b - a) / 86400000);
+    return d > 0 ? d : null;
+  }
+
+  function syncDays() {
+    var d = spanDays();
+    if (d === null) return;
+    days.value = String(Math.min(d, 60));
+    updateEstimate();
+  }
+  from.addEventListener("change", syncDays);
+  to.addEventListener("change", syncDays);
+
   function show(n, focusFirst) {
     steps.forEach(function (s) {
       var on = +s.getAttribute("data-step") === n;
@@ -371,8 +395,15 @@
   }
 
   function validate(n) {
-    var fields = steps[n - 1].querySelectorAll("input, select");
+    var fields = steps[n - 1].querySelectorAll("input, select, textarea");
     var bad = null;
+    if (n === 2 && from.value && to.value && spanDays() === null) {
+      to.setAttribute("aria-invalid", "true");
+      errorLine.hidden = false;
+      errorLine.textContent = "The return date has to be after the pick-up date.";
+      to.focus({ preventScroll: true });
+      return false;
+    }
     Array.prototype.forEach.call(fields, function (f) {
       var ok = f.checkValidity();
       f.setAttribute("aria-invalid", ok ? "false" : "true");
@@ -416,7 +447,8 @@
       where: f.get("where"),
       name: f.get("name"),
       phone: f.get("phone"),
-      email: f.get("email") || ""
+      email: f.get("email") || "",
+      note: (f.get("note") || "").trim()
     };
   }
 
@@ -429,7 +461,8 @@
       "Delivery   " + r.where,
       "Name       " + r.name,
       "Phone      " + r.phone,
-      r.email ? "Email      " + r.email : null
+      r.email ? "Email      " + r.email : null,
+      r.note ? "Note       " + r.note.replace(/\s*\n\s*/g, " ") : null
     ].filter(Boolean).join("\n");
   }
 

@@ -576,7 +576,7 @@ body { overflow-x: clip; }
   color: var(--sc-ink-soft);
 }
 .field__opt { text-transform: none; letter-spacing: 0.04em; opacity: 0.75; }
-.field input, .field select {
+.field input, .field select, .field textarea {
   width: 100%;
   padding: 0.72rem 0.85rem;
   background: var(--per-field);
@@ -586,8 +586,9 @@ body { overflow-x: clip; }
   font-size: var(--sc-t-base);
   transition: border-color var(--sc-d-fast) var(--sc-ease-out);
 }
-.field input::placeholder { color: color-mix(in oklab, var(--sc-ink-soft) 72%, transparent); }
-.field input:hover, .field select:hover { border-color: color-mix(in oklab, var(--sc-ink) 24%, transparent); }
+.field :is(input, textarea)::placeholder { color: color-mix(in oklab, var(--sc-ink-soft) 72%, transparent); }
+.field :is(input, select, textarea):hover { border-color: color-mix(in oklab, var(--sc-ink) 24%, transparent); }
+.field textarea { resize: vertical; min-height: 5.5rem; line-height: 1.5; font-family: inherit; }
 .field input[aria-invalid="true"] { border-color: #FF8A6B; }
 .field__read {
   margin: 0; align-self: center;

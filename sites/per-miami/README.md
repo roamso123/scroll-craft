@@ -54,9 +54,16 @@ browser, then `POST /api/bookings` with JSON:
   "where": "Fontainebleau, Miami Beach",
   "name": "...",
   "phone": "...",
-  "email": ""
+  "email": "",
+  "note": "Landing 6:10am, two car seats please"
 }
 ```
+
+`days` and `estimate` are derived, not typed: the dates own the day count, so a
+visitor who sets two days in the first step and then picks a four-day window is
+quoted for four. A return date that is not after the pick-up is refused with
+its own message, because the browser cannot know that rule. `email` and `note`
+are optional; everything else is required.
 
 **That endpoint does not exist yet.** Until it is wired up, the form is honest
 about it: the request is not reported as filed. The visitor gets the whole
