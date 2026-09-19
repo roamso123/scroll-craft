@@ -3,7 +3,7 @@
 **Status: partly interviewed.** Three questions were put to the owner and
 answered directly (structure, booking destination, register). The remaining
 five of the eight Step 0 topics are **authored decisions**, marked below, taken
-from what the owner supplied: the logo, the five rooftop photographs, the
+from what the owner supplied: the logo, ten photographs of the fleet, the
 colour direction, and their live site at `permiamiexoticrentals.com`, which is
 where every car, price, claim and phone number on this page comes from.
 
@@ -23,8 +23,8 @@ gradient on black, a museum object label, a valet key tag.
 own site order.* Their site is a fleet list with a price and a Book button per
 car, a phone number, three promises, and a contact form. That is a catalog, so
 the journey is a walk through the catalog: the car in front of you, then the
-room walking past you, then the rest of the fleet as a price list, then the
-flagship, then the ask.
+room walking past you, then the heavier end of the range further into the
+room, then the flagship, then the ask.
 
 **3 · The energy curve** — *authored.* Low and steady for the first two
 thirds. One spike at the Rolls-Royce. Down to quiet for the ask.
@@ -42,8 +42,10 @@ fleet collection." Objects in a room, each with a label and its own Reserve
 button, a jumpable index for navigation, a booking plate at the end.
 
 **8 · What assets exist** — **supplied:** the `PER` wordmark (a 674x362 raster
-on black) and five rooftop photographs at 560x508. No footage, no brand
-document, no type specimen. No image generation was used and no API key was
+on black) and ten photographs at 560x508: nine on the rooftop deck, one (the
+Escalade) against a dark building wall. Two cars in the fleet have no
+photograph yet, and the page says so rather than hiding them. No footage, no
+brand document, no type specimen. No image generation was used and no API key was
 needed: everything on the page is the owner's own photography.
 
 **Booking destination** — **owner answered:** "Stub a real endpoint." The
@@ -60,29 +62,34 @@ Written before the acts existed.
 ```
 1  Arrival     the rooftop at eye height, one car sitting there, its rate
                already stated, nothing asked of the visitor yet
-2  Appetite    the room walks past them: three cars, each labelled like an
+2  Appetite    the room walks past them: four cars, each labelled like an
                exhibit, each one gettable
-3  Restraint   the type goes small and factual, the rest of the fleet as a
-               price list, no photographs. The page stops performing
+3  Weight      the room opens out and the heavy end of the range arrives at a
+               different size and rhythm, then the type goes small: two cars
+               with no photograph yet, as plain labels
 4  Awe         the frame wipes open and the white Rolls-Royce is the whole
                screen at $1,999, the largest number on the page
 5  Resolve     the key tag they have been carrying lands in the form, the ask
                is one plate, and the page stops
 ```
 
-No two adjacent acts share a feeling. Act 3 is the authored silence: it is
-deliberately the quietest, smallest, least photographic thing on the page so
-that act 4 has something to be a change from. The verification pass should read
-its stillness as intent, not as dead scroll.
+No two adjacent acts share a feeling. Act 3 **ends** in the authored silence:
+it opens out into four large photographs, then closes on two plain label rows
+and a phone number, which is the quietest, smallest thing on the page and what
+act 4 has to be a change from. Act 2 walks laterally and act 3 opens
+vertically, so appetite and weight are different feelings rather than the same
+one twice. The verification pass should read that tail as intent, not as dead
+scroll.
 
 ## The peak
 
 > the price list went small and quiet, and then the whole screen wiped open
 > into the white Rolls and the tag in the corner flipped to $1,999
 
-Act 4. It gets the largest span on the page (3.6 against 2.0, 4.2, ~1.2 and
-~2.0), the only edge-to-edge wipe, the best of the five photographs, and the
-silence of act 3 in front of it.
+Act 4. It gets the largest single span on the page (3.3 against 1.9 and ~2.0,
+with the rail's 4.4 spent on four objects rather than one), the only
+edge-to-edge wipe, the best of the ten photographs, and the quiet tail of act
+3 in front of it.
 
 ## The tell-someone sentence
 
@@ -121,9 +128,9 @@ Why the other seven lost:
 - **Live surface** needs a product surface to operate. A rental fleet has none.
 - **Continuous world** requires worldflight and real camera footage. There is
   no footage, no image-generation key and no full ffmpeg on this machine, so it
-  could only be faked from five stills, which is the fragile build the skill
-  warns about.
-- **Typographic poster** would throw away five real photographs of the actual
+  could only be faked from stills, which is the fragile build the skill warns
+  about.
+- **Typographic poster** would throw away ten real photographs of the actual
   cars, which are the most persuasive thing the brand owns.
 - **Split stage** needs two sides. There is no comparison here.
 - **Rhythmic cutlist** bans `pin` and `dwell` and reads as nightlife energy.
@@ -147,7 +154,7 @@ deck      the parking deck, in front of the plate, overlapping it   0.9
 label     real markup at 1x, between the plate and the deck
 ```
 
-**A keyed cutout of the hero car was built and rejected.** The source is a
+**A keyed cutout of the hero car was built and rejected.** Every source is a
 560px phone frame, so the matte upscales soft and the inpainted plate behind it
 shows; `lab/macan-cutout-check.png` and `lab/macan-mask-check.png` are the
 evidence, and `node src/assets.mjs cutout` reproduces them. Keeping the car
@@ -177,16 +184,17 @@ the call button. Green never becomes a button; blue never becomes a price.
 
 | Act | Beat | Device | Why this one | Span |
 |---|---|---|---|---|
-| 1 | Object one, in the room | `parallax` (4 planes) + pointer lean | The hero has to be an object already in view with its label, and depth has to come from the scene around it | 2.0 |
-| 2 | The collection | `pan` + `tilt` | Lateral travel reads as breadth, which is the whole question a fleet answers | 4.2 |
-| 3 | The index | `flow` + `in` | Twelve real prices are information, not experience. Compress it and let it be the silence | ~1.2 |
-| 4 | The flagship | `reveal` (up, edge to edge) on a `pin` | A wipe is a change of state, and this is the one moment the page raises its voice | 3.6 |
+| 1 | Object one, in the room | `parallax` (4 planes) + pointer lean | The hero has to be an object already in view with its label, and depth has to come from the scene around it | 1.9 |
+| 2 | The collection | `pan` + `tilt` | Lateral travel reads as breadth, which is the whole question a fleet answers | 4.4 |
+| 3 | Further into the room | `flow` + `in`, asymmetric mosaic | Ten photographed cars will not fit one rail inside the length budget, and a second rail would be the same act twice. An asymmetric mosaic is a different size and rhythm, and its quiet tail is the silence | ~2.9 |
+| 4 | The flagship | `reveal` (up, edge to edge) on a `pin` | A wipe is a change of state, and this is the one moment the page raises its voice | 3.3 |
 | 5 | The ask | `flow`, static plate | A form inside a pinned stage is a keyboard trap. The close resolves by holding still | ~2.0 |
 
 Five device families (parallax, pan, flow/in, reveal, pointer). No family twice
 in a row. No `scrub` at all, so no clip weight and no frozen-clip class of
-failure. Total roughly 13 viewport-heights, clear of the 6-to-7 acts at
-13.6-13.8vh band.
+failure. Measured at **12.6 viewport-heights on desktop and 13.8 on a phone**,
+inside the 8-to-14 budget; the phone crop is 4:3 rather than the source's
+near-square, which is what keeps it there.
 
 ## Fleet and prices
 
@@ -195,19 +203,22 @@ cars carry two spec fields only (body, seats) because those are facts about the
 vehicle; no horsepower, no 0-60 and no counters, since trim-level numbers would
 be invented precision.
 
+Price order is the order of the page, low to high, with the flagship as the
+peak.
+
 | Car | Rate / day | On the page as |
 |---|---|---|
-| Porsche Macan | $199 | act 1, object one |
-| Audi S5 Sportback | $299 | act 2 |
-| Maserati Grecale | $299 | act 2 |
-| Cadillac Escalade ESV | $399 | act 2 |
-| Corvette C8 Z51 | $449 | act 3, index |
-| Mercedes G-Wagon | $699 | act 3, index |
-| Mercedes GLS 600 Maybach | $799 | act 3, index |
-| Audi R8 V10 Spyder | $849 | act 3, index |
-| McLaren GT | $1,049 | act 3, index |
-| Lamborghini Urus | $1,099 | act 3, index |
-| Bentley Continental GT Speed | $1,199 | act 3, index |
-| Rolls-Royce Cullinan | $1,999 | act 4, the peak |
+| Porsche Macan | $199 | act 1, object one, photographed |
+| Audi S5 Sportback | $299 | act 2, rail, photographed |
+| Maserati Grecale | $299 | act 2, rail, photographed |
+| Cadillac Escalade ESV | $399 | act 2, rail, photographed |
+| Corvette C8 Z51 | $449 | act 2, rail, photographed |
+| Mercedes G-Wagon | $699 | act 3, mosaic, photographed |
+| Mercedes GLS 600 Maybach | $799 | act 3, mosaic, photographed |
+| Audi R8 V10 Spyder | $849 | act 3, label only, no photograph yet |
+| McLaren GT | $1,049 | act 3, label only, no photograph yet |
+| Lamborghini Urus | $1,099 | act 3, mosaic, photographed |
+| Bentley Continental GT Speed | $1,199 | act 3, mosaic, photographed |
+| Rolls-Royce Cullinan | $1,999 | act 4, the peak, photographed |
 
 Phone: (305) 494-5165. One action label everywhere: **Reserve**.

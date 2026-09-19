@@ -21,7 +21,7 @@
   var acts = [
     { id: "act-macan", el: document.getElementById("macan") },
     { id: "act-collection", el: document.getElementById("collection") },
-    { id: "act-fleet", el: document.getElementById("fleet") },
+    { id: "act-room", el: document.getElementById("room") },
     { id: "act-cullinan", el: document.getElementById("cullinan") }
   ];
   var links = {};
@@ -68,6 +68,7 @@
     base: null,
     lastY: window.pageYOffset,
     lockUntil: 0,
+    hoverUntil: 0,
     busyUntil: 0
   };
 
@@ -106,36 +107,65 @@
   }
 
   /* what is in front of the reader right now */
-  var railObjects = Array.prototype.map.call(document.querySelectorAll(".rail > .object"), function (el) {
-    return { el: el, car: el.querySelector("[data-car]").getAttribute("data-car") };
-  });
+  function objectsIn(sel) {
+    return Array.prototype.map.call(document.querySelectorAll(sel), function (el) {
+      return { el: el, car: el.querySelector("[data-car]").getAttribute("data-car") };
+    });
+  }
+  var railObjects = objectsIn(".rail > .object");
+  var roomObjects = objectsIn(".room > .object");
+
+  function nearest(list, axis) {
+    var target = axis === "x" ? window.innerWidth * 0.5 : window.innerHeight * 0.45;
+    var best = null, bestD = Infinity;
+    list.forEach(function (o) {
+      var r = o.el.getBoundingClientRect();
+      var c = axis === "x" ? r.left + r.width / 2 : r.top + r.height / 2;
+      var d = Math.abs(c - target);
+      if (d < bestD) { bestD = d; best = o; }
+    });
+    return best;
+  }
 
   function stampFromScroll() {
-    var vh = window.innerHeight, mid = vh * 0.45;
+    // a pointer on an object owns the tag for a moment, so the scroll does not
+    // immediately overwrite what the reader just pointed at
+    if (Date.now() < state.hoverUntil) return;
+
+    var mid = window.innerHeight * 0.45;
     var hero = document.getElementById("macan").getBoundingClientRect();
     var rail = document.getElementById("collection").getBoundingClientRect();
+    var room = document.getElementById("room").getBoundingClientRect();
     var peak = document.getElementById("cullinan").getBoundingClientRect();
+    var pick;
 
     if (peak.top <= mid && peak.bottom > mid) { stamp("Rolls-Royce Cullinan"); return; }
+    // the mosaic travels vertically rather than laterally, and a phone has no
+    // hover at all, so without this the tag went stale for a whole act there
+    if (room.top <= mid && room.bottom > mid) {
+      pick = nearest(roomObjects, "y");
+      if (pick) stamp(pick.car);
+      return;
+    }
     if (rail.top <= mid && rail.bottom > mid) {
-      var cx = window.innerWidth * 0.5, best = null, bestD = Infinity;
-      railObjects.forEach(function (o) {
-        var r = o.el.getBoundingClientRect();
-        var d = Math.abs(r.left + r.width / 2 - cx);
-        if (d < bestD) { bestD = d; best = o; }
-      });
-      if (best) stamp(best.car);
+      pick = nearest(railObjects, "x");
+      if (pick) stamp(pick.car);
       return;
     }
     if (hero.top <= mid && hero.bottom > mid) { stamp("Porsche Macan"); return; }
-    // the index act and the plate leave the last stamp standing on purpose
+    // the plate leaves the last stamp standing on purpose
   }
 
   /* hovering or focusing a row in the index stamps it: the quiet act still
      answers to the reader being present */
-  Array.prototype.forEach.call(document.querySelectorAll(".fleet [data-car]"), function (a) {
+  Array.prototype.forEach.call(document.querySelectorAll(".fleet [data-car], .room [data-car]"), function (a) {
     var car = a.getAttribute("data-car");
-    if (fine) a.parentNode.addEventListener("mouseenter", function () { stamp(car); });
+    var zone = a.closest(".object") || a.parentNode;
+    if (fine) zone.addEventListener("mouseenter", function () {
+      stamp(car);
+      state.hoverUntil = Date.now() + 1500;
+      wake();
+    });
     a.addEventListener("focus", function () { stamp(car); });
   });
 

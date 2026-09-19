@@ -29,7 +29,7 @@
     <ol class="index__list">
       <li><a href="#macan" data-index-for="act-macan"><span class="index__n">Porsche Macan</span><span class="index__s">Macan</span><span class="index__r">199</span></a></li>
       <li><a href="#collection" data-index-for="act-collection"><span class="index__n">S5 · Grecale · Escalade</span><span class="index__s">Collection</span><span class="index__r">299</span></a></li>
-      <li><a href="#fleet" data-index-for="act-fleet"><span class="index__n">The rest of the fleet</span><span class="index__s">Fleet</span><span class="index__r">449</span></a></li>
+      <li><a href="#room" data-index-for="act-room"><span class="index__n">Further into the room</span><span class="index__s">The room</span><span class="index__r">699</span></a></li>
       <li><a href="#cullinan" data-index-for="act-cullinan"><span class="index__n">Rolls-Royce Cullinan</span><span class="index__s">Cullinan</span><span class="index__r">1,999</span></a></li>
     </ol>
   </nav>
@@ -45,7 +45,7 @@
   <!-- 1 · ARRIVAL · parallax. Object one is already in view and already
        labelled: the collection starts at the top of the page. Four planes,
        three of them keys or crops of the owner's own frame. -->
-  <section id="macan" class="act-hero" data-sc-act="pin" data-sc-span="2" data-sc-drift="#05070A" aria-labelledby="macan-h">
+  <section id="macan" class="act-hero" data-sc-act="pin" data-sc-span="1.9" data-sc-drift="#05070A" aria-labelledby="macan-h">
     <div data-sc-stage class="hero">
 
       <div class="hero__sky" aria-hidden="true"></div>
@@ -77,13 +77,13 @@
   <!-- 2 · APPETITE · pan. The rail is the spine of a gallery, not one act in a
        film. Heading and closing note ride inside it so the travel has the
        width it needs and the act resolves instead of ending. -->
-  <section id="collection" class="act-rail" data-sc-act="pan" data-sc-span="4.2" data-sc-drift="#070D12" aria-label="The collection, three more cars">
+  <section id="collection" class="act-rail" data-sc-act="pan" data-sc-span="4.4" data-sc-drift="#070D12" aria-label="The collection, three more cars">
     <div data-sc-stage class="rail-stage">
       <div class="rail" data-sc-pan="0.04">
 
         <div class="rail__lead">
           <h2 class="sc-display sc-display--md">The collection</h2>
-          <p class="rail__note">Five cars shot on the deck. Seven more in the index. Every rate is per day, published, and the same one you pay.</p>
+          <p class="rail__note">Ten cars shot on the deck. Every rate is per day, published, and the same one you pay.</p>
         </div>
 
         <article class="object" id="s5">
@@ -131,6 +131,21 @@
           </div>
         </article>
 
+        <article class="object" id="corvette">
+          <div class="object__shot" data-sc-tilt="6">
+            <img loading="lazy" src="assets/corvette.webp"
+                 srcset="assets/corvette-m.webp 780w, assets/corvette.webp 1400w"
+                 sizes="(max-width: 1040px) 80vw, 29vw" width="1400" height="1270"
+                 alt="A white Corvette C8 Z51 convertible with its roof down on the rooftop deck.">
+          </div>
+          <div class="object__label">
+            <h3 class="label__name">Corvette C8 Z51</h3>
+            <p class="label__spec">Convertible · 2 seats</p>
+            <p class="label__rate"><span class="rate">$449</span> <span class="rate__unit">per day</span></p>
+            <a class="button button--quiet" href="#reserve" data-car="Corvette C8 Z51">Reserve</a>
+          </div>
+        </article>
+
         <aside class="rail__end">
           <p class="rail__end-line">Delivered to a hotel, a house, a terminal or a dock. Say where on the form.</p>
           <a class="link" href="#reserve">Reserve any of them</a>
@@ -140,25 +155,80 @@
     </div>
   </section>
 
-  <!-- 3 · RESTRAINT · flow. Twelve real prices are information, not
-       experience, so it is compressed and quiet on purpose. This is the
-       authored silence in front of the peak. -->
-  <section id="fleet" class="act-fleet" data-sc-act="flow" data-sc-drift="#060A0E" aria-labelledby="fleet-h">
+  <!-- 3 · RESTRAINT · flow. The collection continues, at a different size and
+       rhythm from the rail so the page is not the same act twice, and it ends
+       small: two cars with no photograph yet, as plain labels. That quiet tail
+       is the authored silence in front of the peak. -->
+  <section id="room" class="act-room" data-sc-act="flow" data-sc-drift="#060A0E" aria-labelledby="room-h">
     <div class="sc-wrap">
-      <div class="fleet__head" data-sc-in>
-        <h2 class="sc-display sc-display--md" id="fleet-h">Also in the fleet</h2>
-        <p class="fleet__sub">No photographs on this page yet. The rates are current.</p>
+      <div class="room__head" data-sc-in>
+        <h2 class="sc-display sc-display--md" id="room-h">Further into the room</h2>
+        <p class="room__sub">Four more on the deck, at the heavier end of the range.</p>
       </div>
-      <ol class="fleet" data-sc-in data-sc-stagger="40">
-        <li><span class="fleet__name">Corvette C8 Z51</span><span class="fleet__rate rate">$449</span><a class="fleet__go" href="#reserve" data-car="Corvette C8 Z51">Reserve<span class="sr">Corvette C8 Z51</span></a></li>
-        <li><span class="fleet__name">Mercedes G-Wagon</span><span class="fleet__rate rate">$699</span><a class="fleet__go" href="#reserve" data-car="Mercedes G-Wagon">Reserve<span class="sr">Mercedes G-Wagon</span></a></li>
-        <li><span class="fleet__name">Mercedes GLS 600 Maybach</span><span class="fleet__rate rate">$799</span><a class="fleet__go" href="#reserve" data-car="Mercedes GLS 600 Maybach">Reserve<span class="sr">Mercedes GLS 600 Maybach</span></a></li>
-        <li><span class="fleet__name">Audi R8 V10 Spyder</span><span class="fleet__rate rate">$849</span><a class="fleet__go" href="#reserve" data-car="Audi R8 V10 Spyder">Reserve<span class="sr">Audi R8 V10 Spyder</span></a></li>
-        <li><span class="fleet__name">McLaren GT</span><span class="fleet__rate rate">$1,049</span><a class="fleet__go" href="#reserve" data-car="McLaren GT">Reserve<span class="sr">McLaren GT</span></a></li>
-        <li><span class="fleet__name">Lamborghini Urus</span><span class="fleet__rate rate">$1,099</span><a class="fleet__go" href="#reserve" data-car="Lamborghini Urus">Reserve<span class="sr">Lamborghini Urus</span></a></li>
-        <li><span class="fleet__name">Bentley Continental GT Speed</span><span class="fleet__rate rate">$1,199</span><a class="fleet__go" href="#reserve" data-car="Bentley Continental GT Speed">Reserve<span class="sr">Bentley Continental GT Speed</span></a></li>
-      </ol>
-      <p class="fleet__foot" data-sc-in>Multi-day rates are quoted on the phone. <a class="link" href="tel:+13054945165">(305) 494-5165</a></p>
+
+      <div class="room">
+        <article class="object object--wide" id="gwagon">
+          <div class="object__shot">
+            <img loading="lazy" src="assets/gwagon.webp"
+                 srcset="assets/gwagon-m.webp 780w, assets/gwagon.webp 1400w"
+                 sizes="(max-width: 1040px) 86vw, 46vw" width="1400" height="1270" alt="A matte black Mercedes G-Wagon on the rooftop deck under a clear sky.">
+          </div>
+          <div class="object__label">
+            <h3 class="label__name">Mercedes G-Wagon</h3>
+            <p class="label__spec">Full-size SUV · 5 seats</p>
+            <p class="label__rate"><span class="rate">$699</span> <span class="rate__unit">per day</span></p>
+            <a class="button button--quiet" href="#reserve" data-car="Mercedes G-Wagon">Reserve</a>
+          </div>
+        </article>
+        <article class="object object--tall" id="maybach">
+          <div class="object__shot">
+            <img loading="lazy" src="assets/maybach.webp"
+                 srcset="assets/maybach-m.webp 780w, assets/maybach.webp 1400w"
+                 sizes="(max-width: 1040px) 86vw, 32vw" width="1400" height="1270" alt="A black Mercedes GLS 600 Maybach with chrome wheels on the rooftop deck.">
+          </div>
+          <div class="object__label">
+            <h3 class="label__name">Mercedes GLS 600 Maybach</h3>
+            <p class="label__spec">Full-size SUV · 7 seats</p>
+            <p class="label__rate"><span class="rate">$799</span> <span class="rate__unit">per day</span></p>
+            <a class="button button--quiet" href="#reserve" data-car="Mercedes GLS 600 Maybach">Reserve</a>
+          </div>
+        </article>
+        <article class="object object--tall" id="urus">
+          <div class="object__shot">
+            <img loading="lazy" src="assets/urus.webp"
+                 srcset="assets/urus-m.webp 780w, assets/urus.webp 1400w"
+                 sizes="(max-width: 1040px) 86vw, 32vw" width="1400" height="1270" alt="A black Lamborghini Urus on the rooftop deck under heavy cloud.">
+          </div>
+          <div class="object__label">
+            <h3 class="label__name">Lamborghini Urus</h3>
+            <p class="label__spec">Performance SUV · 5 seats</p>
+            <p class="label__rate"><span class="rate">$1,099</span> <span class="rate__unit">per day</span></p>
+            <a class="button button--quiet" href="#reserve" data-car="Lamborghini Urus">Reserve</a>
+          </div>
+        </article>
+        <article class="object object--wide" id="bentley">
+          <div class="object__shot">
+            <img loading="lazy" src="assets/bentley.webp"
+                 srcset="assets/bentley-m.webp 780w, assets/bentley.webp 1400w"
+                 sizes="(max-width: 1040px) 86vw, 46vw" width="1400" height="1270" alt="A grey Bentley Continental GT Speed on the rooftop deck.">
+          </div>
+          <div class="object__label">
+            <h3 class="label__name">Bentley Continental GT Speed</h3>
+            <p class="label__spec">Grand tourer · 4 seats</p>
+            <p class="label__rate"><span class="rate">$1,199</span> <span class="rate__unit">per day</span></p>
+            <a class="button button--quiet" href="#reserve" data-car="Bentley Continental GT Speed">Reserve</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="unshot">
+        <p class="label__kind" data-sc-in>Two more, photographs not shot yet</p>
+        <ol class="fleet" data-sc-in data-sc-stagger="40">
+          <li><span class="fleet__name">Audi R8 V10 Spyder</span><span class="fleet__rate rate">$849</span><a class="fleet__go" href="#reserve" data-car="Audi R8 V10 Spyder">Reserve<span class="sr">Audi R8 V10 Spyder</span></a></li>
+          <li><span class="fleet__name">McLaren GT</span><span class="fleet__rate rate">$1,049</span><a class="fleet__go" href="#reserve" data-car="McLaren GT">Reserve<span class="sr">McLaren GT</span></a></li>
+        </ol>
+        <p class="room__foot" data-sc-in>Multi-day rates are quoted on the phone. <a class="link" href="tel:+13054945165">(305) 494-5165</a></p>
+      </div>
     </div>
   </section>
 
@@ -166,7 +236,7 @@
        thing this page does loudly. Largest span, the best frame, and the
        silence of act 3 in front of it. Ground first, so the stage is never
        empty while it slides in. -->
-  <section id="cullinan" class="act-peak" data-sc-act="pin" data-sc-span="3.6" data-sc-drift="#04070A" aria-labelledby="cullinan-h">
+  <section id="cullinan" class="act-peak" data-sc-act="pin" data-sc-span="3.3" data-sc-drift="#04070A" aria-labelledby="cullinan-h">
     <div data-sc-stage class="peak">
       <div class="peak__ground" aria-hidden="true">
         <div class="peak__empty"></div>

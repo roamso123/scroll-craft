@@ -62,6 +62,11 @@ const CARS = [
   { id: "s5", file: "91ba7fe9-image.jpg" },
   { id: "grecale", file: "14fbb03d-image.jpg" },
   { id: "escalade", file: "550c8d67-image.png" },
+  { id: "corvette", file: "e8bf20ba-image.png" },
+  { id: "gwagon", file: "5f1d1833-image.png" },
+  { id: "maybach", file: "4b7bef8a-image.jpg" },
+  { id: "urus", file: "18244158-image.png" },
+  { id: "bentley", file: "697f19ec-image.png" },
   { id: "cullinan", file: "568751c0-image.png" },
 ];
 

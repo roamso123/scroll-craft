@@ -340,7 +340,7 @@ body { overflow-x: clip; }
 .rail__end { width: min(19rem, 68vw); }
 .rail__end-line { margin: 0 0 var(--sc-4); color: var(--sc-ink-soft); font-size: var(--sc-t-sm); max-width: 26ch; }
 
-.object { width: clamp(16.5rem, 29vw, 40rem); }
+.rail > .object { width: clamp(16.5rem, 29vw, 40rem); }
 .object__shot {
   aspect-ratio: 1400 / 1270;
   overflow: clip;
@@ -381,12 +381,33 @@ body { overflow-x: clip; }
   .rail > .object:nth-of-type(3) { --per-d: 0.28; }
 }
 
-/* ------------------------------------------------------------ 3 · fleet --
-   The quiet act. Small type, real prices, no photographs. */
-.act-fleet { padding-block: clamp(3rem, 7vh, 6rem) clamp(2.5rem, 6vh, 4.5rem); }
-.act-fleet .sc-wrap { padding-left: max(var(--sc-gutter), calc(var(--per-chrome-w) + var(--sc-gutter))); }
-.fleet__head { display: grid; gap: 0.6rem; margin-bottom: var(--sc-7); }
-.fleet__sub { margin: 0; color: var(--sc-ink-soft); font-size: var(--sc-t-sm); }
+/* ------------------------------------------------------------- 3 · room --
+   The collection continues at a different size and rhythm: an asymmetric
+   mosaic, never four equal tiles, then a quiet tail of two plain labels.
+   Same label schema as every other object, which is what makes this a
+   collection rather than a grid. */
+.act-room { padding-block: clamp(3rem, 7vh, 5.5rem) clamp(2.5rem, 6vh, 4.5rem); }
+.act-room .sc-wrap { padding-left: max(var(--sc-gutter), calc(var(--per-chrome-w) + var(--sc-gutter))); }
+.room__head { display: grid; gap: 0.6rem; margin-bottom: var(--sc-7); }
+.room__sub { margin: 0; color: var(--sc-ink-soft); font-size: var(--sc-t-sm); }
+
+.room {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(1.5rem, 3vw, 3rem) clamp(1.25rem, 2.4vw, 2.25rem);
+  align-items: start;
+}
+.room > .object:nth-of-type(1) { grid-column: 1 / span 7; }
+.room > .object:nth-of-type(2) { grid-column: 8 / span 5; margin-top: clamp(2rem, 6vh, 5rem); }
+.room > .object:nth-of-type(3) { grid-column: 1 / span 5; }
+.room > .object:nth-of-type(4) { grid-column: 6 / span 7; margin-top: clamp(1rem, 3vh, 3rem); }
+/* the wide ones take a wider crop of the same frame, so the mosaic has two
+   real shapes in it rather than one shape at two scales */
+.room .object--wide .object__shot { aspect-ratio: 16 / 10; }
+.room .object__label { padding-top: var(--sc-4); }
+
+.unshot { margin-top: clamp(2.5rem, 7vh, 5rem); display: grid; gap: var(--sc-4); }
+.room__foot { margin: var(--sc-2) 0 0; color: var(--sc-ink-soft); font-size: var(--sc-t-sm); }
 .fleet { list-style: none; margin: 0; padding: 0; max-width: 46rem; }
 .fleet li {
   display: grid;
@@ -410,7 +431,6 @@ body { overflow-x: clip; }
   transition: border-color var(--sc-d-fast) var(--sc-ease-out);
 }
 @media (hover: hover) and (pointer: fine) { .fleet__go:hover { border-bottom-color: var(--sc-accent); } }
-.fleet__foot { margin: var(--sc-6) 0 0; color: var(--sc-ink-soft); font-size: var(--sc-t-sm); }
 
 /* ------------------------------------------------------------- 4 · peak --
    The object at the end of the room. An empty frame is already there while
@@ -738,8 +758,18 @@ body { overflow-x: clip; }
   .hero__floor { height: 22vh; }
 
   .rail { padding-inline: var(--sc-gutter); }
-  .act-fleet .sc-wrap { padding-left: var(--sc-gutter); }
-  .act-fleet { padding-top: clamp(4.5rem, 12vh, 7rem); }
+  .act-room .sc-wrap { padding-left: var(--sc-gutter); }
+  .act-room { padding-top: clamp(4.5rem, 12vh, 7rem); }
+  .room { grid-template-columns: 1fr; gap: clamp(2rem, 5vh, 3rem); }
+  .room > .object:nth-of-type(1),
+  .room > .object:nth-of-type(2),
+  .room > .object:nth-of-type(3),
+  .room > .object:nth-of-type(4) { grid-column: 1; margin-top: 0; }
+  /* A phone pays for every pixel of height. The sources are near-square, so a
+     4:3 crop of the same frame keeps the whole car and takes ~17% off each
+     photograph, which is most of a viewport-height across the page. */
+  .object__shot, .room .object--wide .object__shot { aspect-ratio: 4 / 3; }
+  .object__shot img { object-position: 50% 48%; }
 
   .peak { padding-top: clamp(5.5rem, 14vh, 8rem); padding-left: var(--sc-gutter); }
   .peak__empty { left: var(--sc-gutter); right: var(--sc-gutter); }
