@@ -1,7 +1,12 @@
 # SS Auto Sound — website
 
 Static, four-page marketing site for SS Auto Sound (1839 E Tremont Ave, Bronx, NY 10460).
-No build step, no dependencies: open `index.html` or drop the folder on any static host.
+
+Fully portable: no build step, no framework, no CDN and no network needed. Unzip it and
+double-click `index.html`, or drop the folder on any static host (Netlify, Vercel, GitHub
+Pages, cPanel, S3) exactly as it is. Every asset the pages use ships inside the folder,
+including the webfont; the only outbound links are the tap-to-call number and the Google
+Maps directions link, which are meant to leave the site.
 
 ```
 index.html      Landing page — hero, call-now / view-services CTAs, three disciplines,
@@ -12,6 +17,8 @@ contact.html    Phone, address, live hours state, request form
 assets/
   site.css      Design floor — tokens, layout, components, responsive, reduced-motion
   site.js       Sticky nav, mobile menu, scroll reveals, hero drift, today's hours
+  inter.css     @font-face declarations for the bundled webfont
+  fonts/        Inter variable font, latin subsets (SIL Open Font License 1.1)
   logo.svg      Horizontal lockup
   favicon.svg   Mark only
 ```
@@ -23,7 +30,8 @@ CTAs, the open/closed state, rules, list bullets, stars. Text is white through s
 Imagery is drawn, not photographed: the hero is a masked SVG sound field that fades to
 nothing at its edges, so there are no hard photo squares anywhere on the site.
 
-Type is Inter (Google Fonts, with a system fallback if it fails to load).
+Type is Inter, bundled in `assets/fonts/` as a variable woff2 so it renders the same
+offline as online; the stack falls back to the system UI font if the file is ever missing.
 
 ## Before going live
 
