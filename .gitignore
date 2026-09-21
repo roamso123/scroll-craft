@@ -26,3 +26,6 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Distribution archives. Regenerate from the site folder.
+sites/*.zip
