@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Book a repair &middot; L&amp;T Auto Repair</title>
+<meta name="description" content="Tell us about your car and pick a drop off day. The booking form takes about a minute.">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/archivo-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/outfit-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/book.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="bar" data-bar>
+  <div class="wrap bar__inner">
+    <a class="logo" href="index.html" aria-label="L&amp;T Auto Repair, home">
+      <svg class="logo__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <g fill="currentColor"><rect x="14" y="14" width="7" height="36"/><rect x="14" y="43" width="16" height="7"/></g><g fill="#B18CFF"><rect x="33" y="14" width="17" height="7"/><rect x="38" y="14" width="7" height="36"/></g>
+      </svg>
+      <span class="logo__text">
+        <span class="logo__name">L&amp;T</span>
+        <span class="logo__sub">Auto Repair</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <div class="nav__links">
+        <a class="nav__link" href="services.html">Services</a>
+        <a class="nav__link" href="book.html">Book</a>
+        <a class="nav__link" href="visit.html">Visit</a>
+      </div>
+      <div class="bar__cta">
+        <a class="btn btn--ghost" href="tel:+15852357320">
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6.6 3h3l1.5 4.5-2.1 1.5a12 12 0 0 0 6 6l1.5-2.1L21 14.4v3A2.6 2.6 0 0 1 18.2 20 15.6 15.6 0 0 1 4 5.8 2.6 2.6 0 0 1 6.6 3Z" stroke-linejoin="round"/></svg>
+          Call now
+        </a>
+        <a class="btn btn--primary" href="book.html">Book a repair</a>
+      </div>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Menu" data-burger><span></span></button>
+    </nav>
+  </div>
+  <div class="drawer" id="drawer" data-drawer>
+    <div class="wrap">
+      <a href="services.html">Services</a>
+      <a href="book.html">Book</a>
+      <a href="visit.html">Visit</a>
+      <div class="actions">
+        <a class="btn btn--ghost" href="tel:+15852357320">Call now</a>
+        <a class="btn btn--primary" href="book.html">Book a repair</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="book">
+    <div class="hero__glow hero__glow--a" aria-hidden="true"></div>
+    <div class="wrap book__inner">
+
+      <div class="book__aside">
+        <p class="eyebrow">Book a repair</p>
+        <h1 class="display display--md" style="margin-top: var(--s5)">Tell us about the car.</h1>
+        <p class="body" style="margin-top: var(--s5)">Five short questions. It takes about a minute, and it is the same thing we would ask you on the phone.</p>
+        <p class="body" style="margin-top: var(--s5); font-size: var(--t-sm)">Would rather just talk? Call <a href="tel:+15852357320" style="color: var(--accent); text-decoration: none">(585) 235-7320</a> during opening hours.</p>
+
+        <ol class="book__map" data-map>
+          <li data-map-step="1"><span class="book__map-dot"></span>What you need</li>
+          <li data-map-step="2"><span class="book__map-dot"></span>The car</li>
+          <li data-map-step="3"><span class="book__map-dot"></span>The symptom</li>
+          <li data-map-step="4"><span class="book__map-dot"></span>Drop off</li>
+          <li data-map-step="5"><span class="book__map-dot"></span>Your details</li>
+        </ol>
+      </div>
+
+      <div class="book__main">
+        <form class="book__form panel" id="booking" novalidate data-form>
+
+          <div class="book__progress" aria-hidden="true"><span data-progress-bar></span></div>
+          <p class="book__count">Step <span class="num" data-step-now>1</span> of <span class="num">5</span></p>
+
+          <!-- 1 -->
+          <fieldset class="step" data-step="1">
+            <legend class="step__legend">What does the car need?</legend>
+            <p class="step__hint">Pick as many as apply. If you are not sure, say so and we will work it out.</p>
+            <div class="chips" role="group" aria-describedby="err-service">
+              <label class="chip"><input type="checkbox" name="service" value="Diagnostics, warning light"><span>Warning light</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Brakes"><span>Brakes</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Engine"><span>Engine</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Transmission"><span>Transmission</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Suspension or steering"><span>Suspension or steering</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Tires or alignment"><span>Tires or alignment</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Heating or air conditioning"><span>Heating or air</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Electrical or battery"><span>Electrical or battery</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Exhaust"><span>Exhaust</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Oil and fluids"><span>Oil and fluids</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Pre purchase inspection"><span>Pre purchase inspection</span></label>
+              <label class="chip"><input type="checkbox" name="service" value="Not sure"><span>Not sure yet</span></label>
+            </div>
+            <p class="err" id="err-service" data-err="service" hidden>Pick at least one, or choose "Not sure yet".</p>
+          </fieldset>
+
+          <!-- 2 -->
+          <fieldset class="step" data-step="2" hidden>
+            <legend class="step__legend">Which car is it?</legend>
+            <p class="step__hint">Year, make and model are enough. The plate helps if you have been in before.</p>
+            <div class="grid-2">
+              <div class="field">
+                <label for="year">Year</label>
+                <input id="year" name="year" type="text" inputmode="numeric" autocomplete="off" placeholder="2014" required>
+                <p class="err" data-err="year" hidden>Enter a four digit year.</p>
+              </div>
+              <div class="field">
+                <label for="make">Make</label>
+                <input id="make" name="make" type="text" autocomplete="off" placeholder="Honda" required>
+                <p class="err" data-err="make" hidden>Tell us the make.</p>
+              </div>
+              <div class="field">
+                <label for="model">Model</label>
+                <input id="model" name="model" type="text" autocomplete="off" placeholder="Civic" required>
+                <p class="err" data-err="model" hidden>Tell us the model.</p>
+              </div>
+              <div class="field">
+                <label for="mileage">Mileage <span class="opt">optional</span></label>
+                <input id="mileage" name="mileage" type="text" inputmode="numeric" autocomplete="off" placeholder="118,000">
+              </div>
+              <div class="field field--full">
+                <label for="plate">Plate <span class="opt">optional</span></label>
+                <input id="plate" name="plate" type="text" autocomplete="off" placeholder="ABC 1234">
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- 3 -->
+          <fieldset class="step" data-step="3" hidden>
+            <legend class="step__legend">What is it doing?</legend>
+            <p class="step__hint">When a fault happens is usually more useful than what it sounds like. Cold start, highway speed, turning, braking.</p>
+            <div class="field">
+              <label for="symptom">Describe it in your own words</label>
+              <textarea id="symptom" name="symptom" rows="5" required placeholder="Grinding from the front right when I brake, worse when the car is cold."></textarea>
+              <p class="err" data-err="symptom" hidden>A sentence or two is plenty, but we need something to go on.</p>
+            </div>
+            <div class="field">
+              <span class="field__label">Anything else true right now?</span>
+              <div class="chips chips--sm">
+                <label class="chip"><input type="checkbox" name="flag" value="Dashboard light is on"><span>Dash light on</span></label>
+                <label class="chip"><input type="checkbox" name="flag" value="Making a noise"><span>Making a noise</span></label>
+                <label class="chip"><input type="checkbox" name="flag" value="Leaking fluid"><span>Leaking fluid</span></label>
+                <label class="chip"><input type="checkbox" name="flag" value="Overheating"><span>Overheating</span></label>
+                <label class="chip"><input type="checkbox" name="flag" value="Will not start"><span>Will not start</span></label>
+                <label class="chip"><input type="checkbox" name="flag" value="Not safe to drive"><span>Not safe to drive</span></label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- 4 -->
+          <fieldset class="step" data-step="4" hidden>
+            <legend class="step__legend">When can you drop it off?</legend>
+            <p class="step__hint">We are open Monday to Friday 8am to 5pm, and Saturday 8am to noon. This is a request, not a confirmed slot.</p>
+            <div class="grid-2">
+              <div class="field">
+                <label for="dropdate">Preferred day</label>
+                <input id="dropdate" name="dropdate" type="date" required>
+                <p class="err" data-err="dropdate" hidden>Pick a day we are open. We are closed Sundays.</p>
+              </div>
+              <div class="field">
+                <label for="droptime">Time of day</label>
+                <select id="droptime" name="droptime">
+                  <option value="First thing">First thing, at 8am</option>
+                  <option value="Morning" selected>Morning</option>
+                  <option value="Afternoon">Afternoon</option>
+                  <option value="Any time">Any time works</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <span class="field__label">Can you leave the car with us?</span>
+              <div class="radios">
+                <label class="chip"><input type="radio" name="leave" value="Yes, all day" checked><span>Yes, all day</span></label>
+                <label class="chip"><input type="radio" name="leave" value="Need it back same day"><span>Need it back same day</span></label>
+                <label class="chip"><input type="radio" name="leave" value="It has to be towed in"><span>It has to be towed in</span></label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- 5 -->
+          <fieldset class="step" data-step="5" hidden>
+            <legend class="step__legend">How do we reach you?</legend>
+            <p class="step__hint">We call before any work is authorised, so the number matters more than anything else on this form.</p>
+            <div class="grid-2">
+              <div class="field">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" autocomplete="name" required placeholder="First and last">
+                <p class="err" data-err="name" hidden>We need a name for the job sheet.</p>
+              </div>
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="(585) 555 0142">
+                <p class="err" data-err="phone" hidden>Enter a phone number with at least ten digits.</p>
+              </div>
+              <div class="field field--full">
+                <label for="email">Email <span class="opt">optional</span></label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+                <p class="err" data-err="email" hidden>That email does not look right.</p>
+              </div>
+            </div>
+            <div class="field">
+              <span class="field__label">Best way to reach you</span>
+              <div class="radios">
+                <label class="chip"><input type="radio" name="contact" value="Call" checked><span>Call</span></label>
+                <label class="chip"><input type="radio" name="contact" value="Text"><span>Text</span></label>
+                <label class="chip"><input type="radio" name="contact" value="Email"><span>Email</span></label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- review -->
+          <fieldset class="step" data-step="6" hidden>
+            <legend class="step__legend">Check it over.</legend>
+            <p class="step__hint">Change anything that is not right, then send it.</p>
+            <dl class="summary" data-summary></dl>
+          </fieldset>
+
+          <div class="book__nav">
+            <button class="btn btn--ghost" type="button" data-back hidden>Back</button>
+            <button class="btn btn--primary" type="button" data-next>Continue</button>
+            <button class="btn btn--primary" type="submit" data-send hidden>Send booking request</button>
+          </div>
+
+          <p class="book__note">This sends a request. We confirm the slot by phone before you drive over.</p>
+        </form>
+
+        <!-- confirmation -->
+        <div class="panel done" data-done hidden tabindex="-1">
+          <svg class="done__tick" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <circle cx="24" cy="24" r="22" stroke="#B18CFF" stroke-width="1.5"/>
+            <path d="M15 24.5 21.5 31 33 18" stroke="#B18CFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h2 class="display display--sm">Request received.</h2>
+          <p class="body">Your reference is <strong class="num" data-ref>LT-0000</strong>. We will call to confirm the slot during opening hours. If it is urgent, call us and quote that reference.</p>
+          <div class="actions" style="margin-top: var(--s6)">
+            <a class="btn btn--primary" href="tel:+15852357320">Call (585) 235-7320</a>
+            <a class="btn btn--ghost" href="index.html">Back to the shop</a>
+          </div>
+          <details class="done__payload">
+            <summary>What you sent</summary>
+            <pre data-payload></pre>
+          </details>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div class="foot__brand">
+        <a class="logo" href="index.html">
+          <svg class="logo__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+            <g fill="currentColor"><rect x="14" y="14" width="7" height="36"/><rect x="14" y="43" width="16" height="7"/></g><g fill="#B18CFF"><rect x="33" y="14" width="17" height="7"/><rect x="38" y="14" width="7" height="36"/></g>
+          </svg>
+          <span class="logo__text">
+            <span class="logo__name">L&amp;T</span>
+            <span class="logo__sub">Auto Repair</span>
+          </span>
+        </a>
+        <p class="body" style="margin-top: var(--s5); max-width: 32ch; font-size: var(--t-sm)">Independent auto repair on Chili Avenue, Rochester, New York.</p>
+      </div>
+      <div>
+        <h3>Pages</h3>
+        <ul>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="book.html">Book a repair</a></li>
+          <li><a href="visit.html">Visit</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="tel:+15852357320">(585) 235-7320</a></li>
+          <li><a href="https://maps.google.com/?q=475+Chili+Ave,+Rochester,+NY+14611" target="_blank" rel="noopener">475 Chili Ave<br>Rochester, NY 14611</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__base">
+      <span>&copy; <span data-year>2026</span> L&amp;T Auto Repair</span>
+      <span>Mon to Fri 8am to 5pm · Sat 8am to noon</span>
+    </div>
+  </div>
+</footer>
+
+<div class="callbar">
+  <a class="btn btn--ghost" href="tel:+15852357320">Call now</a>
+  <a class="btn btn--primary" href="book.html">Book a repair</a>
+</div>
+
+<script src="js/site.js" defer></script>
+<script src="js/book.js" defer></script>
+</body>
+</html>
