@@ -18,7 +18,8 @@ two typefaces are self-hosted in `assets/fonts/`.
 | `midtown.js` | The build sheet, the hero planes, the rail settle, the booking survey. |
 | `scrollcraft.js` / `.css` | The engine, copied verbatim. Never edited per project. |
 | `BRIEF.md` | The brief, the feeling curve, the peak, and the content rules. |
-| `assets/` | Stills, the logo, the self-hosted fonts. |
+| `assets/` | Stills, the mark, the self-hosted fonts. |
+| `build-logo/` | The vectoriser and the original raster the mark was traced from. |
 | `verify/` | The verification scripts. Their screenshots land in `verify/out/`. |
 
 ## Dropping in the remaining stills
@@ -46,6 +47,36 @@ Maybach front, rear and cabin, and the M5 rear.
 The Audi RS and A-Class cabin frames have no fleet entry yet. Add the vehicle to
 `FLEET` in `midtown.js`, add an `<article class="obj">` to the rail with a
 matching `data-car`, and both the index and the build sheet pick it up.
+
+## The mark
+
+The supplied logo was a soft screen grab on a black card, with silver rather
+than white ink. It is vectorised in `build-logo/vectorize.py`: two colour
+fields, upscaled, gaussian-smoothed and thresholded, then traced with potrace
+into an ink layer and an accent layer. The smoothing matters. Tracing the raw
+mask of a blurry source fits hundreds of tiny curves to its ragged edge, which
+looks wrong at size and is most of the file weight.
+
+| File | What it is |
+|---|---|
+| `assets/logo.svg` | The full stacked mark. Transparent, `#F4F4F6` and `#D13622`. |
+| `assets/mark.svg` | The arc and car glyph, for the bar lockup. |
+| `assets/favicon.svg` | The car knocked out of an accent tile. |
+| `assets/*-currentcolor.svg` | Ink left inheritable. Inline these; `<img>` cannot resolve `currentColor`. |
+| `assets/logo.png`, `mark.png`, `apple-touch-icon.png` | Transparent raster exports. |
+
+The glyph is the mark with its set text removed, dropped by connected component
+rather than cropped, so nothing is clipped. The shield's bottom chevron goes
+with it: the empty middle of the shield is most of the glyph's height, and at
+bar size that gap is all a reader gets.
+
+To rebuild after replacing `build-logo/source.png`:
+
+```
+pip install pillow numpy scipy && apt-get install potrace
+python3 build-logo/vectorize.py     # the SVGs
+node build-logo/raster.mjs          # the PNG exports, needs the local server
+```
 
 ## Adding or changing a vehicle
 
