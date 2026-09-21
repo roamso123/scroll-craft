@@ -4,7 +4,9 @@ A four-page marketing site for Quality Window Tinting, 6801 John F. Kennedy Blvd
 North Bergen, NJ 07047, (973) 687-6640.
 
 Static HTML, CSS and one vanilla JS file. No build step, no dependencies, no
-framework. Open `index.html` or serve the folder with any static host.
+framework, and no CDN. Open `index.html` straight off the disk or drop the
+folder on any static host. Everything but the map works with the network
+unplugged.
 
 ```
 index.html      landing page, shade simulator, call and book actions
@@ -14,13 +16,18 @@ contact.html    address, hours, map, directions
 css/site.css    all styling, tokens at the top
 js/site.js      nav, reveals, hero drift, simulator, survey
 assets/         logo, mark, favicon (SVG)
+assets/fonts.css   @font-face rules
+assets/fonts/      Archivo and Geist woff2, plus their licences
 ```
 
 ## Design
 
 Off-black grounds (`#07070A`, `#101017`, `#16161F`), one purple accent
 (`#8B5CF6` with `#C4B5FD` for lift), white ink. Archivo for display, Geist for
-text, both from Google Fonts with system fallbacks.
+text, both self-hosted in `assets/fonts/` with system fallbacks. They are
+variable fonts, so one file per family and subset covers every weight, 140KB
+for the lot. Both are SIL Open Font License 1.1 and the licences ship beside
+them.
 
 There are no photographs. The hero plane and the shade simulator are rendered in
 CSS, so nothing crops badly, nothing is a square thumbnail, and nothing waits on
@@ -65,13 +72,25 @@ comment at the spot.
 No prices, no heat-rejection percentages and no invented statistics appear
 anywhere, because none were supplied.
 
+## Portability
+
+The only thing on this site that reaches the network is the Google Maps embed
+on `contact.html`. It degrades to a dark panel with an "Open the route in
+Google Maps" link underneath, so an offline or blocked map costs the visitor
+nothing. Delete the `<iframe>` if you would rather not call Google at all.
+
+No analytics, no trackers, no third-party scripts, no cookies, and no local
+storage.
+
 ## Verified
 
 Chromium at 1440x900 and 390x844: all four pages, no console or page errors, no
-horizontal overflow. Simulator, mobile menu, survey (all four steps, validation,
+horizontal overflow, and the same again with every non-file request blocked,
+where the fonts still load from disk. Simulator, mobile menu, survey (all four steps, validation,
 summary, SMS and mail links, deep-link prefill) exercised in the browser. Text
 contrast measured on the composited render, lowest 6.3:1. Renders correctly with
 JavaScript disabled and with `prefers-reduced-motion: reduce`.
 
 Not verified: a real iOS or Android device, and the Google Maps embed on
-`contact.html`, which the build sandbox blocked from loading.
+`contact.html`, which the build sandbox blocked from loading. Its fallback
+link was verified.

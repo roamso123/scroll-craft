@@ -7,9 +7,7 @@
 <meta name="description" content="Quality Window Tinting, 6801 John F. Kennedy Blvd, North Bergen, NJ 07047. Call (973) 687-6640.">
 <meta name="theme-color" content="#07070A">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="css/site.css">
 <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -77,12 +75,19 @@
           </div>
         </div>
 
-        <div class="map reveal" data-delay="100">
+        <div class="reveal" data-delay="100">
+        <div class="map">
           <iframe
             title="Map showing Quality Window Tinting, 6801 John F. Kennedy Blvd, North Bergen, NJ"
             src="https://www.google.com/maps?q=6801+John+F+Kennedy+Blvd,+North+Bergen,+NJ+07047&output=embed"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <p class="sim__note">
+          Map not loading?
+          <a href="https://www.google.com/maps/dir/?api=1&amp;destination=6801+John+F+Kennedy+Blvd+North+Bergen+NJ+07047"
+             target="_blank" rel="noopener" style="color: var(--accent-lift)">Open the route in Google Maps.</a>
+        </p>
         </div>
       </div>
     </div>
