@@ -1,5 +1,10 @@
 /* Self hosted so the site does not depend on a third party, and so type
-   renders identically offline. Latin subsets only. */
+   renders identically offline. Latin subsets only.
+
+   No <link rel="preload"> for these: a crossorigin preload is fetched in CORS
+   mode, which a file:// origin rejects, and that would fill the console with
+   errors for anyone who opens index.html straight from the folder. The files
+   sit next to the stylesheet and load fine without the hint. */
 
 /* latin-ext */
 @font-face {

@@ -1,12 +1,23 @@
 # L&T Auto Repair
 
 A four page static site for L&T Auto Repair, 475 Chili Ave, Rochester, New York.
-No build step, no framework, no dependencies. Open `index.html` or serve the
-folder and it runs.
+
+## Opening it
+
+**Double click `index.html`.** That is the whole thing. Every page, the fonts,
+the logo and the booking form work with no internet connection, no install and
+no server. All four pages link to each other from the folder.
+
+If you would rather serve it, any static server works:
 
 ```bash
 python3 -m http.server 4510    # then visit http://127.0.0.1:4510
 ```
+
+To put it online, upload the contents of this folder to any host that serves
+static files (Netlify, Vercel, GitHub Pages, Cloudflare Pages, or plain FTP to
+a shared host). There is no build step, no framework and no dependency to
+install, so what is in this folder is exactly what goes on the server.
 
 ## Pages
 
@@ -33,7 +44,8 @@ whole site re-skins. Spacing is a 4px scale (`--s1` to `--s11`), type is a fluid
 ramp (`--t-xs` to `--t-4xl`).
 
 Fonts are self hosted in `fonts/` (Archivo for display, Outfit for text, latin
-subsets only, about 350KB). Nothing is fetched from a third party at runtime.
+subsets only, about 350KB). Nothing is fetched from a third party at runtime,
+which is what lets the folder work offline and from `file://`.
 
 Every text colour was measured against the ground it sits on. The lowest pair
 on the site is 4.57:1, above the 4.5:1 floor for body text.
@@ -120,5 +132,9 @@ on any page, the booking survey blocks on every invalid step and reaches its
 confirmation, reduced motion leaves nothing faded out, one `h1` per page with no
 heading level jumps, every form control labelled, every tab stop carries a
 visible focus ring, and no console errors.
+
+Also checked opened straight from the folder over `file://`: Archivo and Outfit
+both render, page to page links work, the booking survey runs end to end to its
+confirmation, and the console stays clean.
 
 Not checked: a real phone, and any browser other than Chromium.
