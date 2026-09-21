@@ -758,3 +758,47 @@ section { position: relative; }
 .shell .steps { max-width: none; padding-inline: 0; margin-inline: 0; }
 .split .step { grid-template-columns: 64px minmax(0, 1fr); row-gap: 8px; }
 .split .step h3, .split .step p:not(.step__num) { grid-column: 2; }
+
+/* ---------- storefront plate: full-bleed, edges dissolved, never a hard square ---------- */
+
+.plate {
+  position: relative;
+  margin: 0;
+  padding-block: clamp(16px, 3vw, 40px);
+}
+.plate__img {
+  width: 100%;
+  height: clamp(230px, 38vw, 500px);
+  object-fit: cover;
+  object-position: 50% 46%;
+  filter: saturate(0.8) contrast(1.05) brightness(0.9);
+  /* dissolve every edge: no square, no frame, just the street emerging from black */
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, #000 22%, #000 74%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, #000 22%, #000 74%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  mask-composite: intersect;
+}
+.plate::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(70% 80% at 50% 55%, rgba(225, 29, 46, 0.12), transparent 72%);
+  mix-blend-mode: screen;
+}
+.plate__cap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: clamp(14px, 2vw, 26px);
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.plate__cap span:first-child { display: inline-flex; align-items: center; gap: 10px; }
+.plate__cap span:first-child::before { content: ''; width: 22px; height: 1px; background: var(--red); }

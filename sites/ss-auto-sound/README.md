@@ -19,6 +19,7 @@ assets/
   site.js       Sticky nav, mobile menu, scroll reveals, hero drift, today's hours
   inter.css     @font-face declarations for the bundled webfont
   fonts/        Inter variable font, latin subsets (SIL Open Font License 1.1)
+  shop.jpg      Storefront photograph used on about.html
   logo.svg      Horizontal lockup
   favicon.svg   Mark only
 ```
@@ -27,8 +28,9 @@ assets/
 
 Backtones run black (`#050506`) to graphite; red (`#E11D2E`) is reserved for signals —
 CTAs, the open/closed state, rules, list bullets, stars. Text is white through slate.
-Imagery is drawn, not photographed: the hero is a masked SVG sound field that fades to
-nothing at its edges, so there are no hard photo squares anywhere on the site.
+Imagery stays sparse. The hero is a masked SVG sound field, and the one photograph, the
+storefront on `about.html`, runs full-bleed with all four edges dissolved into the page by
+a composite CSS mask. There is no framed, square photo anywhere on the site.
 
 Type is Inter, bundled in `assets/fonts/` as a variable woff2 so it renders the same
 offline as online; the stack falls back to the system UI font if the file is ever missing.
@@ -37,6 +39,9 @@ offline as online; the stack falls back to the system UI font if the file is eve
 
 - `contact.html` — the form posts to `mailto:info@ssautosound.com`. Swap in the real shop
   inbox, or point it at a form service (Formspree, Basin, Netlify Forms).
-- Add real install photography if wanted; use full-bleed or masked treatments only.
+- `assets/shop.jpg` is a street-level capture of the storefront. A photo shot on the shop's
+  own camera would be higher resolution and unambiguously the shop's to use; drop it in at
+  the same path and it inherits the same treatment.
+- Add more install photography if wanted, but keep it full-bleed or masked, never framed.
 - Structured data in `index.html` carries the rating (3.9) and review count (21) from the
   Google listing. Refresh those numbers when they move.
