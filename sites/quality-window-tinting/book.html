@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book an appointment | Quality Window Tinting</title>
+<meta name="description" content="Book a window tint install or repair in North Bergen, NJ. Four short questions, then send the details straight to the shop.">
+<meta name="theme-color" content="#07070A">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+<a class="btn btn--sm skip" href="#main">Skip to content</a>
+
+<header class="nav" data-nav data-open="false">
+  <div class="wrap nav__in">
+    <a class="nav__logo" href="index.html" aria-label="Quality Window Tinting, home">
+      <img src="assets/logo.svg" alt="Quality Window Tinting">
+    </a>
+    <button class="nav__toggle" data-nav-toggle type="button" aria-expanded="false" aria-label="Menu"><span></span></button>
+    <nav class="nav__links" aria-label="Primary">
+      <a class="nav__link" href="index.html">Home</a>
+      <a class="nav__link" href="services.html">Services</a>
+      <a class="nav__link" href="book.html" aria-current="page">Book</a>
+      <a class="nav__link" href="contact.html">Contact</a>
+      <a class="btn btn--sm" href="tel:+19736876640">Call (973) 687-6640</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="phead">
+    <div class="glow glow--a" aria-hidden="true"></div>
+    <div class="wrap phead__in">
+      <p class="eyebrow reveal">Booking</p>
+      <h1 class="reveal" data-delay="60">Four questions.</h1>
+      <p class="lede reveal" data-delay="140">
+        Answer these and we will have the film, the shade and the bay ready before you arrive.
+        In a hurry, call <a href="tel:+19736876640" style="color: var(--accent-lift)">(973) 687-6640</a> instead.
+      </p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap wrap--narrow">
+
+      <!-- No backend here. The survey composes the request and hands it to the
+           visitor's phone, mail client or clipboard. Point `action` at a real
+           endpoint (Formspree, Netlify Forms, your own handler) to collect them
+           server side instead. -->
+      <form class="form" data-survey novalidate>
+
+        <div class="progress" aria-hidden="true">
+          <span class="progress__seg" data-done="true"></span>
+          <span class="progress__seg"></span>
+          <span class="progress__seg"></span>
+          <span class="progress__seg"></span>
+        </div>
+
+        <div class="step" data-step data-active="true">
+          <div class="step__head">
+            <p class="step__count">Question 1 of 4</p>
+            <h2>What do you need done?</h2>
+          </div>
+          <fieldset class="fieldset">
+            <legend>Service</legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="service" value="automotive" required><span>Automotive tinting</span></label>
+              <label class="choice"><input type="radio" name="service" value="residential"><span>Home or office glass</span></label>
+              <label class="choice"><input type="radio" name="service" value="commercial"><span>Storefront or fleet</span></label>
+              <label class="choice"><input type="radio" name="service" value="repair"><span>Repair or removal</span></label>
+              <label class="choice"><input type="radio" name="service" value="unsure"><span>Not sure yet</span></label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="step" data-step>
+          <div class="step__head">
+            <p class="step__count">Question 2 of 4</p>
+            <h2>What are we working on?</h2>
+          </div>
+          <div class="field">
+            <label for="subject">Vehicle or property</label>
+            <input id="subject" name="subject" type="text" required placeholder="2019 Honda Accord, or a first-floor storefront on Bergenline">
+          </div>
+          <fieldset class="fieldset">
+            <legend>Shade you have in mind</legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="shade" value="50"><span>50% light</span></label>
+              <label class="choice"><input type="radio" name="shade" value="35"><span>35% common</span></label>
+              <label class="choice"><input type="radio" name="shade" value="20"><span>20% dark</span></label>
+              <label class="choice"><input type="radio" name="shade" value="5"><span>5% limo</span></label>
+              <label class="choice"><input type="radio" name="shade" value="advise" checked><span>Advise me</span></label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="step" data-step>
+          <div class="step__head">
+            <p class="step__count">Question 3 of 4</p>
+            <h2>When suits you?</h2>
+          </div>
+          <fieldset class="fieldset">
+            <legend>Timing</legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="timing" value="today" required><span>Today if possible</span></label>
+              <label class="choice"><input type="radio" name="timing" value="this-week"><span>This week</span></label>
+              <label class="choice"><input type="radio" name="timing" value="weekend"><span>A weekend</span></label>
+              <label class="choice"><input type="radio" name="timing" value="flexible"><span>Flexible</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="notes">Anything we should know</label>
+            <textarea id="notes" name="notes" placeholder="Existing film that needs stripping, a deadline, a question about the law."></textarea>
+          </div>
+        </div>
+
+        <div class="step" data-step>
+          <div class="step__head">
+            <p class="step__count">Question 4 of 4</p>
+            <h2>How do we reach you?</h2>
+          </div>
+          <div class="form__row">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" required autocomplete="name" placeholder="Your name">
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" required autocomplete="tel" placeholder="(201) 555 0123">
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">Email, optional</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+          </div>
+        </div>
+
+        <div class="form__nav" data-controls>
+          <button class="btn btn--ghost" type="button" data-back hidden>Back</button>
+          <button class="btn" type="button" data-next style="margin-left: auto">Continue</button>
+        </div>
+
+        <div data-review hidden class="stack">
+          <h2>Here is your request.</h2>
+          <p class="body-copy">
+            Send it to the shop whichever way suits you. We answer texts during opening hours and
+            confirm the slot before you drive over.
+          </p>
+          <dl class="summary" data-summary></dl>
+          <div class="btn-row">
+            <a class="btn" data-sms href="sms:+19736876640">Text it to the shop</a>
+            <a class="btn btn--ghost" href="tel:+19736876640">Call instead</a>
+            <a class="btn btn--ghost" data-mail href="mailto:">Email it</a>
+            <button class="btn btn--ghost" type="button" data-copy>Copy</button>
+          </div>
+          <p class="notice">
+            Nothing is stored on this page. The request only leaves your device when you send it.
+          </p>
+          <div class="btn-row">
+            <button class="btn btn--ghost btn--sm" type="button" data-edit>Edit answers</button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section class="band band--tight">
+    <div class="wrap wrap--narrow">
+      <div class="grid grid--3">
+        <div class="point reveal"><h3>Walk-ins</h3><p>Taken when a bay is free. A booking always comes first.</p></div>
+        <div class="point reveal" data-delay="80"><h3>How long</h3><p>Most cars are a couple of hours. Strips and refits take longer.</p></div>
+        <div class="point reveal" data-delay="160"><h3>Quotes</h3><p>Priced on the glass, not over the phone in the abstract. Call and describe it.</p></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div>
+        <img src="assets/logo.svg" alt="Quality Window Tinting">
+        <p style="max-width: 32ch">Window film for cars, homes and storefronts. North Bergen, New Jersey.</p>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <ul>
+          <li>6801 John F. Kennedy Blvd</li>
+          <li>North Bergen, NJ 07047</li>
+          <li><a href="https://www.google.com/maps/dir/?api=1&destination=6801+John+F+Kennedy+Blvd+North+Bergen+NJ+07047" target="_blank" rel="noopener">Get directions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+19736876640">(973) 687-6640</a></li>
+          <li>Closes 7:00 PM</li>
+          <li><a href="services.html">Services</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__bar">
+      <span>&copy; 2026 Quality Window Tinting</span>
+      <span>Tint applied to New Jersey regulations</span>
+    </div>
+  </div>
+</footer>
+
+<div class="callbar">
+  <a class="btn" href="tel:+19736876640">Call now</a>
+  <a class="btn btn--ghost" href="contact.html">Directions</a>
+</div>
+
+<script src="js/site.js"></script>
+</body>
+</html>

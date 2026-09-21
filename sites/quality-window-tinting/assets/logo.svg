@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" role="img" aria-label="Quality Window Tinting">
+  <defs>
+    <linearGradient id="pane2" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#EDE9FE" stop-opacity="0.95"/>
+      <stop offset="0.48" stop-color="#8B5CF6" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#2A1B4D" stop-opacity="0.95"/>
+    </linearGradient>
+    <clipPath id="clip2"><rect x="8" y="8" width="48" height="48" rx="15"/></clipPath>
+    <linearGradient id="sweep2" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="48" height="48" rx="15" fill="url(#pane2)"/>
+  <g clip-path="url(#clip2)">
+    <rect x="-10" y="26" width="90" height="5" fill="url(#sweep2)" transform="rotate(-38 32 32)"/>
+  </g>
+  <rect x="8.9" y="8.9" width="46.2" height="46.2" rx="14.1" fill="none" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1.2"/>
+  <path d="M40.5 46.5 L54 60" stroke="#8B5CF6" stroke-width="5" stroke-linecap="round"/>
+  <text x="76" y="30" font-family="Archivo, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" letter-spacing="0.5" fill="#F6F5F8">QUALITY</text>
+  <text x="76" y="51" font-family="Archivo, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" letter-spacing="4.2" fill="#9C97AA">WINDOW TINTING</text>
+</svg>
