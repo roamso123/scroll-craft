@@ -1,0 +1,1073 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Midtown Luxury Rentals · The floor</title>
+<meta name="description" content="Exotic and luxury vehicle hire from the Deer Park showroom. Self-drive, chauffeur, Sprinter and private jet. Delivery across NY, NJ, CT and PA.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230A0A0C'/><path d='M7 20h18' stroke='%23D13622' stroke-width='3'/></svg>">
+<link rel="preload" href="assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+/* ---------------------------------------------------------------------------
+   Tokens. Black floor, bone ink, one red. Red is signal only: it is never set
+   as small body text, because #D13622 on the canvas measures 4.01:1 and small
+   text needs 4.5. It carries buttons (white on red, 4.93:1), rules, the index
+   marker and the focus ring.
+   ------------------------------------------------------------------------ */
+:root {
+  --sc-canvas:      #0A0A0C;
+  --sc-surface:     #141418;
+  --sc-ink:         #F4F4F6;
+  --sc-ink-soft:    #9EA0A8;
+  --sc-accent:      #D13622;
+  --sc-accent-ink:  #FFFFFF;
+  --sc-font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --sc-font-text:    "Geist", ui-sans-serif, system-ui, sans-serif;
+
+  --mlr-sheet-h: 5.75rem;
+  --mlr-line:    rgba(244, 244, 246, 0.14);
+  --mlr-line-2:  rgba(244, 244, 246, 0.07);
+  --mlr-lift:    0 18px 44px -20px rgba(0, 0, 0, 0.9);
+}
+
+.vh {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+/* Label face: the museum-card voice this page speaks in. */
+.lbl {
+  font-family: var(--sc-font-text);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--sc-ink-soft);
+}
+.lbl--ink { color: var(--sc-ink); }
+
+body { background: var(--sc-canvas); padding-bottom: var(--mlr-sheet-h); }
+::selection { background: var(--sc-accent); color: var(--sc-accent-ink); }
+img { display: block; }
+
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--sc-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* --- buttons ------------------------------------------------------------ */
+.btn {
+  font-family: var(--sc-font-text);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.78em 1.35em;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 140ms var(--sc-ease-out),
+              color 140ms var(--sc-ease-out),
+              border-color 140ms var(--sc-ease-out),
+              transform 100ms var(--sc-ease-out);
+}
+.btn:active { transform: translateY(1px); }
+.btn--primary { background: var(--sc-accent); color: var(--sc-accent-ink); }
+.btn--ghost   { background: transparent; color: var(--sc-ink); border-color: var(--mlr-line); }
+.btn--quiet   { background: transparent; color: var(--sc-ink-soft); border-color: transparent; padding-inline: 0.4em; }
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover { background: #E24A35; }
+  .btn--ghost:hover   { border-color: var(--sc-ink); }
+  .btn--quiet:hover   { color: var(--sc-ink); }
+}
+.btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+
+/* --- chrome: the index bar ---------------------------------------------- */
+.bar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: var(--sc-z-chrome);
+  display: flex;
+  align-items: center;
+  gap: var(--sc-4);
+  padding: 0.85rem var(--sc-gutter) 1.6rem;
+  background: linear-gradient(to bottom,
+    rgba(10, 10, 12, 0.97) 0%,
+    rgba(10, 10, 12, 0.90) 48%,
+    rgba(10, 10, 12, 0.52) 74%,
+    rgba(10, 10, 12, 0) 100%);
+  backdrop-filter: blur(3px);
+}
+.bar__mark { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; margin-right: auto; }
+.bar__mark img { width: 2.5rem; height: 2.5rem; object-fit: contain; }
+.bar__mark span {
+  font-family: var(--sc-font-display);
+  font-variation-settings: "wdth" 118;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sc-ink);
+  line-height: 1.1;
+  max-width: 7.5em;
+}
+@media (max-width: 560px) { .bar__mark span { display: none; } }
+
+/* --- the index panel: navigation is a list of objects, and it jumps ----- */
+.index {
+  border: 0;
+  padding: 0;
+  margin: 0 0 0 auto;
+  width: min(28rem, 100vw);
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  background: var(--sc-surface);
+  color: var(--sc-ink);
+  border-left: 1px solid var(--mlr-line);
+}
+.index::backdrop { background: rgba(6, 6, 8, 0.72); }
+.index__in { height: 100%; overflow-y: auto; padding: var(--sc-6) var(--sc-6) var(--sc-8); }
+.index__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sc-4); margin-bottom: var(--sc-5); }
+.index__group { margin-top: var(--sc-6); }
+.index__group > .lbl { display: block; padding-bottom: 0.6rem; border-bottom: 1px solid var(--sc-accent); }
+.index a {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr auto;
+  gap: var(--sc-3);
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--mlr-line-2);
+  text-decoration: none;
+  color: var(--sc-ink);
+}
+.index a .n { font-variant-numeric: tabular-nums; color: var(--sc-ink-soft); font-size: 0.8rem; }
+.index a .t { font-family: var(--sc-font-display); font-variation-settings: "wdth" 112; font-weight: 600; font-size: 1.05rem; letter-spacing: -0.01em; }
+.index a .m { font-size: 0.75rem; color: var(--sc-ink-soft); font-variant-numeric: tabular-nums; }
+@media (hover: hover) and (pointer: fine) { .index a:hover .t { color: var(--sc-accent); } }
+
+/* --- act 1 · arrival ---------------------------------------------------- */
+.arrival { position: relative; min-height: 100svh; overflow: clip; isolation: isolate; }
+.arrival__planes { position: absolute; inset: 0; }
+.arrival__glow {
+  position: absolute;
+  left: 50%;
+  top: -14%;
+  width: 150%;
+  height: 58%;
+  translate: -50% 0;
+  background: radial-gradient(60% 100% at 50% 0%, rgba(214, 222, 236, 0.30), rgba(214, 222, 236, 0) 72%);
+  will-change: transform;
+}
+.arrival__car { position: absolute; inset: 0; will-change: transform; }
+.arrival__car img { width: 100%; height: 100%; object-fit: cover; object-position: 56% 64%; }
+.arrival__floor {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 46%;
+  background: linear-gradient(to top, var(--sc-canvas) 6%, rgba(10, 10, 12, 0.82) 34%, rgba(10, 10, 12, 0) 100%);
+  will-change: transform;
+}
+/* The foreground plane dips where the label sits so the object label and its
+   button stay clear of it for two to three times as long. */
+.arrival__fore {
+  position: absolute;
+  inset: auto 0 -6% 0;
+  height: 26%;
+  background: var(--sc-canvas);
+  clip-path: polygon(0 34%, 22% 46%, 52% 100%, 100% 58%, 100% 100%, 0 100%);
+}
+/* The copy column lands on the car's bright silver pillar, which measured
+   1.09:1 against bone type. This is a corner of density sized to that block,
+   not a band across the frame: it leaves the front of the car at full contrast.
+   It is a sibling of the copy, never a child, so hiding the copy to measure the
+   frame beneath does not hide the scrim with it. */
+.arrival__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(104deg,
+    rgba(8, 8, 10, 0.95) 0%,
+    rgba(8, 8, 10, 0.90) 24%,
+    rgba(8, 8, 10, 0.62) 42%,
+    rgba(8, 8, 10, 0) 64%);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 56%, transparent 90%);
+  mask-image: linear-gradient(to top, #000 0%, #000 56%, transparent 90%);
+}
+@media (max-width: 760px) { .arrival__scrim { display: none; } }
+
+.arrival__card {
+  position: absolute;
+  left: var(--sc-gutter);
+  bottom: calc(var(--mlr-sheet-h) + clamp(1.25rem, 4vh, 2.75rem));
+  max-width: min(30rem, calc(100vw - 2 * var(--sc-gutter)));
+  display: grid;
+  gap: 0.85rem;
+}
+.arrival__title { margin: 0; }
+.arrival__title .lbl { display: block; }
+.arrival h2 {
+  font-family: var(--sc-font-display);
+  font-variation-settings: "wdth" 116;
+  font-weight: 700;
+  font-size: clamp(2.6rem, 6.2vw, 5rem);
+  line-height: 0.94;
+  letter-spacing: var(--sc-track-tight);
+  margin: 0;
+  text-wrap: balance;
+}
+.arrival h2 em {
+  font-style: normal; display: block;
+  font-family: var(--sc-font-text);
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--sc-ink-soft);
+  margin-top: 0.9em;
+}
+@media (max-width: 700px) { .arrival h2 { font-size: var(--sc-t-2xl); } }
+
+/* --- shared: the spec list, one schema, every object -------------------- */
+.spec { display: flex; flex-wrap: wrap; gap: 0 1.35rem; margin: 0; }
+.spec > div { display: flex; align-items: baseline; gap: 0.4rem; padding: 0.3rem 0; }
+.spec dt { font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sc-ink-soft); }
+.spec dd { margin: 0; font-family: var(--sc-font-text); font-weight: 600; font-size: 0.95rem; font-variant-numeric: tabular-nums; color: var(--sc-ink); }
+.rate {
+  font-size: 0.6875rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--sc-ink-soft); margin: 0;
+  padding-top: 0.5rem; border-top: 1px solid var(--mlr-line-2);
+}
+
+/* --- act 2 · the collection (pan rail) ---------------------------------- */
+.rail { height: 100%; display: flex; align-items: center; gap: clamp(1.25rem, 2.4vw, 2.5rem); padding-inline: var(--sc-gutter); will-change: transform; }
+.rail__lead, .rail__tail { flex: 0 0 auto; width: clamp(15rem, 22vw, 20rem); display: grid; gap: var(--sc-3); }
+.rail__lead h2, .rail__tail h2 {
+  font-family: var(--sc-font-display);
+  font-variation-settings: "wdth" 116;
+  font-weight: 700;
+  font-size: var(--sc-t-2xl);
+  line-height: 0.98;
+  letter-spacing: var(--sc-track-tight);
+  margin: 0;
+}
+.rail__lead p, .rail__tail p { color: var(--sc-ink-soft); font-size: 0.95rem; line-height: 1.55; margin: 0; max-width: 30ch; }
+
+.obj { flex: 0 0 auto; width: clamp(18rem, 29vw, 26rem); display: grid; gap: 0.85rem; }
+.obj__frame {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--sc-surface);
+  border: 1px solid var(--mlr-line-2);
+  overflow: hidden;
+  box-shadow: var(--mlr-lift);
+}
+.obj__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: var(--sc-edge);
+}
+.obj__frame img { width: 100%; height: 100%; object-fit: cover; }
+.obj__n {
+  position: absolute; left: 0; top: 0;
+  padding: 0.4rem 0.6rem;
+  background: var(--sc-accent); color: var(--sc-accent-ink);
+  font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; font-variant-numeric: tabular-nums;
+}
+.obj h3 {
+  font-family: var(--sc-font-display);
+  font-variation-settings: "wdth" 114;
+  font-weight: 700;
+  font-size: 1.45rem;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.obj h3 em { font-style: normal; display: block; font-size: 0.62em; font-weight: 500; color: var(--sc-ink-soft); letter-spacing: 0.05em; margin-top: 0.3em; }
+.obj .btn { justify-self: start; }
+
+/* Staggered settle: items arrive in sequence rather than sliding as a sheet.
+   The first item is exempt so the act opens with content already present. */
+@media (prefers-reduced-motion: no-preference) {
+  .rail > *:not(:first-child) {
+    opacity: calc(0.55 + 0.45 * var(--seat, 1));
+    transform: translate3d(0, calc((1 - var(--seat, 1)) * 18px), 0);
+    transition: none;
+  }
+}
+
+/* --- act 3 · inside ----------------------------------------------------- */
+.inside { padding-block: calc(var(--sc-section) * 0.55) var(--sc-section); }
+.inside__grid {
+  display: grid;
+  gap: clamp(0.5rem, 1.2vw, 1rem);
+  grid-template-columns: repeat(6, 1fr);
+}
+.inside__grid > figure { margin: 0; position: relative; overflow: hidden; background: var(--sc-surface); border: 1px solid var(--mlr-line-2); }
+.inside__grid > figure img { width: 100%; height: 100%; object-fit: cover; }
+.inside__grid > figure figcaption {
+  position: absolute; left: 0; bottom: 0;
+  padding: 0.5rem 0.75rem;
+  background: rgba(10, 10, 12, 0.78);
+  font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sc-ink);
+}
+.inside__grid > .f-hero { grid-column: span 6; aspect-ratio: 21 / 9; }
+.inside__grid > .f-sm   { grid-column: span 2; aspect-ratio: 16 / 10; }
+@media (max-width: 760px) {
+  .inside__grid { grid-template-columns: repeat(2, 1fr); }
+  .inside__grid > .f-hero { grid-column: span 2; aspect-ratio: 16 / 10; }
+  .inside__grid > .f-sm { grid-column: span 1; }
+}
+.inside__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--sc-4); margin-bottom: var(--sc-5); }
+.inside h2, .reach h2, .ways h2, .plate h2 {
+  font-family: var(--sc-font-display);
+  font-variation-settings: "wdth" 116;
+  font-weight: 700;
+  font-size: var(--sc-t-2xl);
+  line-height: 0.98;
+  letter-spacing: var(--sc-track-tight);
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* --- act 4 · four ways: labelled rows, not cards ------------------------ */
+.ways { padding-block: calc(var(--sc-section) * 0.7); }
+.way {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 15rem) minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--sc-4);
+  padding: clamp(1.4rem, 3vw, 2.4rem) 0;
+  border-top: 1px solid var(--mlr-line-2);
+}
+.way:first-of-type { border-top: 1px solid var(--sc-accent); }
+.way:last-of-type { border-bottom: 1px solid var(--mlr-line-2); }
+.way__n { font-size: 0.6875rem; letter-spacing: 0.14em; color: var(--sc-ink-soft); font-variant-numeric: tabular-nums; padding-top: 0.5rem; }
+.way h3 {
+  font-family: var(--sc-font-display);
+  font-variation-settings: "wdth" 118;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.way__fact { color: var(--sc-ink-soft); margin: 0.35rem 0 0; font-size: 0.975rem; line-height: 1.6; max-width: 46ch; }
+.way__side { display: grid; gap: 0.7rem; justify-items: start; }
+@media (max-width: 860px) {
+  .way { grid-template-columns: 2.6rem 1fr; }
+  .way__side { grid-column: 2; }
+  .way > .way__fact { grid-column: 2; }
+}
+
+/* --- act 5 · reach ------------------------------------------------------ */
+.reach { padding-block: calc(var(--sc-section) * 0.7); }
+.reach__grid { display: grid; gap: var(--sc-6) var(--sc-7); grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: start; }
+@media (max-width: 860px) { .reach__grid { grid-template-columns: 1fr; } }
+.reach__count { display: flex; align-items: baseline; gap: 0.5rem; margin: 0 0 0.4rem; }
+.reach__count b {
+  font-family: var(--sc-font-display);
+  font-variation-settings: "wdth" 120;
+  font-weight: 800;
+  font-size: clamp(3.4rem, 10vw, 6rem);
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.reach__count-label { font-size: 0.6875rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sc-ink-soft); }
+.facts { display: grid; gap: 0; margin: 0; }
+.facts > div { display: grid; grid-template-columns: 8.5rem 1fr; gap: var(--sc-3); padding: 0.9rem 0; border-bottom: 1px solid var(--mlr-line-2); }
+.facts dt { font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sc-ink-soft); padding-top: 0.15rem; }
+.facts dd { margin: 0; font-size: 1rem; line-height: 1.5; }
+.facts a { color: var(--sc-ink); text-decoration-color: var(--sc-accent); text-underline-offset: 0.25em; text-decoration-thickness: 2px; }
+.states { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+.states li {
+  border: 1px solid var(--mlr-line);
+  padding: 0.35rem 0.7rem;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+}
+
+/* --- act 6 · the inquiry plate ------------------------------------------ */
+.plate { padding-block: calc(var(--sc-section) * 0.7) var(--sc-6); display: grid; align-content: center; }
+.plate__card {
+  border: 1px solid var(--mlr-line);
+  border-top: 3px solid var(--sc-accent);
+  background: var(--sc-surface);
+  padding: clamp(1.75rem, 4.5vw, 3.5rem);
+  display: grid;
+  gap: var(--sc-4);
+  box-shadow: var(--mlr-lift);
+}
+.plate__row { display: flex; flex-wrap: wrap; gap: var(--sc-3); align-items: center; }
+.foot {
+  display: flex; flex-wrap: wrap; gap: var(--sc-3) var(--sc-5);
+  align-items: center; justify-content: space-between;
+  margin-top: var(--sc-6); padding-top: var(--sc-4);
+  border-top: 1px solid var(--mlr-line-2);
+  font-size: 0.8125rem; color: var(--sc-ink-soft);
+}
+.foot a { color: var(--sc-ink-soft); }
+.note { font-size: 0.8125rem; line-height: 1.6; color: var(--sc-ink-soft); max-width: 68ch; }
+
+/* ---------------------------------------------------------------------------
+   SIGNATURE MOVE · the travelling build sheet.
+   A fixed showroom window card at the bottom edge that continuously re-reads
+   itself as objects pass the centre of the frame. Its figures interpolate
+   between the two nearest objects rather than switching, so horsepower sweeps
+   from one car's number to the next one's under the reader's hand. The button
+   on it is loaded with whichever object currently owns the frame, which makes
+   the sheet the booking control rather than a caption.
+   ------------------------------------------------------------------------ */
+.sheet {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: var(--sc-z-chrome);
+  min-height: var(--mlr-sheet-h);
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--sc-4);
+  padding: 0.7rem var(--sc-gutter);
+  background: rgba(14, 14, 17, 0.94);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--mlr-line);
+  box-shadow: 0 -18px 40px -26px rgba(0, 0, 0, 1);
+}
+.sheet::before {
+  content: "";
+  position: absolute; left: 0; top: -1px; height: 2px;
+  width: var(--sheet-progress, 0%);
+  background: var(--sc-accent);
+}
+.sheet p { margin: 0; }
+.sheet__id { display: grid; gap: 0.2rem; min-width: 0; }
+.sheet__id .lbl { font-size: 0.625rem; }
+.sheet__name {
+  font-family: var(--sc-font-display);
+  font-variation-settings: "wdth" 114;
+  font-weight: 700;
+  font-size: 1.0625rem;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  transition: opacity 160ms var(--sc-ease-out);
+}
+.sheet__figs { display: flex; gap: clamp(1rem, 3.2vw, 2.75rem); min-width: 0; }
+.sheet__fig { display: grid; gap: 0.15rem; }
+.sheet__fig b {
+  font-family: var(--sc-font-display);
+  font-variation-settings: "wdth" 112;
+  font-weight: 700;
+  font-size: clamp(1.05rem, 2.1vw, 1.5rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+.sheet__fig b i { font-style: normal; font-size: 0.6em; color: var(--sc-ink-soft); margin-left: 0.15em; }
+.sheet__fig span { font-size: 0.5625rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sc-ink-soft); }
+.sheet__cta { display: flex; align-items: center; gap: var(--sc-3); }
+.sheet__rate { font-size: 0.625rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sc-ink-soft); }
+@media (max-width: 980px) { .sheet__rate { display: none; } }
+@media (max-width: 860px) {
+  :root { --mlr-sheet-h: 5.5rem; }
+  .sheet { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; gap: 0.5rem var(--sc-3); align-content: center; }
+  .sheet__id { grid-column: 1; }
+  .sheet__cta { grid-column: 2; grid-row: 1 / span 2; }
+  .sheet__figs { grid-column: 1; gap: 1.1rem; }
+  .sheet__fig b { font-size: 1rem; }
+  .sheet .btn { padding: 0.7em 1em; font-size: 0.75rem; }
+}
+@media (max-width: 620px) {
+  .sheet__fig:nth-child(3), .sheet__fig:nth-child(4) { display: none; }
+  .sheet__name { font-size: 1rem; }
+}
+
+/* --- a still that has not landed yet ------------------------------------ */
+.is-pending { position: relative; }
+.is-pending img { opacity: 0; }
+.is-pending::after {
+  content: "Still pending · " attr(data-slot);
+  position: absolute; inset: 0;
+  display: grid; place-content: center; text-align: center;
+  padding: 1rem;
+  font-family: var(--sc-font-text);
+  font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--sc-ink-soft);
+  background:
+    repeating-linear-gradient(135deg, rgba(244,244,246,0.035) 0 10px, transparent 10px 20px),
+    var(--sc-surface);
+}
+
+/* ---------------------------------------------------------------------------
+   The booking survey.
+   ------------------------------------------------------------------------ */
+.book {
+  border: 0; padding: 0; margin: auto;
+  width: min(46rem, 100vw);
+  max-width: 100vw;
+  max-height: 100dvh;
+  background: var(--sc-surface);
+  color: var(--sc-ink);
+  border: 1px solid var(--mlr-line);
+}
+.book::backdrop { background: rgba(6, 6, 8, 0.8); }
+.book__in { max-height: 100dvh; overflow-y: auto; padding: var(--sc-5) clamp(1.25rem, 4vw, 2.75rem) var(--sc-7); }
+.book__head { display: flex; align-items: center; gap: var(--sc-4); justify-content: space-between; padding-bottom: var(--sc-4); }
+.book h2 {
+  font-family: var(--sc-font-display);
+  font-variation-settings: "wdth" 116;
+  font-weight: 700; font-size: clamp(1.5rem, 4vw, 2.1rem);
+  line-height: 1; letter-spacing: -0.02em; margin: 0;
+}
+.book__steps { display: flex; gap: 0.4rem; margin-bottom: var(--sc-5); }
+.book__steps i { flex: 1; height: 2px; background: var(--mlr-line); font-style: normal; }
+.book__steps i.on { background: var(--sc-accent); }
+.book__stepname { margin: 0 0 var(--sc-5); }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: var(--sc-4); }
+fieldset[hidden] { display: none; }
+.f { display: grid; gap: 0.45rem; }
+.f > label, .f > legend { font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sc-ink-soft); padding: 0; }
+.f2 { display: grid; gap: var(--sc-4); grid-template-columns: 1fr 1fr; }
+@media (max-width: 620px) { .f2 { grid-template-columns: 1fr; } }
+input[type="text"], input[type="tel"], input[type="email"], input[type="date"],
+input[type="time"], input[type="number"], select, textarea {
+  font-family: var(--sc-font-text);
+  font-size: 1rem;
+  color: var(--sc-ink);
+  background: var(--sc-canvas);
+  border: 1px solid var(--mlr-line);
+  border-radius: 2px;
+  padding: 0.7rem 0.75rem;
+  width: 100%;
+  min-height: 2.9rem;
+  transition: border-color 140ms var(--sc-ease-out);
+}
+textarea { min-height: 6rem; resize: vertical; line-height: 1.55; }
+input:focus, select:focus, textarea:focus { border-color: var(--sc-ink-soft); }
+input:user-invalid, select:user-invalid { border-color: var(--sc-accent); }
+select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--sc-ink-soft) 50%), linear-gradient(135deg, var(--sc-ink-soft) 50%, transparent 50%); background-position: right 1.05rem center, right 0.75rem center; background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; padding-right: 2.2rem; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chips label {
+  position: relative;
+  border: 1px solid var(--mlr-line);
+  padding: 0.65rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 140ms var(--sc-ease-out), background-color 140ms var(--sc-ease-out);
+}
+.chips input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.chips label:has(input:checked) { border-color: var(--sc-accent); background: rgba(209, 54, 34, 0.14); }
+.chips label:has(input:focus-visible) { outline: 2px solid var(--sc-accent); outline-offset: 3px; }
+
+.book__nav { display: flex; gap: var(--sc-3); align-items: center; justify-content: space-between; margin-top: var(--sc-6); padding-top: var(--sc-4); border-top: 1px solid var(--mlr-line-2); }
+.book__err { color: var(--sc-ink); background: rgba(209, 54, 34, 0.18); border-left: 3px solid var(--sc-accent); padding: 0.7rem 0.9rem; font-size: 0.875rem; margin: 0 0 var(--sc-4); }
+.book__err[hidden] { display: none; }
+
+.review { display: grid; gap: 0; margin: 0 0 var(--sc-5); }
+.review > div { display: grid; grid-template-columns: 9.5rem 1fr; gap: var(--sc-3); padding: 0.7rem 0; border-bottom: 1px solid var(--mlr-line-2); }
+.review dt { font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sc-ink-soft); padding-top: 0.15rem; }
+.review dd { margin: 0; font-size: 0.95rem; line-height: 1.5; }
+@media (max-width: 520px) { .review > div { grid-template-columns: 1fr; gap: 0.2rem; } }
+.sendrow { display: flex; flex-wrap: wrap; gap: var(--sc-3); }
+
+/* --- phone art direction ------------------------------------------------
+   A 16:10 studio plate cropped to a portrait viewport shows a door and a
+   wheel. On a phone the car gets its own 4:5 frame and the label sits under
+   it on the canvas, which is a different composition rather than a squeezed
+   one. The depth planes are a wide-screen effect and are dropped here. */
+@media (max-width: 760px) {
+  .arrival { min-height: 0; padding-bottom: var(--sc-5); }
+  .arrival__planes, .arrival__fore { display: none; }
+  .arrival__car { position: relative; inset: auto; aspect-ratio: 5 / 4; transform: none !important; }
+  .arrival__car img { object-position: 60% 64%; }
+  .arrival__floor {
+    height: 30%;
+    top: auto;
+    bottom: auto;
+    inset: auto 0 0 0;
+    transform: none !important;
+  }
+  .arrival__card {
+    position: relative; left: auto; bottom: auto; max-width: none;
+    padding-inline: var(--sc-gutter);
+    margin-top: calc(var(--sc-5) * -1);
+  }
+  .arrival h2 { font-size: var(--sc-t-2xl); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrival__glow, .arrival__car, .arrival__floor { transform: none !important; }
+}
+</style>
+</head>
+<body>
+
+<span data-sc-progress></span>
+<div class="sc-grain" aria-hidden="true"></div>
+
+<header class="bar">
+  <a class="bar__mark" href="#top">
+    <img src="assets/logo.png" width="64" height="64" alt="Midtown Luxury Rentals">
+    <span>Midtown Luxury Rentals</span>
+  </a>
+  <button class="btn btn--ghost" id="indexBtn" aria-haspopup="dialog">Index</button>
+  <button class="btn btn--primary" data-book="maybach-s580">Book now</button>
+</header>
+
+<!-- Navigation is an index of objects, and it jumps. -->
+<dialog class="index" id="indexPanel" aria-label="Index of the floor">
+  <div class="index__in">
+    <div class="index__head">
+      <p class="lbl lbl--ink">Index</p>
+      <button class="btn btn--quiet" data-close-index>Close</button>
+    </div>
+    <div class="index__group" id="indexCars">
+      <p class="lbl">Vehicles</p>
+    </div>
+    <div class="index__group">
+      <p class="lbl">Services</p>
+      <a href="#ways"><span class="n">A</span><span class="t">Self-drive</span><span class="m">24 hr min</span></a>
+      <a href="#ways"><span class="n">B</span><span class="t">Chauffeur</span><span class="m">Driver provided</span></a>
+      <a href="#ways"><span class="n">C</span><span class="t">Sprinter</span><span class="m">Group transport</span></a>
+      <a href="#ways"><span class="n">D</span><span class="t">Private jet</span><span class="m">Quoted per trip</span></a>
+    </div>
+    <div class="index__group">
+      <p class="lbl">The rest</p>
+      <a href="#reach"><span class="n">E</span><span class="t">Reach</span><span class="m">NY NJ CT PA</span></a>
+      <a href="#book"><span class="n">F</span><span class="t">Inquiry</span><span class="m">Rate on request</span></a>
+    </div>
+  </div>
+</dialog>
+
+<main id="top">
+
+  <!-- 1 · ARRIVAL. Object one, already in view, already labelled. Four planes
+       at different rates; the foreground is cut to dip where the label sits. -->
+  <section class="arrival" data-sc-act="flow" aria-labelledby="h-brand">
+    <div class="arrival__planes" aria-hidden="true">
+      <div class="arrival__glow" data-plane="-0.95"></div>
+    </div>
+    <div class="arrival__car" data-plane="-0.36" data-car="maybach-s580">
+      <img src="assets/maybach-s580-front.jpg" width="1400" height="875"
+           alt="A black and silver Mercedes-Maybach S 580 on a lit studio floor, three-quarter front view.">
+      <div class="arrival__floor" data-plane="0.26" aria-hidden="true"></div>
+    </div>
+    <div class="arrival__fore" aria-hidden="true"></div>
+    <div class="arrival__scrim" aria-hidden="true"></div>
+
+    <div class="arrival__card">
+      <hgroup class="arrival__title">
+        <h1 class="lbl lbl--ink" id="h-brand">Midtown Luxury Rentals</h1>
+        <h2>Maybach S 580 <em>Mercedes-Benz 4MATIC</em></h2>
+      </hgroup>
+      <dl class="spec">
+        <div><dt>HP</dt><dd>496</dd></div>
+        <div><dt>0&ndash;60</dt><dd>4.8 s</dd></div>
+        <div><dt>Seats</dt><dd>4</dd></div>
+        <div><dt>Drive</dt><dd>AWD</dd></div>
+      </dl>
+      <p class="rate">Self-drive or chauffeured</p>
+      <p><button class="btn btn--primary" data-book="maybach-s580">Book now</button></p>
+    </div>
+  </section>
+
+  <!-- 2 · THE COLLECTION. The peak. Lateral travel reads as breadth. -->
+  <section id="fleet" data-sc-act="pan" data-sc-span="5" aria-labelledby="h-fleet">
+    <div data-sc-stage>
+      <div class="rail" data-sc-pan="0.05">
+
+        <div class="rail__lead">
+          <p class="lbl">The floor</p>
+          <h2 id="h-fleet">Pick the one you want to be seen in.</h2>
+          <p>Every unit is self-drive or chauffeured. Figures are manufacturer specification for the model shown.</p>
+        </div>
+
+        <article class="obj" data-car="m5">
+          <div class="obj__frame" data-sc-tilt="5" data-slot="m5-front.jpg">
+            <img src="assets/m5-front.jpg" width="1400" height="875" alt="Dark grey BMW M5 Competition, three-quarter front view on a studio floor.">
+            <span class="obj__n">01</span>
+          </div>
+          <h3>M5 <em>BMW Competition</em></h3>
+          <dl class="spec">
+            <div><dt>HP</dt><dd>617</dd></div>
+            <div><dt>0&ndash;60</dt><dd>3.1 s</dd></div>
+            <div><dt>Seats</dt><dd>5</dd></div>
+          </dl>
+          <p class="rate">Rate on request</p>
+          <button class="btn btn--primary" data-book="m5">Book now</button>
+        </article>
+
+        <article class="obj" data-car="m4c">
+          <div class="obj__frame" data-sc-tilt="5" data-slot="m4-conv-front.jpg">
+            <img src="assets/m4-conv-front.jpg" width="1400" height="875" alt="White BMW M4 Competition Convertible with the roof down, three-quarter front view.">
+            <span class="obj__n">02</span>
+          </div>
+          <h3>M4 Convertible <em>BMW Competition xDrive</em></h3>
+          <dl class="spec">
+            <div><dt>HP</dt><dd>503</dd></div>
+            <div><dt>0&ndash;60</dt><dd>3.6 s</dd></div>
+            <div><dt>Seats</dt><dd>4</dd></div>
+          </dl>
+          <p class="rate">Rate on request</p>
+          <button class="btn btn--primary" data-book="m4c">Book now</button>
+        </article>
+
+        <article class="obj" data-car="g63">
+          <div class="obj__frame" data-sc-tilt="5" data-slot="g63-front.jpg">
+            <img src="assets/g63-front.jpg" width="1400" height="875" alt="White Mercedes-AMG G 63 on black wheels, three-quarter front view.">
+            <span class="obj__n">03</span>
+          </div>
+          <h3>G 63 <em>Mercedes-AMG</em></h3>
+          <dl class="spec">
+            <div><dt>HP</dt><dd>577</dd></div>
+            <div><dt>0&ndash;60</dt><dd>4.5 s</dd></div>
+            <div><dt>Seats</dt><dd>5</dd></div>
+          </dl>
+          <p class="rate">Rate on request</p>
+          <button class="btn btn--primary" data-book="g63">Book now</button>
+        </article>
+
+        <article class="obj" data-car="911">
+          <div class="obj__frame" data-sc-tilt="5" data-slot="911-front.jpg">
+            <img src="assets/911-front.jpg" width="1400" height="875" alt="Red Porsche 911 Carrera S, three-quarter front view on a studio floor.">
+            <span class="obj__n">04</span>
+          </div>
+          <h3>911 Carrera S <em>Porsche</em></h3>
+          <dl class="spec">
+            <div><dt>HP</dt><dd>443</dd></div>
+            <div><dt>0&ndash;60</dt><dd>3.5 s</dd></div>
+            <div><dt>Seats</dt><dd>4</dd></div>
+          </dl>
+          <p class="rate">Rate on request</p>
+          <button class="btn btn--primary" data-book="911">Book now</button>
+        </article>
+
+        <article class="obj" data-car="escalade">
+          <div class="obj__frame" data-sc-tilt="5" data-slot="escalade-front.jpg">
+            <img src="assets/escalade-front.jpg" width="1400" height="875" alt="Black Cadillac Escalade ESV, three-quarter front view on a studio floor.">
+            <span class="obj__n">05</span>
+          </div>
+          <h3>Escalade ESV <em>Cadillac Premium Luxury</em></h3>
+          <dl class="spec">
+            <div><dt>HP</dt><dd>420</dd></div>
+            <div><dt>Seats</dt><dd>7</dd></div>
+            <div><dt>Drive</dt><dd>4WD</dd></div>
+          </dl>
+          <p class="rate">Rate on request</p>
+          <button class="btn btn--primary" data-book="escalade">Book now</button>
+        </article>
+
+        <article class="obj" data-car="c63">
+          <div class="obj__frame" data-sc-tilt="5" data-slot="c63-front.jpg">
+            <img src="assets/c63-front.jpg" width="1400" height="875" alt="Grey Mercedes-AMG C 63 S, three-quarter front view on a studio floor.">
+            <span class="obj__n">06</span>
+          </div>
+          <h3>C 63 S <em>Mercedes-AMG</em></h3>
+          <dl class="spec">
+            <div><dt>HP</dt><dd>503</dd></div>
+            <div><dt>0&ndash;60</dt><dd>3.9 s</dd></div>
+            <div><dt>Seats</dt><dd>5</dd></div>
+          </dl>
+          <p class="rate">Rate on request</p>
+          <button class="btn btn--primary" data-book="c63">Book now</button>
+        </article>
+
+        <article class="obj" data-car="maybach-rear">
+          <div class="obj__frame" data-sc-tilt="5" data-slot="maybach-s580-rear.jpg">
+            <img src="assets/maybach-s580-rear.jpg" width="1400" height="875" alt="Silver Mercedes-Maybach S 580 from the rear three-quarter on a lit studio floor.">
+            <span class="obj__n">07</span>
+          </div>
+          <h3>Maybach S 580 <em>Mercedes-Benz 4MATIC</em></h3>
+          <dl class="spec">
+            <div><dt>HP</dt><dd>496</dd></div>
+            <div><dt>0&ndash;60</dt><dd>4.8 s</dd></div>
+            <div><dt>Seats</dt><dd>4</dd></div>
+          </dl>
+          <p class="rate">Rate on request</p>
+          <button class="btn btn--primary" data-book="maybach-s580">Book now</button>
+        </article>
+
+        <div class="rail__tail">
+          <p class="lbl">End of the rail</p>
+          <h2>Over 70 on the floor.</h2>
+          <p>Rolls-Royce, Lamborghini, Ferrari, McLaren and the rest of the collection are quoted the same way. Ask for what you want.</p>
+          <p><button class="btn btn--ghost" data-book="">Book now</button></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · INSIDE. Authored quiet. One wipe, no lateral travel, no counters. -->
+  <section class="inside sc-section" id="inside" data-sc-act="flow" aria-labelledby="h-inside">
+    <div class="sc-wrap">
+      <div class="inside__head" data-sc-in data-sc-stagger="60">
+        <h2 id="h-inside">Where you actually sit.</h2>
+        <p class="lbl">Cabins &middot; as delivered</p>
+      </div>
+      <div class="inside__grid">
+        <figure class="f-hero" data-sc-reveal="up" data-sc-reveal-at="0.04 0.42" data-slot="maybach-s580-cabin.jpg" data-car="maybach-s580">
+          <img src="assets/maybach-s580-cabin.jpg" width="1200" height="514" alt="Rear door open on a Maybach S 580 showing cream executive rear seats and two filled champagne flutes.">
+          <figcaption>Maybach S 580 &middot; executive rear</figcaption>
+        </figure>
+        <figure class="f-sm" data-sc-reveal="up" data-sc-reveal-at="0.12 0.5" data-slot="escalade-cabin.jpg" data-car="escalade">
+          <img src="assets/escalade-cabin.jpg" width="1200" height="750" alt="Cadillac Escalade cabin with a panoramic roof and black quilted leather seats.">
+          <figcaption>Escalade ESV</figcaption>
+        </figure>
+        <figure class="f-sm" data-sc-reveal="up" data-sc-reveal-at="0.16 0.54" data-slot="g63-cabin.jpg" data-car="g63">
+          <img src="assets/g63-cabin.jpg" width="1200" height="750" alt="Mercedes-AMG G 63 dashboard and black diamond-quilted front seats.">
+          <figcaption>G 63</figcaption>
+        </figure>
+        <figure class="f-sm" data-sc-reveal="up" data-sc-reveal-at="0.2 0.58" data-slot="m4-conv-cabin.jpg" data-car="m4c">
+          <img src="assets/m4-conv-cabin.jpg" width="1200" height="750" alt="BMW M4 Convertible interior with carbon bucket seats and tan trim, roof down.">
+          <figcaption>M4 Convertible</figcaption>
+        </figure>
+      </div>
+      <p class="note" style="margin-top: var(--sc-4);">Manufacturer figures throughout, for the model shown. Trim, colour and options vary by unit. Confirm the exact car on booking.</p>
+    </div>
+  </section>
+
+  <!-- 4 · FOUR WAYS. Labelled rows, one schema, no persuasion. -->
+  <section class="ways" id="ways" data-sc-act="flow" aria-labelledby="h-ways">
+    <div class="sc-wrap">
+      <h2 id="h-ways" data-sc-in>Four ways to use us.</h2>
+      <div data-sc-in data-sc-stagger="70" style="margin-top: var(--sc-5);">
+
+        <div class="way">
+          <p class="way__n">A</p>
+          <h3>Self-drive</h3>
+          <p class="way__fact">You drive. 24-hour minimum. Showroom pickup at Deer Park or delivery to your address. Licence, insurance and a deposit are checked before the keys move.</p>
+          <div class="way__side">
+            <p class="rate" style="border: 0; padding: 0;">Rate on request</p>
+            <button class="btn btn--primary" data-book="" data-service="Self-drive">Book now</button>
+          </div>
+        </div>
+
+        <div class="way">
+          <p class="way__n">B</p>
+          <h3>Chauffeur</h3>
+          <p class="way__fact">A driver comes with the car. Weddings, proms, Sweet 16s, date nights, airport runs. Red carpet, roses and bottle service are available on request.</p>
+          <div class="way__side">
+            <p class="rate" style="border: 0; padding: 0;">Rate on request</p>
+            <button class="btn btn--primary" data-book="" data-service="Chauffeur">Book now</button>
+          </div>
+        </div>
+
+        <div class="way">
+          <p class="way__n">C</p>
+          <h3>Sprinter</h3>
+          <p class="way__fact">Chauffeured group transport when the party does not fit in one car. Tell us the headcount and the run, and we confirm the configuration available for your dates.</p>
+          <div class="way__side">
+            <p class="rate" style="border: 0; padding: 0;">Rate on request</p>
+            <button class="btn btn--primary" data-book="" data-service="Sprinter">Book now</button>
+          </div>
+        </div>
+
+        <div class="way">
+          <p class="way__n">D</p>
+          <h3>Private jet</h3>
+          <p class="way__fact">Arranged through the concierge desk. Routing, aircraft and times are quoted per trip, and ground transport at both ends comes off the same floor.</p>
+          <div class="way__side">
+            <p class="rate" style="border: 0; padding: 0;">Quoted per trip</p>
+            <button class="btn btn--primary" data-book="" data-service="Private jet">Book now</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · REACH. Real address, real numbers, real states. -->
+  <section class="reach" id="reach" data-sc-act="flow" aria-labelledby="h-reach">
+    <div class="sc-wrap">
+      <div class="reach__grid">
+        <div data-sc-in data-sc-stagger="70">
+          <h2 id="h-reach">It comes to you.</h2>
+          <p class="reach__count" style="margin-top: var(--sc-5);">
+            <b><span data-sc-count="0 70">0</span>+</b>
+            <span class="reach__count-label">vehicles on the floor</span>
+          </p>
+          <ul class="states">
+            <li>NY</li><li>NJ</li><li>CT</li><li>PA</li>
+          </ul>
+          <p class="note" style="margin-top: var(--sc-4);">Showroom pickup at Deer Park, or delivery to an address you give us. Nationwide delivery is available on request.</p>
+        </div>
+        <dl class="facts" data-sc-in data-sc-stagger="50">
+          <div>
+            <dt>Showroom</dt>
+            <dd><a href="https://www.google.com/maps/search/?api=1&query=1067+Long+Island+Ave+Deer+Park+NY" target="_blank" rel="noopener">1067 Long Island Ave<br>Deer Park, NY 11729</a></dd>
+          </div>
+          <div>
+            <dt>Call</dt>
+            <dd><a href="tel:+16314921843">+1 631 492 1843</a></dd>
+          </div>
+          <div>
+            <dt>Urgent</dt>
+            <dd><a href="tel:+16313921450">Call or text (631) 392-1450</a></dd>
+          </div>
+          <div>
+            <dt>Self-drive</dt>
+            <dd>24-hour minimum</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · THE PLATE. The close is an inquiry card typeset like the labels. -->
+  <section class="plate" id="book" data-sc-act="flow" aria-labelledby="h-plate">
+    <div class="sc-wrap">
+      <div class="plate__card" data-sc-in data-sc-stagger="70">
+        <p class="lbl">Inquiry</p>
+        <h2 id="h-plate">Tell us the car, the date and where to bring it.</h2>
+        <p class="note">Six questions across three steps. Nothing is charged here. We come back with the rate and confirm availability for your dates.</p>
+        <div class="plate__row">
+          <button class="btn btn--primary" data-book="">Book now</button>
+          <a class="btn btn--ghost" href="tel:+16314921843">Call +1 631 492 1843</a>
+        </div>
+      </div>
+      <footer class="foot">
+        <p>Midtown Luxury Rentals &middot; 1067 Long Island Ave, Deer Park, NY 11729</p>
+        <p><a href="tel:+16314921843">+1 631 492 1843</a> &middot; <a href="tel:+16313921450">text (631) 392-1450</a></p>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<!-- SIGNATURE MOVE · the travelling build sheet -->
+<aside class="sheet" id="sheet" aria-label="Build sheet for the vehicle currently in frame">
+  <div class="sheet__id">
+    <p class="lbl">In frame</p>
+    <p class="sheet__name" id="sheetName" aria-live="polite">Mercedes-Maybach S 580</p>
+  </div>
+  <div class="sheet__figs" aria-hidden="true">
+    <div class="sheet__fig"><b id="figHp">496</b><span>Horsepower</span></div>
+    <div class="sheet__fig"><b id="figSixty">4.8<i>s</i></b><span>0&ndash;60 mph</span></div>
+    <div class="sheet__fig"><b id="figSeats">4</b><span>Seats</span></div>
+    <div class="sheet__fig"><b id="figDrive">AWD</b><span>Drive</span></div>
+  </div>
+  <div class="sheet__cta">
+    <span class="sheet__rate">Rate on request</span>
+    <button class="btn btn--primary" id="sheetBook">Book now</button>
+  </div>
+</aside>
+
+<!-- THE BOOKING SURVEY -->
+<dialog class="book" id="bookDialog" aria-labelledby="h-book">
+  <form class="book__in" id="bookForm" novalidate>
+    <div class="book__head">
+      <h2 id="h-book">Book</h2>
+      <button type="button" class="btn btn--quiet" data-close-book>Close</button>
+    </div>
+    <div class="book__steps" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+    <p class="lbl book__stepname" id="stepName">Step 1 of 3 &middot; The car and the service</p>
+    <p class="book__err" id="bookErr" role="alert" hidden></p>
+
+    <fieldset id="step1">
+      <div class="f">
+        <label for="fVehicle">Vehicle</label>
+        <select id="fVehicle" name="vehicle" required></select>
+      </div>
+      <div class="f">
+        <span class="lbl" id="lblService">Service</span>
+        <div class="chips" role="radiogroup" aria-labelledby="lblService">
+          <label><input type="radio" name="service" value="Self-drive" required> Self-drive</label>
+          <label><input type="radio" name="service" value="Chauffeur"> Chauffeur</label>
+          <label><input type="radio" name="service" value="Sprinter"> Sprinter</label>
+          <label><input type="radio" name="service" value="Private jet"> Private jet</label>
+        </div>
+      </div>
+      <div class="f">
+        <label for="fOccasion">Occasion (optional)</label>
+        <select id="fOccasion" name="occasion">
+          <option value="">Not specified</option>
+          <option>Wedding</option><option>Prom</option><option>Sweet 16</option>
+          <option>Date night</option><option>Photo or video shoot</option>
+          <option>Airport run</option><option>Birthday</option><option>Other</option>
+        </select>
+      </div>
+      <div class="f">
+        <label for="fPax">Passengers</label>
+        <input type="number" id="fPax" name="passengers" min="1" max="30" step="1" value="2" required>
+      </div>
+    </fieldset>
+
+    <fieldset id="step2" hidden>
+      <div class="f2">
+        <div class="f"><label for="fPickDate">Pickup date</label><input type="date" id="fPickDate" name="pickupDate" required></div>
+        <div class="f"><label for="fPickTime">Pickup time</label><input type="time" id="fPickTime" name="pickupTime" required></div>
+      </div>
+      <div class="f">
+        <span class="lbl" id="lblPickWhere">Pickup</span>
+        <div class="chips" role="radiogroup" aria-labelledby="lblPickWhere">
+          <label><input type="radio" name="pickupWhere" value="Showroom, 1067 Long Island Ave, Deer Park NY" checked> Showroom, Deer Park</label>
+          <label><input type="radio" name="pickupWhere" value="Delivery"> Deliver to me</label>
+        </div>
+      </div>
+      <div class="f" id="wrapPickAddr" hidden>
+        <label for="fPickAddr">Delivery address</label>
+        <input type="text" id="fPickAddr" name="pickupAddress" autocomplete="street-address" placeholder="Street, city, state, ZIP">
+      </div>
+      <div class="f2">
+        <div class="f"><label for="fDropDate">Dropoff date</label><input type="date" id="fDropDate" name="dropoffDate" required></div>
+        <div class="f"><label for="fDropTime">Dropoff time</label><input type="time" id="fDropTime" name="dropoffTime" required></div>
+      </div>
+      <div class="f">
+        <span class="lbl" id="lblDropWhere">Dropoff</span>
+        <div class="chips" role="radiogroup" aria-labelledby="lblDropWhere">
+          <label><input type="radio" name="dropoffWhere" value="Return to the showroom" checked> Back to showroom</label>
+          <label><input type="radio" name="dropoffWhere" value="Collection"> Collect from me</label>
+        </div>
+      </div>
+      <div class="f" id="wrapDropAddr" hidden>
+        <label for="fDropAddr">Collection address</label>
+        <input type="text" id="fDropAddr" name="dropoffAddress" autocomplete="street-address" placeholder="Street, city, state, ZIP">
+      </div>
+    </fieldset>
+
+    <fieldset id="step3" hidden>
+      <div class="f2">
+        <div class="f"><label for="fName">Full name</label><input type="text" id="fName" name="name" autocomplete="name" required></div>
+        <div class="f"><label for="fPhone">Phone</label><input type="tel" id="fPhone" name="phone" autocomplete="tel" required placeholder="(631) 000-0000"></div>
+      </div>
+      <div class="f"><label for="fEmail">Email</label><input type="email" id="fEmail" name="email" autocomplete="email" required></div>
+      <div class="f"><label for="fNotes">Anything we should know (optional)</label><textarea id="fNotes" name="notes" placeholder="Red carpet, bottle service, a second car, a tight window at the venue."></textarea></div>
+    </fieldset>
+
+    <fieldset id="step4" hidden>
+      <p class="lbl" style="margin-bottom: var(--sc-4);">Your request</p>
+      <dl class="review" id="reviewList"></dl>
+      <p class="note" style="margin-bottom: var(--sc-4);">This page does not send mail on its own. Send the request with one of these and it lands with the desk straight away.</p>
+      <div class="sendrow">
+        <a class="btn btn--primary" id="sendSms" href="#">Text the request</a>
+        <a class="btn btn--ghost" href="tel:+16314921843">Call the desk</a>
+        <button type="button" class="btn btn--quiet" id="copyReq">Copy</button>
+      </div>
+    </fieldset>
+
+    <div class="book__nav">
+      <button type="button" class="btn btn--quiet" id="backBtn" hidden>Back</button>
+      <span></span>
+      <button type="button" class="btn btn--primary" id="nextBtn">Continue</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="scrollcraft.js"></script>
+<script src="midtown.js"></script>
+<script>ScrollCraft.mount(document.body);</script>
+</body>
+</html>
