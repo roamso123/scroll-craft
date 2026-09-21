@@ -542,66 +542,6 @@ body { overflow-x: clip; }
 }
 @media (hover: hover) and (pointer: fine) { .fleet__go:hover { border-bottom-color: var(--sc-accent); } }
 
-/* ------------------------------------------------------------- 4 · peak --
-   The object at the end of the room. An empty frame is already there while
-   the stage slides in, so the ground is never blank, and the wipe fills it. */
-.peak {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  align-content: center;
-  justify-items: center;
-  gap: clamp(1.25rem, 3vh, 2.25rem);
-  padding: clamp(4.5rem, 11vh, 8rem) var(--sc-gutter) clamp(2.5rem, 7vh, 5rem)
-           var(--per-content-x);
-}
-.peak__ground {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(90% 60% at 50% 34%, color-mix(in oklab, #0A1A24 78%, transparent) 0%, transparent 70%),
-    var(--sc-canvas);
-}
-.peak__empty {
-  position: absolute;
-  left: var(--per-content-x);
-  right: var(--sc-gutter);
-  top: clamp(4.5rem, 11vh, 8rem);
-  margin-inline: auto;
-  width: min(100%, 1240px);
-  height: min(66svh, 760px);
-  border-radius: var(--sc-r-lg);
-  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--sc-ink) 16%, transparent);
-  background: radial-gradient(120% 90% at 50% 40%,
-    color-mix(in oklab, #0C1A24 60%, transparent) 0%, transparent 76%);
-}
-.peak__frame {
-  grid-row: 1;
-  align-self: start;
-  width: min(100%, 1240px);
-  height: min(66svh, 760px);
-  margin: 0;
-  overflow: clip;
-  border-radius: var(--sc-r-lg);
-  box-shadow: var(--sc-e3);
-  position: relative;
-  z-index: 2;
-}
-.peak__frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 46%; }
-.peak__label {
-  grid-row: 2;
-  z-index: 3;
-  width: min(100%, 1240px);
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: end;
-  gap: 0.4rem clamp(1rem, 3vw, 2.5rem);
-}
-.peak__label .label__kind { grid-column: 1 / -1; }
-.peak__label .label__name { grid-column: 1; font-size: var(--sc-t-2xl); }
-.peak__label .label__spec { grid-column: 2; padding-bottom: 0.35rem; }
-.peak__label .label__rate--peak { grid-column: 3; grid-row: 2; }
-.peak__label .label__rate--peak .rate { font-size: var(--sc-t-2xl); }
-.peak__label .button { grid-column: 3; grid-row: 3; justify-self: end; margin-top: 0.6rem; }
-
 /* ------------------------------------------------------------ 5 · close --
    An inquiry plate set exactly like an object label, so the ask reads as part
    of the collection rather than as a marketing island. */
@@ -883,13 +823,6 @@ body { overflow-x: clip; }
   .room .object--study .object__shot { aspect-ratio: 4 / 3; }
   .object__shot img { object-position: 50% 48%; }
 
-  .peak { padding-top: clamp(5.5rem, 14vh, 8rem); padding-left: var(--sc-gutter); }
-  .peak__empty { left: var(--sc-gutter); right: var(--sc-gutter); }
-  .peak__label { grid-template-columns: 1fr auto; }
-  .peak__label .label__name { grid-column: 1 / -1; }
-  .peak__label .label__spec { grid-column: 1; padding-bottom: 0; }
-  .peak__label .label__rate--peak { grid-column: 2; grid-row: 3; justify-self: end; }
-  .peak__label .button { grid-column: 1 / -1; grid-row: 4; justify-self: start; }
 
   /* keep the header's prose clear of the docked tag */
   .plate__head { padding-right: 9.5rem; }

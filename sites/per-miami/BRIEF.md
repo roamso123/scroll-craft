@@ -71,13 +71,22 @@ Written before the acts existed.
 2  Appetite    the room walks past them: six cars, each labelled like an
                exhibit, each one gettable
 3  Weight      the room opens out and the top of the range arrives at a
-               different size and rhythm, one of them photographed from three
-               sides, then the type goes small and states the whole fleet
-4  Awe         the frame wipes open and the white Rolls-Royce is the whole
-               screen at $1,999, the largest number on the page
-5  Resolve     the key tag they have been carrying lands in the form, the ask
+               different size and rhythm, each object behind its own wipe,
+               one of them photographed from three sides, then the type goes
+               small and states the whole fleet
+4  Resolve     the key tag they have been carrying lands in the form, the ask
                is one plate, and the page stops
 ```
+
+**The page no longer has one engineered peak, and that is a deliberate trade,
+not an oversight.** The Rolls-Royce had a pinned act of its own: an empty frame,
+a wipe, the car at full width, $1,999. The owner cut it. What the page gains is
+length (10.2 viewport-heights against 13.5) and a first screen that can reach
+every car; what it loses is the one moment a visitor would have described to
+someone else afterwards. The flagship now appears only in the hero switcher, at
+the owner's explicit instruction: "it's ok if it only shows in the hero
+switcher." The closest thing to a peak left is flicking the switcher to the
+Rolls and watching $199 become $1,999 in one movement.
 
 No two adjacent acts share a feeling. Act 3 **ends** in the authored silence:
 it opens out into four large objects, then closes on one line of the smallest
@@ -219,14 +228,17 @@ the call button. Green never becomes a button; blue never becomes a price.
 | 1 | The fleet, in one frame | `parallax` (gradient ground, glow, plate, floor) + a bespoke switcher | The first screen has to show the range, not one car, and the depth has to come from motion and overlap rather than from photographs of the place | 1.9 |
 | 2 | The collection | `pan` + `tilt` | Lateral travel reads as breadth, which is the whole question a fleet answers. Six objects cost the page nothing in height here, which is why the rail carries the wider half of the range | 5.2 |
 | 3 | Further into the room | `flow` + `in`, asymmetric mosaic, one object as a three-view study | Twelve objects will not all fit one rail at a readable pace, and a second rail would be the same act twice. The mosaic is a different size and rhythm, the study gives the one multi-angle car the treatment its coverage allows, and the quiet tail is the silence | ~3.4 |
-| 4 | The flagship | `reveal` (up, edge to edge) on a `pin` | A wipe is a change of state, and this is the one moment the page raises its voice | 3.3 |
-| 5 | The ask | `flow`, static plate | A form inside a pinned stage is a keyboard trap. The close resolves by holding still | ~2.0 |
+| 4 | The ask | `flow`, static plate | A form inside a pinned stage is a keyboard trap. The close resolves by holding still | ~2.0 |
 
-Five device families (parallax, pan, flow/in, reveal, pointer). No family twice
-in a row. No `scrub` at all, so no clip weight and no frozen-clip class of
-failure. Measured at **13.5 viewport-heights on desktop and 13.2 on a phone**, inside
-the 8-to-14 budget; the phone crop is 4:3 rather than the source's near-square,
-which is what keeps it there.
+The fourth act, a pinned peak for the Rolls-Royce, was removed on the owner's
+instruction along with the car's place in the scroll. Act 3's objects each
+arrive behind their own wipe now, so the act that precedes the close is a
+`reveal` act rather than a second fade-in section next to it.
+
+Five device families (parallax, pan, reveal, flow/in, pointer), plus the hero's
+own switcher. No family twice in a row. No `scrub` at all, so no clip weight and
+no frozen-clip class of failure. Measured at **10.2 viewport-heights on desktop**,
+inside the 8-to-14 budget with room to spare now that the peak act is gone.
 
 ## Fleet and prices
 
@@ -243,7 +255,7 @@ standing in for a picture.
 
 | Car | Rate / day | On the page as |
 |---|---|---|
-| Porsche Macan | $199 | act 1, the switcher's first car |
+| Porsche Macan | $199 | act 1 switcher only, its first car |
 | Audi S5 Sportback | $299 | act 1 switcher, then act 2 rail |
 | Maserati Grecale | $299 | act 1 switcher, then act 2 rail |
 | Cadillac Escalade ESV | $399 | act 1 switcher, then act 2 rail |
@@ -254,7 +266,7 @@ standing in for a picture.
 | McLaren GT | $1,049 | act 1 switcher, then act 3 as a three-view study |
 | Lamborghini Urus | $1,099 | act 1 switcher, then act 3 mosaic |
 | Bentley Continental GT Speed | $1,199 | act 1 switcher, then act 3 mosaic |
-| Rolls-Royce Cullinan | $1,999 | act 1 switcher, then act 4, the peak |
+| Rolls-Royce Cullinan | $1,999 | act 1 switcher only, on the owner's instruction |
 
 **The McLaren's registration plate is blurred in both rear views.** It was
 legible in the supplied frames, and a fleet's plates do not belong on a public

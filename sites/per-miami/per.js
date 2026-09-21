@@ -21,8 +21,7 @@
   var acts = [
     { id: "act-hero", el: document.getElementById("hero") },
     { id: "act-collection", el: document.getElementById("collection") },
-    { id: "act-room", el: document.getElementById("room") },
-    { id: "act-cullinan", el: document.getElementById("cullinan") }
+    { id: "act-room", el: document.getElementById("room") }
   ];
   var links = {};
   Array.prototype.forEach.call(document.querySelectorAll("[data-index-for]"), function (a) {
@@ -186,8 +185,8 @@
     if (opts && opts.lock) {
       // Taken before the equality check below: clicking a Reserve that hover
       // had already stamped would otherwise return early, leave the choice
-      // unlocked, and let the smooth scroll past the peak restamp the tag
-      // with the Cullinan on its way to the form.
+      // unlocked, and let the smooth scroll down the page restamp the tag
+      // with whatever it passed on the way to the form.
       state.locked = true;
       state.lockUntil = Date.now() + 1800;   // covers the jump itself
     }
@@ -242,21 +241,8 @@
     var hero = document.getElementById("hero").getBoundingClientRect();
     var rail = document.getElementById("collection").getBoundingClientRect();
     var room = document.getElementById("room").getBoundingClientRect();
-    var peakEl = document.getElementById("cullinan");
-    var peak = peakEl.getBoundingClientRect();
     var pick;
 
-    if (peak.top <= mid && peak.bottom > mid) {
-      // Not the moment the stage arrives: a pinned stage is on screen for a
-      // whole viewport before its progress leaves 0, so stamping on arrival
-      // put the Cullinan on the tag while its frame was still empty, which
-      // both spoiled the wipe and named a car nobody could see. Wait for the
-      // wipe to actually start.
-      var travel = Math.max(peakEl.offsetHeight - window.innerHeight, 1);
-      var pp = (-peak.top) / travel;
-      if (pp > 0.12) stamp("Rolls-Royce Cullinan");
-      return;
-    }
     // the mosaic travels vertically rather than laterally, and a phone has no
     // hover at all, so without this the tag went stale for a whole act there
     if (room.top <= mid && room.bottom > mid) {
@@ -392,52 +378,6 @@
   tagName.textContent = state.car;
   tagRate.textContent = "$" + RATES[state.car].toLocaleString("en-US") + " / day";
   wake();
-
-  /* A focusable control inside a pinned act holds one viewport position for
-     the whole act, so the engine's centre-on-focus cannot open its cue: it can
-     only scroll backwards out of the act, where progress is 0 and the cue is
-     dark. Only the page knows which cue belongs to which control, so the peak's
-     Reserve parks its own act at the progress where its cue is open. */
-  /* A flow-section reveal fires on scroll, so tabbing to a link in a group
-     that has not entered the viewport yet lands on something at opacity 0.
-     Open the group the focus is in. */
-  document.addEventListener("focusin", function (e) {
-    var group = e.target.closest("[data-sc-in]");
-    if (group && !group.classList.contains("sc-in")) {
-      group.classList.add("sc-in");
-      Array.prototype.forEach.call(group.children, function (k) { k.classList.add("sc-in"); });
-    }
-  });
-
-  /* Same class of problem on the rail, one axis over: a card's Reserve can be
-     focused while the card itself is parked off the left edge and dimmed by the
-     settle, because neither position is something the engine knows how to open.
-     Park the pan act at the progress that walks that card to the middle. */
-  var railAct = document.getElementById("collection");
-  var railEl = railAct.querySelector("[data-sc-pan]");
-  Array.prototype.forEach.call(railAct.querySelectorAll("a, button"), function (el) {
-    el.addEventListener("focus", function () {
-      var item = el.closest(".rail > *");
-      if (!item) return;
-      var travel = railEl.scrollWidth - window.innerWidth;
-      if (travel <= 0) return;
-      var want = item.offsetLeft + item.offsetWidth / 2 - window.innerWidth / 2;
-      var p = clamp(want / travel, 0, 1);
-      var top = railAct.getBoundingClientRect().top + window.pageYOffset;
-      var span = Math.max(railAct.offsetHeight - window.innerHeight, 1);
-      window.scrollTo({ top: Math.round(top + span * p), behavior: "instant" });
-    });
-  });
-
-  var peak = document.getElementById("cullinan");
-  var peakCta = peak.querySelector(".button");
-  peakCta.addEventListener("focus", function () {
-    var rect = peak.getBoundingClientRect();
-    var top = rect.top + window.pageYOffset;
-    var travel = Math.max(peak.offsetHeight - window.innerHeight, 1);
-    var open = 0.74;  // the cue opens by 0.60; 0.74 sits inside its plateau
-    window.scrollTo({ top: Math.round(top + travel * open), behavior: "instant" });
-  });
 
   /* ------------------------------------------------------------ 4 · survey */
   var form = document.getElementById("survey");
