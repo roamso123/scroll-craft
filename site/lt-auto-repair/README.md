@@ -50,6 +50,29 @@ which is what lets the folder work offline and from `file://`.
 Every text colour was measured against the ground it sits on. The lowest pair
 on the site is 4.57:1, above the 4.5:1 floor for body text.
 
+## The hero disc
+
+The right side of the landing page carries a brake rotor drawn as a technical
+wireframe: a fixed outer scale, the disc turning slowly inside it, and one
+purple arc sweeping the way a diagnostic pass would. It leans a few pixels
+toward the pointer on a mouse, which is what makes it read as an object in the
+scene rather than a graphic pasted on the background.
+
+It is inline SVG in `index.html` with its geometry generated to exact polar
+coordinates, styled under `.rotor` in `css/site.css`, and the pointer lean is
+`wireRotor()` in `js/site.js`. Three deliberate limits:
+
+- **It carries no readout and no numbers.** A wireframe part is honest
+  decoration. A dashboard with invented figures on it would not be.
+- **It is `aria-hidden`** and never receives the pointer, so it is invisible to
+  a screen reader and cannot intercept a click on the buttons near it.
+- **It is the first thing dropped.** It shrinks below 1080px and is removed
+  entirely below 860px, where the space it fills does not exist. Under reduced
+  motion the rotation and the sweep stop but the composition stays.
+
+A horizontal mask fades it out toward the headline, so the type always sits on
+clean ground no matter how wide the window is.
+
 ## The logo
 
 Two filled letterforms, L in bone and T in purple, sharing a baseline. Kept as
@@ -132,6 +155,10 @@ on any page, the booking survey blocks on every invalid step and reaches its
 confirmation, reduced motion leaves nothing faded out, one `h1` per page with no
 heading level jumps, every form control labelled, every tab stop carries a
 visible focus ring, and no console errors.
+
+The hero disc was checked separately: the pointer lean responds, no horizontal
+scrollbar appears at 1440, 1024 or 390, it is `display: none` on a phone, and
+reduced motion freezes it without removing it.
 
 Also checked opened straight from the folder over `file://`: Archivo and Outfit
 both render, page to page links work, the booking survey runs end to end to its

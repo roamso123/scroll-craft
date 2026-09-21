@@ -127,6 +127,36 @@
     Array.prototype.forEach.call(targets, function (el) { io.observe(el); });
   }
 
+
+  /* ---- the hero disc leans toward the pointer ----
+     A few pixels of travel is what makes it read as an object sitting in the
+     scene rather than a graphic pasted on the background. Fine pointers only,
+     and never when the visitor has asked for less motion. */
+  function wireRotor() {
+    var rotor = document.querySelector('[data-rotor]');
+    var hero = document.querySelector('.hero');
+    if (!rotor || !hero) return;
+    if (!window.matchMedia) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var frame = null;
+    hero.addEventListener('pointermove', function (e) {
+      if (frame) return;
+      frame = requestAnimationFrame(function () {
+        frame = null;
+        var x = (e.clientX / window.innerWidth) - 0.5;
+        var y = (e.clientY / window.innerHeight) - 0.5;
+        rotor.style.setProperty('--rx', (x * -30).toFixed(1) + 'px');
+        rotor.style.setProperty('--ry', (y * -22).toFixed(1) + 'px');
+      });
+    });
+    hero.addEventListener('pointerleave', function () {
+      rotor.style.setProperty('--rx', '0px');
+      rotor.style.setProperty('--ry', '0px');
+    });
+  }
+
   function stampYear() {
     var el = document.querySelector('[data-year]');
     if (el) el.textContent = String(new Date().getFullYear());
@@ -138,5 +168,6 @@
   wireBurger();
   markCurrent();
   wireReveal();
+  wireRotor();
   stampYear();
 })();

@@ -340,7 +340,7 @@ a { color: inherit; text-underline-offset: 0.22em; text-decoration-thickness: 1p
   opacity: 0.5;
 }
 
-.hero__inner { position: relative; z-index: 2; width: 100%; }
+.hero__inner { position: relative; z-index: 3; width: 100%; }
 
 .hero h1 { max-width: 15ch; }
 .hero .lede { margin-top: var(--s6); }
@@ -369,6 +369,79 @@ a { color: inherit; text-underline-offset: 0.22em; text-decoration-thickness: 1p
 .hero--page .lede { margin-top: var(--s5); }
 .hero--page .actions { margin-top: var(--s7); }
 .hero--page .hero__meta { margin-top: var(--s7); }
+
+
+/* ---------- hero rotor ----------
+   A brake disc drawn as a technical wireframe: a fixed outer scale, a disc
+   that turns slowly inside it, and one purple arc sweeping the way a
+   diagnostic pass would. No readout, no numbers, nothing pretending to be
+   live data. It is decoration, so it is aria-hidden and it is the first
+   thing dropped on a narrow screen. */
+
+.rotor {
+  position: absolute;
+  top: 50%;
+  right: clamp(-150px, -5vw, -40px);
+  width: clamp(440px, 43vw, 620px);
+  aspect-ratio: 1;
+  transform: translate3d(0, -50%, 0);
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform;
+}
+.rotor svg {
+  width: 100%; height: 100%; overflow: visible;
+  transform: translate3d(var(--rx, 0px), var(--ry, 0px), 0);
+  transition: transform 800ms var(--ease);
+}
+
+.rotor circle:not([fill^="url"]), .rotor path {
+  stroke: rgba(246, 244, 250, 0.46);
+  stroke-width: 1.25;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.rotor__scale circle { stroke: rgba(246, 244, 250, 0.22); }
+.rotor__scale path { stroke: rgba(246, 244, 250, 0.58); }
+
+.rotor__edge { stroke: rgba(177, 140, 255, 0.85); stroke-width: 1.75; }
+.rotor__holes circle { stroke: rgba(246, 244, 250, 0.55); }
+.rotor__vanes { stroke: rgba(246, 244, 250, 0.32); stroke-width: 9; stroke-linecap: round; }
+.rotor__hat { stroke: rgba(246, 244, 250, 0.62); }
+.rotor__lugs circle { stroke: rgba(246, 244, 250, 0.68); }
+.rotor__cap { stroke: none; fill: var(--accent); }
+
+.rotor__sweep path {
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 8px rgba(177, 140, 255, 0.55));
+}
+
+/* two rates, so the disc reads as mass and the sweep as a pass over it */
+.rotor__disc  { transform-origin: 200px 200px; animation: rotorSpin 96s linear infinite; }
+.rotor__sweep { transform-origin: 200px 200px; animation: rotorSweep 7s cubic-bezier(0.62, 0, 0.38, 1) infinite; }
+
+@keyframes rotorSpin  { to { transform: rotate(360deg); } }
+@keyframes rotorSweep {
+  0%   { transform: rotate(0deg);   opacity: 0; }
+  12%  { opacity: 1; }
+  78%  { opacity: 1; }
+  100% { transform: rotate(360deg); opacity: 0; }
+}
+
+@media (max-width: 1080px) {
+  .rotor { width: 52vw; right: -16vw; opacity: 0.7; }
+}
+@media (max-width: 860px) {
+  .rotor { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rotor__disc, .rotor__sweep { animation: none; }
+  .rotor__sweep path { opacity: 1; }
+  .rotor svg { transform: none; transition: none; }
+}
 
 /* ---------- status pill (open / closed, computed from real hours) ---------- */
 

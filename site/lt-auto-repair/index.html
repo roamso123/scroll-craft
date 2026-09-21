@@ -81,6 +81,57 @@
     <div class="hero__grid" aria-hidden="true"></div>
     <div class="hero__glow hero__glow--a" aria-hidden="true"></div>
     <div class="hero__glow hero__glow--b" aria-hidden="true"></div>
+      <div class="rotor" data-rotor aria-hidden="true">
+        <svg viewBox="0 0 400 400" fill="none">
+          <defs>
+            <!-- the disc fades out toward the headline and keeps its
+                 density on the outer edge, so it never fights the type -->
+            <linearGradient id="rotorFade" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+              <stop offset="34%" stop-color="#fff" stop-opacity="0.55"/>
+              <stop offset="62%" stop-color="#fff" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#fff" stop-opacity="1"/>
+            </linearGradient>
+            <mask id="rotorMask">
+              <rect width="400" height="400" fill="url(#rotorFade)"/>
+            </mask>
+            <!-- a faint body so the disc reads as an object, not a diagram -->
+            <radialGradient id="rotorBody" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#B18CFF" stop-opacity="0.16"/>
+              <stop offset="55%" stop-color="#B18CFF" stop-opacity="0.085"/>
+              <stop offset="100%" stop-color="#B18CFF" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <g mask="url(#rotorMask)">
+            <!-- the fixed scale the disc turns inside -->
+            <g class="rotor__scale">
+              <circle cx="200" cy="200" r="190"/>
+              <path d="M200.0 32.0L200.0 20.0 M218.1 27.9L218.8 21.0 M236.0 30.8L237.4 23.9 M253.5 35.5L255.6 28.8 M270.4 42.0L273.2 35.6 M284.0 54.5L290.0 44.1 M301.7 60.0L305.8 54.4 M315.8 71.4L320.4 66.2 M328.6 84.2L333.8 79.6 M340.0 98.3L345.6 94.2 M345.5 116.0L355.9 110.0 M358.0 129.6L364.4 126.8 M364.5 146.5L371.2 144.4 M369.2 164.0L376.1 162.6 M372.1 181.9L379.0 181.2 M368.0 200.0L380.0 200.0 M372.1 218.1L379.0 218.8 M369.2 236.0L376.1 237.4 M364.5 253.5L371.2 255.6 M358.0 270.4L364.4 273.2 M345.5 284.0L355.9 290.0 M340.0 301.7L345.6 305.8 M328.6 315.8L333.8 320.4 M315.8 328.6L320.4 333.8 M301.7 340.0L305.8 345.6 M284.0 345.5L290.0 355.9 M270.4 358.0L273.2 364.4 M253.5 364.5L255.6 371.2 M236.0 369.2L237.4 376.1 M218.1 372.1L218.8 379.0 M200.0 368.0L200.0 380.0 M181.9 372.1L181.2 379.0 M164.0 369.2L162.6 376.1 M146.5 364.5L144.4 371.2 M129.6 358.0L126.8 364.4 M116.0 345.5L110.0 355.9 M98.3 340.0L94.2 345.6 M84.2 328.6L79.6 333.8 M71.4 315.8L66.2 320.4 M60.0 301.7L54.4 305.8 M54.5 284.0L44.1 290.0 M42.0 270.4L35.6 273.2 M35.5 253.5L28.8 255.6 M30.8 236.0L23.9 237.4 M27.9 218.1L21.0 218.8 M32.0 200.0L20.0 200.0 M27.9 181.9L21.0 181.2 M30.8 164.0L23.9 162.6 M35.5 146.5L28.8 144.4 M42.0 129.6L35.6 126.8 M54.5 116.0L44.1 110.0 M60.0 98.3L54.4 94.2 M71.4 84.2L66.2 79.6 M84.2 71.4L79.6 66.2 M98.3 60.0L94.2 54.4 M116.0 54.5L110.0 44.1 M129.6 42.0L126.8 35.6 M146.5 35.5L144.4 28.8 M164.0 30.8L162.6 23.9 M181.9 27.9L181.2 21.0"/>
+            </g>
+
+            <!-- the disc itself -->
+            <circle cx="200" cy="200" r="168" fill="url(#rotorBody)" stroke="none"/>
+
+            <g class="rotor__disc">
+              <circle cx="200" cy="200" r="158" class="rotor__edge"/>
+              <circle cx="200" cy="200" r="150"/>
+              <g class="rotor__holes"><circle cx="216.4" cy="75.1" r="4.2"/><circle cx="248.2" cy="83.6" r="4.2"/><circle cx="276.7" cy="100.0" r="4.2"/><circle cx="300.0" cy="123.3" r="4.2"/><circle cx="316.4" cy="151.8" r="4.2"/><circle cx="324.9" cy="183.6" r="4.2"/><circle cx="324.9" cy="216.4" r="4.2"/><circle cx="316.4" cy="248.2" r="4.2"/><circle cx="300.0" cy="276.7" r="4.2"/><circle cx="276.7" cy="300.0" r="4.2"/><circle cx="248.2" cy="316.4" r="4.2"/><circle cx="216.4" cy="324.9" r="4.2"/><circle cx="183.6" cy="324.9" r="4.2"/><circle cx="151.8" cy="316.4" r="4.2"/><circle cx="123.3" cy="300.0" r="4.2"/><circle cx="100.0" cy="276.7" r="4.2"/><circle cx="83.6" cy="248.2" r="4.2"/><circle cx="75.1" cy="216.4" r="4.2"/><circle cx="75.1" cy="183.6" r="4.2"/><circle cx="83.6" cy="151.8" r="4.2"/><circle cx="100.0" cy="123.3" r="4.2"/><circle cx="123.3" cy="100.0" r="4.2"/><circle cx="151.8" cy="83.6" r="4.2"/><circle cx="183.6" cy="75.1" r="4.2"/></g>
+              <circle cx="200" cy="200" r="108"/>
+              <path d="M200.0 128.0L200.0 98.0 M236.0 137.6L251.0 111.7 M262.4 164.0L288.3 149.0 M272.0 200.0L302.0 200.0 M262.4 236.0L288.3 251.0 M236.0 262.4L251.0 288.3 M200.0 272.0L200.0 302.0 M164.0 262.4L149.0 288.3 M137.6 236.0L111.7 251.0 M128.0 200.0L98.0 200.0 M137.6 164.0L111.7 149.0 M164.0 137.6L149.0 111.7" class="rotor__vanes"/>
+              <circle cx="200" cy="200" r="66" class="rotor__hat"/>
+              <g class="rotor__lugs"><circle cx="200.0" cy="158.0" r="9"/><circle cx="239.9" cy="187.0" r="9"/><circle cx="224.7" cy="234.0" r="9"/><circle cx="175.3" cy="234.0" r="9"/><circle cx="160.1" cy="187.0" r="9"/></g>
+              <circle cx="200" cy="200" r="22"/>
+              <circle cx="200" cy="200" r="7" class="rotor__cap"/>
+            </g>
+
+            <!-- the diagnostic sweep: one purple arc, the only moving accent -->
+            <g class="rotor__sweep">
+              <path d="M200.0 48.0 A152 152 0 0 1 342.8 148.0"/>
+            </g>
+          </g>
+        </svg>
+      </div>
     <div class="wrap hero__inner">
       <h1 class="display display--xl">Your car, in steady hands.</h1>
       <p class="lede">Full diagnostics and repair on Chili Avenue in Rochester. Book in a minute, or call and talk to someone.</p>
