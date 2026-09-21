@@ -28,7 +28,7 @@ changes only grammar and world will fail it.
 
 | Build | Grammar | Nav treatment | Hero device | Act-sequence shape | Close pattern | Signature move | World | Port |
 |---|---|---|---|---|---|---|---|---|
-| `per-miami` | Gallery / catalog | Standing index of objects, left column on desktop, one jumpable row on a phone, marks where the reader is | Object one already in view: a framed plate on a pure gradient ground, with a travelling glow behind it, a gradient floor overtaking its lower edge and the label crossing the frame. No photography in the hero except the car itself | pin 2.0 > pan 4.2 > flow > pin 3.6 > flow · 5 acts · 11.7vh | Inquiry plate typeset as an object label: a three-step booking survey that the key tag docks into, holding still | The key tag: stamps whichever car is in front of the reader, then hands itself to the form | Photographic, the owner's own rooftop frames, dark premium | Static HTML/CSS/JS |
+| `per-miami` | Gallery / catalog | Standing index of objects, left column on desktop, one jumpable row on a phone, marks where the reader is | The whole fleet in one frame: a twelve-car switcher (thumbnail strip, arrows, arrow keys, swipe) on a pure gradient ground, with a travelling glow behind it, a gradient floor overtaking its lower edge and a live label beside it. No photography in the hero except the selected car | pin 2.0 > pan 4.2 > flow > pin 3.6 > flow · 5 acts · 11.7vh | Inquiry plate typeset as an object label: a three-step booking survey that the key tag docks into, holding still | The key tag: stamps whichever car is in front of the reader, then hands itself to the form | Photographic, the owner's own rooftop frames, dark premium | Static HTML/CSS/JS |
 
 First build in this registry, so the gate had nothing to clear. It shares
 nothing with a prior row because there was none.
@@ -45,6 +45,10 @@ as a constraint, so writing them down is the whole point.
 - **Gallery / catalog** grammar, with object labels on one schema and rates as
   the only figures on the page.
 - **A standing index of objects as the nav**, marking position and jumping.
+- **A switcher hero**: the first screen carries the entire range, one object
+  at a time in a single frame, with the label, the price and the primary action
+  all reading the selection. It makes the hero bookable without a scroll, and
+  it deliberately overlaps whatever act walks the same objects later.
 - **A framed plate hero on a gradient ground**: the subject stays inside its
   photograph, nothing photographic sits behind or in front of it, and depth
   comes from three rates and two overlaps. The photographic backdrop this build

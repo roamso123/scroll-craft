@@ -3,8 +3,8 @@
    act progress, geometry and pointer state and drives this page's own markup.
 
      1  the standing index marks where the reader is
-     2  the key tag: the signature move
-     3  the booking survey
+     3  the key tag: the signature move
+     4  the booking survey
    ======================================================================= */
 (function () {
   "use strict";
@@ -19,7 +19,7 @@
      Which object the reader is standing in front of. The index is the
      navigation in this grammar, so it has to say where they are. */
   var acts = [
-    { id: "act-macan", el: document.getElementById("macan") },
+    { id: "act-hero", el: document.getElementById("hero") },
     { id: "act-collection", el: document.getElementById("collection") },
     { id: "act-room", el: document.getElementById("room") },
     { id: "act-cullinan", el: document.getElementById("cullinan") }
@@ -42,7 +42,106 @@
     }
   }
 
-  /* --------------------------------------------------------------- 2 · tag
+  /* ---------------------------------------------------------- 2 · the hero
+     Twelve cars behind one plate. The strip is the selector; the arrows, the
+     arrow keys and a swipe move one at a time. The label is a live region, so
+     a screen reader hears the change, and the Book button carries the
+     selection into the same booking flow every other object uses. */
+  var switcher = document.querySelector(".switch");
+  var thumbs = Array.prototype.slice.call(document.querySelectorAll(".switch__thumb"));
+  var shot = document.getElementById("hero-shot");
+  var heroName = document.getElementById("hero-h");
+  var heroSpec = document.getElementById("hero-spec");
+  var heroRate = document.getElementById("hero-rate");
+  var heroBook = document.getElementById("hero-book");
+  var heroAt = 0;
+
+  function heroCar() { return thumbs[heroAt].getAttribute("data-car"); }
+
+  function preload(i) {
+    var t = thumbs[(i + thumbs.length) % thumbs.length];
+    var im = new Image();
+    im.src = "assets/" + t.getAttribute("data-id") + ".webp";
+  }
+
+  function selectCar(i, opts) {
+    i = (i + thumbs.length) % thumbs.length;
+    if (i === heroAt && !(opts && opts.force)) return;
+    heroAt = i;
+    var t = thumbs[i];
+    var id = t.getAttribute("data-id");
+    var car = t.getAttribute("data-car");
+
+    thumbs.forEach(function (o, n) {
+      var on = n === i;
+      o.classList.toggle("is-current", on);
+      if (on) o.setAttribute("aria-current", "true"); else o.removeAttribute("aria-current");
+      o.tabIndex = on ? 0 : -1;               // one tab stop, arrows inside
+    });
+
+    heroName.textContent = car;
+    heroSpec.textContent = t.getAttribute("data-spec");
+    heroRate.textContent = "$" + t.getAttribute("data-rate");
+    heroBook.setAttribute("data-car", car);
+
+    // Swap behind a short fade, and only once the new frame has actually
+    // decoded: assigning src and fading straight back in shows an empty frame
+    // on a cold cache.
+    var next = new Image();
+    next.src = "assets/" + id + ".webp";
+    var apply = function () {
+      shot.src = "assets/" + id + ".webp";
+      shot.srcset = "assets/" + id + "-m.webp 780w, assets/" + id + ".webp 1400w";
+      shot.alt = t.getAttribute("data-alt");
+      switcher.classList.remove("is-swapping");
+    };
+    if (reduced) { apply(); }
+    else {
+      switcher.classList.add("is-swapping");
+      var go = function () { window.setTimeout(apply, 90); };
+      if (next.decode) next.decode().then(go, go); else next.onload = go, next.onerror = go;
+    }
+
+    // keep the strip's current thumb in view without yanking the page
+    if (t.scrollIntoView) t.scrollIntoView({ block: "nearest", inline: "nearest", behavior: reduced ? "auto" : "smooth" });
+
+    preload(i + 1); preload(i - 1);
+    stamp(car, { force: true });
+    wake();
+  }
+
+  thumbs.forEach(function (t, i) {
+    t.addEventListener("click", function () { selectCar(i); });
+  });
+
+  document.querySelector(".switch__nav--prev").addEventListener("click", function () { selectCar(heroAt - 1); });
+  document.querySelector(".switch__nav--next").addEventListener("click", function () { selectCar(heroAt + 1); });
+
+  // roving tabindex: the strip is one tab stop and the arrow keys walk it,
+  // rather than twelve stops between the phone number and the first act
+  document.querySelector(".switch__strip").addEventListener("keydown", function (e) {
+    var step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if (!step) return;
+    e.preventDefault();
+    selectCar(heroAt + step);
+    thumbs[heroAt].focus();
+  });
+
+  // swipe, since a phone has no arrow keys and the strip is small
+  (function () {
+    var x0 = null, y0 = null;
+    var frame = document.querySelector(".hero__frame");
+    frame.addEventListener("pointerdown", function (e) { x0 = e.clientX; y0 = e.clientY; });
+    frame.addEventListener("pointerup", function (e) {
+      if (x0 === null) return;
+      var dx = e.clientX - x0, dy = e.clientY - y0;
+      x0 = null;
+      if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.5) selectCar(heroAt + (dx < 0 ? 1 : -1));
+    });
+    frame.addEventListener("pointercancel", function () { x0 = null; });
+  })();
+
+  /* --------------------------------------------------------------- 3 · tag
      The signature move. A valet tag that stamps whichever car is in front of
      the reader, swings with the scroll, and hands itself to the form.
 
@@ -59,7 +158,7 @@
   Array.prototype.forEach.call(select.options, function (o) { RATES[o.value] = +o.getAttribute("data-rate"); });
 
   var state = {
-    car: "Porsche Macan",
+    car: thumbs[0].getAttribute("data-car"),
     locked: false,          // an explicit choice outranks the scroll
     docked: false,
     moving: 0,
@@ -140,7 +239,7 @@
     if (Date.now() < state.hoverUntil) return;
 
     var mid = window.innerHeight * 0.45;
-    var hero = document.getElementById("macan").getBoundingClientRect();
+    var hero = document.getElementById("hero").getBoundingClientRect();
     var rail = document.getElementById("collection").getBoundingClientRect();
     var room = document.getElementById("room").getBoundingClientRect();
     var peakEl = document.getElementById("cullinan");
@@ -170,7 +269,8 @@
       if (pick) stamp(pick.car);
       return;
     }
-    if (hero.top <= mid && hero.bottom > mid) { stamp("Porsche Macan"); return; }
+    // the hero is a switcher now, so the tag follows whatever is selected in it
+    if (hero.top <= mid && hero.bottom > mid) { stamp(heroCar()); return; }
     // the plate leaves the last stamp standing on purpose
   }
 
@@ -339,7 +439,7 @@
     window.scrollTo({ top: Math.round(top + travel * open), behavior: "instant" });
   });
 
-  /* ------------------------------------------------------------ 3 · survey */
+  /* ------------------------------------------------------------ 4 · survey */
   var form = document.getElementById("survey");
   var fill = form.querySelector(".survey__fill");
   var steps = Array.prototype.slice.call(form.querySelectorAll(".step"));

@@ -66,8 +66,8 @@ the whole request.
 Written before the acts existed.
 
 ```
-1  Arrival     the rooftop at eye height, one car sitting there, its rate
-               already stated, nothing asked of the visitor yet
+1  Arrival     the whole fleet on the first screen, one car at a time in the
+               frame, its rate already stated, nothing asked of the visitor
 2  Appetite    the room walks past them: six cars, each labelled like an
                exhibit, each one gettable
 3  Weight      the room opens out and the top of the range arrives at a
@@ -147,6 +147,23 @@ schema for every object; no single hero claim; no scrim copy over media; nav is
 a jumpable index of objects; the close is an inquiry plate typeset like a label.
 Its bans hold: no kinetic headline, no spotlight, no magnet, no scrub at all.
 
+## The hero is the whole fleet
+
+**On the owner's instruction, the first screen shows every car, not one.** The
+frame is a switcher: twelve cars behind one plate, changed by the strip of
+thumbnails under it, the arrows on the frame, the arrow keys, or a swipe. The
+label, the rate and the Book button all read the selection, and so does the key
+tag, so a visitor can pick a car and book it without scrolling at all.
+
+It overlaps the rail act by design: the hero is for a visitor who arrived
+knowing what they want, the rail is for one who wants to be walked through. If
+that reads as repetition on a real audience, the rail is the part to cut, not
+the hero.
+
+The strip is one tab stop with the arrow keys walking it, rather than twelve
+stops between the phone number and the first act, and the label block is an
+`aria-live` region so the change is announced rather than silent.
+
 ## Hero depth
 
 **The backdrop is gradient, on the owner's instruction.** The first version put
@@ -199,7 +216,7 @@ the call button. Green never becomes a button; blue never becomes a price.
 
 | Act | Beat | Device | Why this one | Span |
 |---|---|---|---|---|
-| 1 | Object one, in the room | `parallax` (gradient ground, glow, plate, floor) | The hero has to be an object already in view with its label, and the depth has to come from motion and overlap rather than from photographs of the place | 1.9 |
+| 1 | The fleet, in one frame | `parallax` (gradient ground, glow, plate, floor) + a bespoke switcher | The first screen has to show the range, not one car, and the depth has to come from motion and overlap rather than from photographs of the place | 1.9 |
 | 2 | The collection | `pan` + `tilt` | Lateral travel reads as breadth, which is the whole question a fleet answers. Six objects cost the page nothing in height here, which is why the rail carries the wider half of the range | 5.2 |
 | 3 | Further into the room | `flow` + `in`, asymmetric mosaic, one object as a three-view study | Twelve objects will not all fit one rail at a readable pace, and a second rail would be the same act twice. The mosaic is a different size and rhythm, the study gives the one multi-angle car the treatment its coverage allows, and the quiet tail is the silence | ~3.4 |
 | 4 | The flagship | `reveal` (up, edge to edge) on a `pin` | A wipe is a change of state, and this is the one moment the page raises its voice | 3.3 |
@@ -226,18 +243,18 @@ standing in for a picture.
 
 | Car | Rate / day | On the page as |
 |---|---|---|
-| Porsche Macan | $199 | act 1, object one |
-| Audi S5 Sportback | $299 | act 2, rail |
-| Maserati Grecale | $299 | act 2, rail |
-| Cadillac Escalade ESV | $399 | act 2, rail |
-| Corvette C8 Z51 | $449 | act 2, rail |
-| Mercedes G-Wagon | $699 | act 2, rail |
-| Mercedes GLS 600 Maybach | $799 | act 2, rail |
-| Audi R8 V10 Spyder | $849 | act 3, mosaic |
-| McLaren GT | $1,049 | act 3, mosaic, as a three-view study |
-| Lamborghini Urus | $1,099 | act 3, mosaic |
-| Bentley Continental GT Speed | $1,199 | act 3, mosaic |
-| Rolls-Royce Cullinan | $1,999 | act 4, the peak |
+| Porsche Macan | $199 | act 1, the switcher's first car |
+| Audi S5 Sportback | $299 | act 1 switcher, then act 2 rail |
+| Maserati Grecale | $299 | act 1 switcher, then act 2 rail |
+| Cadillac Escalade ESV | $399 | act 1 switcher, then act 2 rail |
+| Corvette C8 Z51 | $449 | act 1 switcher, then act 2 rail |
+| Mercedes G-Wagon | $699 | act 1 switcher, then act 2 rail |
+| Mercedes GLS 600 Maybach | $799 | act 1 switcher, then act 2 rail |
+| Audi R8 V10 Spyder | $849 | act 1 switcher, then act 3 mosaic |
+| McLaren GT | $1,049 | act 1 switcher, then act 3 as a three-view study |
+| Lamborghini Urus | $1,099 | act 1 switcher, then act 3 mosaic |
+| Bentley Continental GT Speed | $1,199 | act 1 switcher, then act 3 mosaic |
+| Rolls-Royce Cullinan | $1,999 | act 1 switcher, then act 4, the peak |
 
 **The McLaren's registration plate is blurred in both rear views.** It was
 legible in the supplied frames, and a fleet's plates do not belong on a public

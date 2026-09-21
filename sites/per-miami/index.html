@@ -28,7 +28,7 @@
 
   <nav class="index" aria-label="The collection">
     <ol class="index__list">
-      <li><a href="#macan" data-index-for="act-macan"><span class="index__n">Porsche Macan</span><span class="index__s">Macan</span><span class="index__r">199</span></a></li>
+      <li><a href="#hero" data-index-for="act-hero"><span class="index__n">The fleet, all twelve</span><span class="index__s">The fleet</span><span class="index__r index__r--from"><span class="index__pre">from </span>$199</span></a></li>
       <li><a href="#collection" data-index-for="act-collection"><span class="index__n">S5 · Grecale · Escalade</span><span class="index__s">Collection</span><span class="index__r">299</span></a></li>
       <li><a href="#room" data-index-for="act-room"><span class="index__n">Further into the room</span><span class="index__s">The room</span><span class="index__r">849</span></a></li>
       <li><a href="#cullinan" data-index-for="act-cullinan"><span class="index__n">Rolls-Royce Cullinan</span><span class="index__s">Cullinan</span><span class="index__r">1,999</span></a></li>
@@ -43,31 +43,115 @@
 
 <main>
 
-  <!-- 1 · ARRIVAL · parallax. Object one is already in view and already
-       labelled: the collection starts at the top of the page. The backdrop is
-       gradient, not photography: the keyed skyline and the deck crop read as
-       smears behind the frame at this source resolution, so the only
-       photograph in the hero is the car, in its frame. Depth comes from three
-       rates and two overlaps instead. -->
-  <section id="macan" class="act-hero" data-sc-act="pin" data-sc-span="1.9" data-sc-drift="#05070A" aria-labelledby="macan-h">
+  <!-- 1 · ARRIVAL · the whole fleet on the first screen. The frame is a
+       switcher: twelve cars behind one plate, changed by the strip, the
+       arrows, the arrow keys or a swipe, with the label and the Book button
+       following the selection. The backdrop is gradient; the only photograph
+       in the hero is whichever car is selected, in its frame. -->
+  <section id="hero" class="act-hero" data-sc-act="pin" data-sc-span="1.9" data-sc-drift="#05070A" aria-labelledby="hero-h">
     <div data-sc-stage class="hero">
 
       <div class="hero__sky" aria-hidden="true"></div>
       <div class="hero__glow" aria-hidden="true" data-sc-parallax="-0.9"></div>
 
-      <figure class="hero__frame" data-sc-parallax="-0.45">
-        <img class="hero__shot" src="assets/macan.webp"
-             srcset="assets/macan-m.webp 780w, assets/macan.webp 1400w"
-             sizes="(max-width: 1040px) 86vw, 44vw" width="1400" height="1270"
-             alt="A black Porsche Macan parked alone on an open rooftop deck.">
-      </figure>
+      <div class="switch" data-sc-parallax="-0.45">
+        <figure class="hero__frame">
+          <img class="hero__shot" id="hero-shot" src="assets/macan.webp"
+               srcset="assets/macan-m.webp 780w, assets/macan.webp 1400w"
+               sizes="(max-width: 1040px) 86vw, 44vw" width="1400" height="1270"
+               alt="A black Porsche Macan parked alone on an open rooftop deck.">
+          <button type="button" class="switch__nav switch__nav--prev" aria-label="Previous car">
+            <svg viewBox="0 0 24 24" aria-hidden="true" width="24" height="24"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button type="button" class="switch__nav switch__nav--next" aria-label="Next car">
+            <svg viewBox="0 0 24 24" aria-hidden="true" width="24" height="24"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </figure>
+
+        <div class="switch__strip" role="group" aria-label="Choose a car from the fleet">
+          <button type="button" class="switch__thumb is-current"
+                  data-id="macan" data-car="Porsche Macan" data-spec="Compact SUV · 5 seats" data-rate="199"
+                  data-alt="A black Porsche Macan parked alone on an open rooftop deck." aria-current="true" tabindex="0">
+            <img src="assets/macan-t.webp" width="220" height="200" alt="" loading="lazy">
+            <span class="sr">Porsche Macan, $199 per day</span>
+          </button>
+          <button type="button" class="switch__thumb"
+                  data-id="s5" data-car="Audi S5 Sportback" data-spec="Sportback · 5 seats" data-rate="299"
+                  data-alt="A navy Audi S5 Sportback on the rooftop deck, front three-quarter view." tabindex="-1">
+            <img src="assets/s5-t.webp" width="220" height="200" alt="" loading="lazy">
+            <span class="sr">Audi S5 Sportback, $299 per day</span>
+          </button>
+          <button type="button" class="switch__thumb"
+                  data-id="grecale" data-car="Maserati Grecale" data-spec="Mid-size SUV · 5 seats" data-rate="299"
+                  data-alt="A white Maserati Grecale on the rooftop deck under overcast light." tabindex="-1">
+            <img src="assets/grecale-t.webp" width="220" height="200" alt="" loading="lazy">
+            <span class="sr">Maserati Grecale, $299 per day</span>
+          </button>
+          <button type="button" class="switch__thumb"
+                  data-id="escalade" data-car="Cadillac Escalade ESV" data-spec="Full-size SUV · 7 seats" data-rate="399"
+                  data-alt="A black Cadillac Escalade ESV on chrome wheels beside a dark building wall." tabindex="-1">
+            <img src="assets/escalade-t.webp" width="220" height="200" alt="" loading="lazy">
+            <span class="sr">Cadillac Escalade ESV, $399 per day</span>
+          </button>
+          <button type="button" class="switch__thumb"
+                  data-id="corvette" data-car="Corvette C8 Z51" data-spec="Convertible · 2 seats" data-rate="449"
+                  data-alt="A white Corvette C8 Z51 convertible with its roof down on the rooftop deck." tabindex="-1">
+            <img src="assets/corvette-t.webp" width="220" height="200" alt="" loading="lazy">
+            <span class="sr">Corvette C8 Z51, $449 per day</span>
+          </button>
+          <button type="button" class="switch__thumb"
+                  data-id="gwagon" data-car="Mercedes G-Wagon" data-spec="Full-size SUV · 5 seats" data-rate="699"
+                  data-alt="A matte black Mercedes G-Wagon on the rooftop deck under a clear sky." tabindex="-1">
+            <img src="assets/gwagon-t.webp" width="220" height="200" alt="" loading="lazy">
+            <span class="sr">Mercedes G-Wagon, $699 per day</span>
+          </button>
+          <button type="button" class="switch__thumb"
+                  data-id="maybach" data-car="Mercedes GLS 600 Maybach" data-spec="Full-size SUV · 7 seats" data-rate="799"
+                  data-alt="A black Mercedes GLS 600 Maybach with chrome wheels on the rooftop deck." tabindex="-1">
+            <img src="assets/maybach-t.webp" width="220" height="200" alt="" loading="lazy">
+            <span class="sr">Mercedes GLS 600 Maybach, $799 per day</span>
+          </button>
+          <button type="button" class="switch__thumb"
+                  data-id="r8" data-car="Audi R8 V10 Spyder" data-spec="Roadster · 2 seats" data-rate="849"
+                  data-alt="A white Audi R8 V10 Spyder with its roof down on the rooftop deck." tabindex="-1">
+            <img src="assets/r8-t.webp" width="220" height="200" alt="" loading="lazy">
+            <span class="sr">Audi R8 V10 Spyder, $849 per day</span>
+          </button>
+          <button type="button" class="switch__thumb"
+                  data-id="mclaren" data-car="McLaren GT" data-spec="Coupe · 2 seats" data-rate="1,049"
+                  data-alt="A grey McLaren GT on the rooftop deck with both doors raised." tabindex="-1">
+            <img src="assets/mclaren-t.webp" width="220" height="200" alt="" loading="lazy">
+            <span class="sr">McLaren GT, $1,049 per day</span>
+          </button>
+          <button type="button" class="switch__thumb"
+                  data-id="urus" data-car="Lamborghini Urus" data-spec="Performance SUV · 5 seats" data-rate="1,099"
+                  data-alt="A black Lamborghini Urus on the rooftop deck under heavy cloud." tabindex="-1">
+            <img src="assets/urus-t.webp" width="220" height="200" alt="" loading="lazy">
+            <span class="sr">Lamborghini Urus, $1,099 per day</span>
+          </button>
+          <button type="button" class="switch__thumb"
+                  data-id="bentley" data-car="Bentley Continental GT Speed" data-spec="Grand tourer · 4 seats" data-rate="1,199"
+                  data-alt="A grey Bentley Continental GT Speed on the rooftop deck." tabindex="-1">
+            <img src="assets/bentley-t.webp" width="220" height="200" alt="" loading="lazy">
+            <span class="sr">Bentley Continental GT Speed, $1,199 per day</span>
+          </button>
+          <button type="button" class="switch__thumb"
+                  data-id="cullinan" data-car="Rolls-Royce Cullinan" data-spec="Full-size SUV · 5 seats" data-rate="1,999"
+                  data-alt="A white Rolls-Royce Cullinan Black Badge on the open rooftop deck in full sun." tabindex="-1">
+            <img src="assets/cullinan-t.webp" width="220" height="200" alt="" loading="lazy">
+            <span class="sr">Rolls-Royce Cullinan, $1,999 per day</span>
+          </button>
+        </div>
+      </div>
 
       <div class="hero__label sc-stack" data-sc-cue="0 1 0 0">
-        <p class="label__kind">Object one, on the deck today</p>
-        <h2 class="label__name sc-display sc-display--lg" id="macan-h">Porsche Macan</h2>
-        <p class="label__spec">Compact SUV · 5 seats</p>
-        <p class="label__rate"><span class="rate">$199</span> <span class="rate__unit">per day</span></p>
-        <a class="button" href="#reserve" data-car="Porsche Macan">Book</a>
+        <p class="label__kind">On the deck today, twelve cars</p>
+        <div class="hero__read" aria-live="polite">
+          <h2 class="label__name sc-display sc-display--lg" id="hero-h">Porsche Macan</h2>
+          <p class="label__spec" id="hero-spec">Compact SUV · 5 seats</p>
+          <p class="label__rate"><span class="rate" id="hero-rate">$199</span> <span class="rate__unit">per day</span></p>
+        </div>
+        <a class="button" id="hero-book" href="#reserve" data-car="Porsche Macan">Book</a>
       </div>
 
       <div class="hero__floor" aria-hidden="true" data-sc-parallax="0.55"></div>

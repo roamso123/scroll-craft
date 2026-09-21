@@ -88,6 +88,9 @@ async function objects() {
       .sharpen({ sigma: 0.8, m1: 0.4, m2: 0.7 });
     await base.clone().webp({ quality: 88 }).toFile(`${OUT}/${c.id}.webp`);
     await base.clone().resize({ width: 780 }).webp({ quality: 84 }).toFile(`${OUT}/${c.id}-m.webp`);
+    // the hero's selector strip: twelve of these load on the landing screen,
+    // so they are sized for the strip and nothing larger
+    await base.clone().resize({ width: 220 }).webp({ quality: 80 }).toFile(`${OUT}/${c.id}-t.webp`);
     const meta = await sharp(`${OUT}/${c.id}.webp`).metadata();
     console.log(`object    ${c.id.padEnd(9)} ${meta.width}x${meta.height}`);
   }

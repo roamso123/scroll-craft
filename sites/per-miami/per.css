@@ -42,7 +42,12 @@
   --sc-font-mono:    "Geist", ui-monospace, monospace;
 
   --sc-shadow-color: 205 60% 2%;
-  --per-chrome-w: 16.5rem;
+
+  /* the standing index, and the line the page's content starts on */
+  --per-chrome-x: clamp(1rem, 2.2vw, 2.25rem);
+  --per-chrome-w: 15.25rem;
+  --per-gap:      clamp(2rem, 4.5vw, 5rem);
+  --per-content-x: calc(var(--per-chrome-x) + var(--per-chrome-w) + var(--per-gap));
 }
 
 body { overflow-x: clip; }
@@ -130,7 +135,7 @@ body { overflow-x: clip; }
 .chrome {
   position: fixed;
   top: clamp(1.1rem, 3vh, 2.2rem);
-  left: var(--sc-gutter);
+  left: var(--per-chrome-x);
   width: var(--per-chrome-w);
   z-index: 60;
   display: flex; flex-direction: column;
@@ -141,11 +146,11 @@ body { overflow-x: clip; }
 .chrome::before {
   content: "";
   position: fixed; inset: 0 auto 0 0;
-  width: calc(var(--per-chrome-w) + var(--sc-gutter) * 1.05);
+  width: calc(var(--per-chrome-x) + var(--per-chrome-w) + var(--per-gap) * 0.42);
   background: linear-gradient(to right,
     var(--sc-canvas) 0%,
-    var(--sc-canvas) 58%,
-    color-mix(in oklab, var(--sc-canvas) 72%, transparent) 82%,
+    var(--sc-canvas) 93%,
+    color-mix(in oklab, var(--sc-canvas) 55%, transparent) 97%,
     transparent 100%);
   pointer-events: none;
   z-index: -1;
@@ -185,6 +190,7 @@ body { overflow-x: clip; }
   color: color-mix(in oklab, var(--per-rate) 70%, var(--sc-canvas));
 }
 .index__r::before { content: "$"; opacity: 0.6; }
+.index__r--from::before { content: none; }
 @media (hover: hover) and (pointer: fine) {
   .index__list a:hover { color: var(--sc-ink); }
   .index__list a:hover .index__r { color: var(--per-rate); }
@@ -262,17 +268,27 @@ body { overflow-x: clip; }
   z-index: 5;
   pointer-events: none;
 }
-.hero__frame {
+/* ----------------------------------------------------------- the switcher --
+   Twelve cars behind one plate. The strip is the selector, the arrows and the
+   arrow keys move one at a time, and a swipe does the same on touch. The
+   label beside it reads whatever is selected, and so does the Book button. */
+.switch {
   position: absolute;
   top: 50%; right: clamp(1.25rem, 6vw, 7rem);
   width: min(44vw, 620px);
+  translate: 0 -52%;
+  z-index: 2;
+  display: grid;
+  gap: clamp(0.6rem, 1.4vw, 1rem);
+}
+.hero__frame {
+  position: relative;
+  width: 100%;
   aspect-ratio: 1400 / 1270;
   margin: 0;
-  translate: 0 -54%;
   overflow: clip;
   border-radius: var(--sc-r-lg);
   box-shadow: var(--sc-e3);
-  z-index: 2;
 }
 .hero__frame::after {
   content: ""; position: absolute; inset: 0;
@@ -286,6 +302,69 @@ body { overflow-x: clip; }
   /* the plate pushes in as it travels: one camera idea, a few per cent */
   scale: calc(1.01 + var(--sc-p, 0) * 0.07);
   transform-origin: 54% 62%;
+  transition: opacity 200ms var(--sc-ease-out);
+}
+.switch.is-swapping .hero__shot { opacity: 0; }
+
+.switch__nav {
+  position: absolute;
+  top: 50%; translate: 0 -50%;
+  z-index: 3;
+  display: grid; place-items: center;
+  width: 2.75rem; height: 2.75rem;
+  padding: 0;
+  border: 1px solid color-mix(in oklab, var(--sc-ink) 22%, transparent);
+  border-radius: 999px;
+  background: color-mix(in oklab, #040A10 62%, transparent);
+  backdrop-filter: blur(6px);
+  color: var(--sc-ink);
+  cursor: pointer;
+  opacity: 0.9;
+  transition: background var(--sc-d-fast) var(--sc-ease-out),
+              opacity var(--sc-d-fast) var(--sc-ease-out);
+}
+/* a control the keyboard has landed on is never at a resting opacity */
+.switch__nav:focus-visible, .switch__thumb:focus-visible { opacity: 1; filter: none; }
+.switch__nav--prev { left: 0.7rem; }
+.switch__nav--next { right: 0.7rem; }
+@media (hover: hover) and (pointer: fine) {
+  .switch__nav:hover { opacity: 1; background: color-mix(in oklab, var(--sc-accent) 74%, #040A10); color: var(--sc-accent-ink); }
+}
+.switch__nav:active { transform: translateY(1px); }
+
+.switch__strip {
+  display: flex;
+  gap: clamp(0.35rem, 0.8vw, 0.6rem);
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+  padding-bottom: 2px;
+}
+.switch__strip::-webkit-scrollbar { display: none; }
+.switch__thumb {
+  flex: 0 0 auto;
+  width: clamp(3.4rem, 6.4vw, 4.6rem);
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--sc-r-sm);
+  background: none;
+  cursor: pointer;
+  overflow: clip;
+  scroll-snap-align: center;
+  opacity: 0.44;
+  filter: saturate(0.7);
+  transition: opacity var(--sc-d-fast) var(--sc-ease-out),
+              filter var(--sc-d-fast) var(--sc-ease-out),
+              border-color var(--sc-d-fast) var(--sc-ease-out);
+}
+.switch__thumb img { width: 100%; height: auto; display: block; }
+@media (hover: hover) and (pointer: fine) {
+  .switch__thumb:hover { opacity: 0.8; filter: none; }
+}
+.switch__thumb.is-current {
+  opacity: 1;
+  filter: none;
+  border-color: var(--sc-accent);
 }
 /* A column of density under the label, not a full-frame overlay: it lifts the
    spec line's worst measured contrast off the deck plane and leaves the
@@ -308,12 +387,13 @@ body { overflow-x: clip; }
 
 .hero__label {
   position: absolute;
-  left: calc(var(--sc-gutter) + var(--per-chrome-w) + 2.25rem);
+  left: var(--per-content-x);
   bottom: clamp(5rem, 17vh, 11rem);
   width: min(21rem, 30vw);
   z-index: 7;
 }
 .hero__label .label__name { font-size: var(--sc-t-2xl); }
+.hero__read { display: grid; gap: 0.5rem; min-height: 8.5rem; align-content: start; }
 .hero__label .button { margin-top: 0.4rem; }
 
 /* ------------------------------------------------------------- 2 · rail -- */
@@ -321,7 +401,7 @@ body { overflow-x: clip; }
 .rail {
   align-items: center;
   gap: clamp(1.25rem, 3vw, 3rem);
-  padding-inline: calc(var(--sc-gutter) + var(--per-chrome-w)) var(--sc-gutter);
+  padding-inline: var(--per-content-x) var(--sc-gutter);
 }
 .rail > * { flex: none; }
 .rail__lead { width: min(24rem, 74vw); }
@@ -363,16 +443,24 @@ body { overflow-x: clip; }
    rails. The first item is exempt, and nothing goes below 0.55 so an
    unsettled card reads as arriving, not as failing to load. */
 @media (prefers-reduced-motion: no-preference) {
+  /* The settle is a whisper, not a fade. It used to floor at 0.55, which put
+     every rate that had not finished arriving at just over half opacity: the
+     green goes illegible faster than anything else on the page when it dims,
+     and a price you have to squint at is not a price. It arrives in a tenth
+     of the travel now and never drops below 0.88. */
   .rail > .object {
-    --per-settle: clamp(0, calc((var(--sc-p, 0) - var(--per-d, 0)) * 7), 1);
-    opacity: calc(0.55 + var(--per-settle) * 0.45);
-    transform: translate3d(0, calc((1 - var(--per-settle)) * 20px), 0);
+    --per-settle: clamp(0, calc((var(--sc-p, 0) - var(--per-d, 0)) * 11), 1);
+    opacity: calc(0.88 + var(--per-settle) * 0.12);
+    transform: translate3d(0, calc((1 - var(--per-settle)) * 12px), 0);
   }
   /* a card the keyboard is inside is never half-settled */
   .rail > .object:focus-within { opacity: 1; transform: none; }
-  .rail > .object:nth-of-type(1) { --per-d: 0.02; }
-  .rail > .object:nth-of-type(2) { --per-d: 0.14; }
-  .rail > .object:nth-of-type(3) { --per-d: 0.28; }
+  .rail > .object:nth-of-type(1) { --per-d: 0.01; }
+  .rail > .object:nth-of-type(2) { --per-d: 0.06; }
+  .rail > .object:nth-of-type(3) { --per-d: 0.12; }
+  .rail > .object:nth-of-type(4) { --per-d: 0.18; }
+  .rail > .object:nth-of-type(5) { --per-d: 0.24; }
+  .rail > .object:nth-of-type(6) { --per-d: 0.30; }
 }
 
 /* ------------------------------------------------------------- 3 · room --
@@ -381,7 +469,7 @@ body { overflow-x: clip; }
    Same label schema as every other object, which is what makes this a
    collection rather than a grid. */
 .act-room { padding-block: clamp(3rem, 7vh, 5.5rem) clamp(2.5rem, 6vh, 4.5rem); }
-.act-room .sc-wrap { padding-left: max(var(--sc-gutter), calc(var(--per-chrome-w) + var(--sc-gutter))); }
+.act-room .sc-wrap { padding-left: var(--per-content-x); }
 .room__head { display: grid; gap: 0.6rem; margin-bottom: var(--sc-7); }
 .room__sub { margin: 0; color: var(--sc-ink-soft); font-size: var(--sc-t-sm); }
 
@@ -464,7 +552,7 @@ body { overflow-x: clip; }
   justify-items: center;
   gap: clamp(1.25rem, 3vh, 2.25rem);
   padding: clamp(4.5rem, 11vh, 8rem) var(--sc-gutter) clamp(2.5rem, 7vh, 5rem)
-           calc(var(--sc-gutter) + var(--per-chrome-w));
+           var(--per-content-x);
 }
 .peak__ground {
   position: absolute; inset: 0;
@@ -474,7 +562,7 @@ body { overflow-x: clip; }
 }
 .peak__empty {
   position: absolute;
-  left: calc(var(--sc-gutter) + var(--per-chrome-w));
+  left: var(--per-content-x);
   right: var(--sc-gutter);
   top: clamp(4.5rem, 11vh, 8rem);
   margin-inline: auto;
@@ -711,7 +799,7 @@ body { overflow-x: clip; }
 
 /* ---------------------------------------------------------------- mobile -- */
 @media (max-width: 1040px) {
-  :root { --per-chrome-w: 0rem; }
+  :root { --per-chrome-x: 0rem; --per-chrome-w: 0rem; --per-gap: 0rem; --per-content-x: var(--sc-gutter); }
   .chrome {
     inset: 0 0 auto 0;
     left: 0; top: 0;
@@ -735,7 +823,7 @@ body { overflow-x: clip; }
   .index__list { display: flex; gap: 0.9rem; }
   .index__list a { border: 0; padding: 0.35rem 0 0; gap: 0.35rem; font-size: var(--sc-t-xs); }
   .index__list li:last-child a { border: 0; }
-  .index__n { display: none; }
+  .index__n, .index__pre { display: none; }   /* the chip row has no room for either */
   .index__s { display: inline; white-space: nowrap; }
   .index__list a[aria-current="true"] { color: var(--sc-accent); }
   .index__list a[aria-current="true"] .index__n::before { content: none; }
@@ -746,12 +834,15 @@ body { overflow-x: clip; }
   /* Mobile is art-directed, not shrunk: the frame moves to the top of the
      stage, the label sits under it on the ground instead of beside it, and
      the deck plane holds the bottom edge. */
-  .hero__frame {
-    top: auto; right: auto;
-    left: 50%; translate: -50% 0;
-    top: clamp(6.5rem, 15vh, 9rem);
-    width: min(86vw, 30rem);
+  .switch {
+    top: clamp(6.2rem, 14vh, 8.5rem);
+    right: auto; left: 50%;
+    translate: -50% 0;
+    width: min(88vw, 30rem);
   }
+  .switch__nav { width: 2.4rem; height: 2.4rem; }
+  .switch__thumb { width: 3.1rem; }
+  .hero__read { min-height: 7rem; }
   /* A column of density under the label, not a full-frame overlay: it lifts the
    spec line's worst measured contrast off the deck plane and leaves the
    photograph alone. A sibling of the copy, never a child, or the verification
