@@ -77,6 +77,33 @@
     });
   }
 
+  /* --------------------------------------------------- the frame switcher */
+
+  /* Each object holds two or three frames of the same car. Swapping the source
+     also swaps the alt text, because a frame strip that leaves "three-quarter
+     front view" on a rear shot is worse than no alt text at all. */
+  Array.prototype.forEach.call(document.querySelectorAll(".frames"), function (group) {
+    group.addEventListener("click", function (e) {
+      var btn = e.target.closest(".frames__b");
+      if (!btn) return;
+      var img = group.parentElement.querySelector(".obj__frame img");
+      if (!img) return;
+      img.src = btn.getAttribute("data-src");
+      img.alt = btn.getAttribute("data-alt");
+      Array.prototype.forEach.call(group.querySelectorAll(".frames__b"), function (b) {
+        b.setAttribute("aria-pressed", String(b === btn));
+      });
+    });
+  });
+
+  /* Warm the frames that are one click away, so the swap is instant. */
+  addEventListener("load", function () {
+    Array.prototype.forEach.call(document.querySelectorAll(".frames__b"), function (b) {
+      var pre = new Image();
+      pre.src = b.getAttribute("data-src");
+    });
+  });
+
   /* ------------------------------------------- naming the booking buttons */
 
   /* Every booking control reads "Book now", which is one label for one intent.

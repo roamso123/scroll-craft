@@ -286,6 +286,28 @@ img { display: block; }
   background: var(--sc-accent); color: var(--sc-accent-ink);
   font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; font-variant-numeric: tabular-nums;
 }
+/* Each object carries two or three frames of the same car. The strip is a
+   real control rather than a decoration: the visitor picks the view. */
+.frames { display: flex; gap: 0.35rem; }
+.frames__b {
+  flex: 1 1 0;
+  font-family: var(--sc-font-text);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sc-ink-soft);
+  background: transparent;
+  border: 1px solid var(--mlr-line-2);
+  border-radius: 2px;
+  padding: 0.5rem 0.3rem;
+  cursor: pointer;
+  transition: color 140ms var(--sc-ease-out), border-color 140ms var(--sc-ease-out);
+}
+.frames__b[aria-pressed="true"] { color: var(--sc-ink); border-color: var(--sc-accent); }
+@media (hover: none) { .frames__b { min-height: 2.75rem; } }
+@media (hover: hover) and (pointer: fine) { .frames__b:hover { color: var(--sc-ink); } }
+
 .obj h3 {
   font-family: var(--sc-font-display);
   font-variation-settings: "wdth" 114;
@@ -309,7 +331,7 @@ img { display: block; }
 }
 
 /* --- act 3 · inside ----------------------------------------------------- */
-.inside { padding-block: calc(var(--sc-section) * 0.55) var(--sc-section); }
+.inside { padding-block: calc(var(--sc-section) * 0.28) var(--sc-section); }
 .inside__grid {
   display: grid;
   gap: clamp(0.5rem, 1.2vw, 1rem);
@@ -662,7 +684,7 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
       <div class="arrival__glow" data-plane="-0.95"></div>
     </div>
     <div class="arrival__car" data-plane="-0.36" data-car="maybach-s580">
-      <img src="assets/maybach-s580-front.jpg" width="1400" height="875"
+      <img src="assets/v-maybach-ext.jpg" width="1400" height="875"
            alt="A black and silver Mercedes-Maybach S 580 on a lit studio floor, three-quarter front view.">
       <div class="arrival__floor" data-plane="0.26" aria-hidden="true"></div>
     </div>
@@ -697,9 +719,13 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
         </div>
 
         <article class="obj" data-car="m5">
-          <div class="obj__frame" data-sc-tilt="5" data-slot="m5-front.jpg">
-            <img src="assets/m5-front.jpg" width="1400" height="875" alt="Dark grey BMW M5 Competition, three-quarter front view on a studio floor.">
+          <div class="obj__frame" data-sc-tilt="5">
+            <img src="assets/v-m5-ext.jpg" width="1400" height="875" alt="Dark grey BMW M5 Competition, three-quarter front view on a lit studio floor.">
             <span class="obj__n">01</span>
+          </div>
+          <div class="frames" role="group" aria-label="Frames of the M5">
+            <button type="button" class="frames__b" aria-pressed="true" data-src="assets/v-m5-ext.jpg" data-alt="Dark grey BMW M5 Competition, three-quarter front view on a lit studio floor.">Front</button>
+            <button type="button" class="frames__b" aria-pressed="false" data-src="assets/v-m5-rear.jpg" data-alt="Dark grey BMW M5 Competition, three-quarter rear view on a lit studio floor.">Rear</button>
           </div>
           <h3>M5 <em>BMW Competition</em></h3>
           <dl class="spec">
@@ -712,9 +738,14 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
         </article>
 
         <article class="obj" data-car="m4c">
-          <div class="obj__frame" data-sc-tilt="5" data-slot="m4-conv-front.jpg">
-            <img src="assets/m4-conv-front.jpg" width="1400" height="875" alt="White BMW M4 Competition Convertible with the roof down, three-quarter front view.">
+          <div class="obj__frame" data-sc-tilt="5">
+            <img src="assets/v-m4-ext.jpg" width="1400" height="875" alt="White BMW M4 Competition Convertible with the roof down, three-quarter front view on a lit studio floor.">
             <span class="obj__n">02</span>
+          </div>
+          <div class="frames" role="group" aria-label="Frames of the M4 Convertible">
+            <button type="button" class="frames__b" aria-pressed="true" data-src="assets/v-m4-ext.jpg" data-alt="White BMW M4 Competition Convertible with the roof down, three-quarter front view on a lit studio floor.">Front</button>
+            <button type="button" class="frames__b" aria-pressed="false" data-src="assets/v-m4-rear.jpg" data-alt="White BMW M4 Competition Convertible with the roof down, three-quarter rear view on a lit studio floor.">Rear</button>
+            <button type="button" class="frames__b" aria-pressed="false" data-src="assets/v-m4-int.jpg" data-alt="BMW M4 Competition Convertible interior: carbon bucket seats and tan trim, seen from above with the roof down.">Cabin</button>
           </div>
           <h3>M4 Convertible <em>BMW Competition xDrive</em></h3>
           <dl class="spec">
@@ -727,9 +758,14 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
         </article>
 
         <article class="obj" data-car="g63">
-          <div class="obj__frame" data-sc-tilt="5" data-slot="g63-front.jpg">
-            <img src="assets/g63-front.jpg" width="1400" height="875" alt="White Mercedes-AMG G 63 on black wheels, three-quarter front view.">
+          <div class="obj__frame" data-sc-tilt="5">
+            <img src="assets/v-g63-ext.jpg" width="1400" height="875" alt="White Mercedes-AMG G 63 on black wheels, three-quarter front view on a lit studio floor.">
             <span class="obj__n">03</span>
+          </div>
+          <div class="frames" role="group" aria-label="Frames of the G 63">
+            <button type="button" class="frames__b" aria-pressed="true" data-src="assets/v-g63-ext.jpg" data-alt="White Mercedes-AMG G 63 on black wheels, three-quarter front view on a lit studio floor.">Front</button>
+            <button type="button" class="frames__b" aria-pressed="false" data-src="assets/v-g63-rear.jpg" data-alt="White Mercedes-AMG G 63 on black wheels, three-quarter rear view with the spare wheel cover on the tailgate.">Rear</button>
+            <button type="button" class="frames__b" aria-pressed="false" data-src="assets/v-g63-int.jpg" data-alt="Mercedes-AMG G 63 interior: dashboard and black diamond-quilted seats.">Cabin</button>
           </div>
           <h3>G 63 <em>Mercedes-AMG</em></h3>
           <dl class="spec">
@@ -742,9 +778,13 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
         </article>
 
         <article class="obj" data-car="911">
-          <div class="obj__frame" data-sc-tilt="5" data-slot="911-front.jpg">
-            <img src="assets/911-front.jpg" width="1400" height="875" alt="Red Porsche 911 Carrera S, three-quarter front view on a studio floor.">
+          <div class="obj__frame" data-sc-tilt="5">
+            <img src="assets/v-911-ext.jpg" width="1400" height="875" alt="Red Porsche 911 Carrera S, three-quarter front view on a lit studio floor.">
             <span class="obj__n">04</span>
+          </div>
+          <div class="frames" role="group" aria-label="Frames of the 911 Carrera S">
+            <button type="button" class="frames__b" aria-pressed="true" data-src="assets/v-911-ext.jpg" data-alt="Red Porsche 911 Carrera S, three-quarter front view on a lit studio floor.">Front</button>
+            <button type="button" class="frames__b" aria-pressed="false" data-src="assets/v-911-rear.jpg" data-alt="Red Porsche 911 Carrera S, three-quarter rear view with the wing raised.">Rear</button>
           </div>
           <h3>911 Carrera S <em>Porsche</em></h3>
           <dl class="spec">
@@ -757,9 +797,14 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
         </article>
 
         <article class="obj" data-car="escalade">
-          <div class="obj__frame" data-sc-tilt="5" data-slot="escalade-front.jpg">
-            <img src="assets/escalade-front.jpg" width="1400" height="875" alt="Black Cadillac Escalade ESV, three-quarter front view on a studio floor.">
+          <div class="obj__frame" data-sc-tilt="5">
+            <img src="assets/v-escalade-ext.jpg" width="1400" height="875" alt="Black Cadillac Escalade ESV, three-quarter front view on a lit studio floor.">
             <span class="obj__n">05</span>
+          </div>
+          <div class="frames" role="group" aria-label="Frames of the Escalade ESV">
+            <button type="button" class="frames__b" aria-pressed="true" data-src="assets/v-escalade-ext.jpg" data-alt="Black Cadillac Escalade ESV, three-quarter front view on a lit studio floor.">Front</button>
+            <button type="button" class="frames__b" aria-pressed="false" data-src="assets/v-escalade-rear.jpg" data-alt="Black Cadillac Escalade ESV, three-quarter rear view on a lit studio floor.">Rear</button>
+            <button type="button" class="frames__b" aria-pressed="false" data-src="assets/v-escalade-int.jpg" data-alt="Cadillac Escalade ESV interior: cabin under a panoramic roof, with black quilted seats.">Cabin</button>
           </div>
           <h3>Escalade ESV <em>Cadillac Premium Luxury</em></h3>
           <dl class="spec">
@@ -772,9 +817,13 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
         </article>
 
         <article class="obj" data-car="c63">
-          <div class="obj__frame" data-sc-tilt="5" data-slot="c63-front.jpg">
-            <img src="assets/c63-front.jpg" width="1400" height="875" alt="Grey Mercedes-AMG C 63 S, three-quarter front view on a studio floor.">
+          <div class="obj__frame" data-sc-tilt="5">
+            <img src="assets/v-c63-ext.jpg" width="1400" height="875" alt="Grey Mercedes-AMG C 63 S, three-quarter front view on a lit studio floor.">
             <span class="obj__n">06</span>
+          </div>
+          <div class="frames" role="group" aria-label="Frames of the C 63 S">
+            <button type="button" class="frames__b" aria-pressed="true" data-src="assets/v-c63-ext.jpg" data-alt="Grey Mercedes-AMG C 63 S, three-quarter front view on a lit studio floor.">Front</button>
+            <button type="button" class="frames__b" aria-pressed="false" data-src="assets/v-c63-rear.jpg" data-alt="Grey Mercedes-AMG C 63 S, three-quarter rear view on a lit studio floor.">Rear</button>
           </div>
           <h3>C 63 S <em>Mercedes-AMG</em></h3>
           <dl class="spec">
@@ -787,9 +836,14 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
         </article>
 
         <article class="obj" data-car="maybach-rear">
-          <div class="obj__frame" data-sc-tilt="5" data-slot="maybach-s580-rear.jpg">
-            <img src="assets/maybach-s580-rear.jpg" width="1400" height="875" alt="Silver Mercedes-Maybach S 580 from the rear three-quarter on a lit studio floor.">
+          <div class="obj__frame" data-sc-tilt="5">
+            <img src="assets/v-maybach-rear.jpg" width="1400" height="875" alt="Mercedes-Maybach S 580, three-quarter rear view on a lit studio floor.">
             <span class="obj__n">07</span>
+          </div>
+          <div class="frames" role="group" aria-label="Frames of the Maybach S 580">
+            <button type="button" class="frames__b" aria-pressed="true" data-src="assets/v-maybach-rear.jpg" data-alt="Mercedes-Maybach S 580, three-quarter rear view on a lit studio floor.">Rear</button>
+            <button type="button" class="frames__b" aria-pressed="false" data-src="assets/v-maybach-ext.jpg" data-alt="Mercedes-Maybach S 580, three-quarter front view on a lit studio floor.">Front</button>
+            <button type="button" class="frames__b" aria-pressed="false" data-src="assets/v-maybach-int.jpg" data-alt="Mercedes-Maybach S 580: rear door open on the cream executive rear seats.">Cabin</button>
           </div>
           <h3>Maybach S 580 <em>Mercedes-Benz 4MATIC</em></h3>
           <dl class="spec">
@@ -798,7 +852,7 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
             <div><dt>Seats</dt><dd>4</dd></div>
           </dl>
           <p class="rate">Rate on request</p>
-          <button class="btn btn--primary" data-book="maybach-s580">Book now</button>
+          <button class="btn btn--primary" data-book="maybach-rear">Book now</button>
         </article>
 
         <div class="rail__tail">
@@ -820,41 +874,23 @@ select { appearance: none; background-image: linear-gradient(45deg, transparent 
         <p class="lbl">Cabins &middot; as delivered</p>
       </div>
       <div class="inside__grid">
-        <figure class="f-hero" data-sc-reveal="up" data-sc-reveal-at="0.04 0.42" data-slot="maybach-s580-cabin.jpg" data-car="maybach-s580">
-          <img src="assets/maybach-s580-cabin.jpg" width="1200" height="514" alt="Rear door open on a Maybach S 580 showing cream executive rear seats and two filled champagne flutes.">
+        <figure class="f-hero" data-sc-reveal="up" data-sc-reveal-at="0.04 0.42" data-car="maybach-s580">
+          <img src="assets/v-maybach-int.jpg" width="1200" height="514" alt="Rear door open on a Mercedes-Maybach S 580, showing cream executive rear seats and two filled champagne flutes.">
           <figcaption>Maybach S 580 &middot; executive rear</figcaption>
         </figure>
-        <figure class="f-sm" data-sc-reveal="up" data-sc-reveal-at="0.12 0.5" data-slot="escalade-cabin.jpg" data-car="escalade">
-          <img src="assets/escalade-cabin.jpg" width="1200" height="750" alt="Cadillac Escalade cabin with a panoramic roof and black quilted leather seats.">
+        <figure class="f-sm" data-sc-reveal="up" data-sc-reveal-at="0.12 0.5" data-car="escalade">
+          <img src="assets/v-escalade-int.jpg" width="1200" height="750" alt="Cadillac Escalade ESV cabin under a panoramic roof, with black quilted seats.">
           <figcaption>Escalade ESV</figcaption>
         </figure>
-        <figure class="f-sm" data-sc-reveal="up" data-sc-reveal-at="0.16 0.54" data-slot="g63-cabin.jpg" data-car="g63">
-          <img src="assets/g63-cabin.jpg" width="1200" height="750" alt="Mercedes-AMG G 63 dashboard and black diamond-quilted front seats.">
+        <figure class="f-sm" data-sc-reveal="up" data-sc-reveal-at="0.16 0.54" data-car="g63">
+          <img src="assets/v-g63-int.jpg" width="1200" height="750" alt="Mercedes-AMG G 63 dashboard and black diamond-quilted front seats.">
           <figcaption>G 63</figcaption>
         </figure>
-        <figure class="f-sm" data-sc-reveal="up" data-sc-reveal-at="0.2 0.58" data-slot="m4-conv-cabin.jpg" data-car="m4c">
-          <img src="assets/m4-conv-cabin.jpg" width="1200" height="750" alt="BMW M4 Convertible interior with carbon bucket seats and tan trim, roof down.">
+        <figure class="f-sm" data-sc-reveal="up" data-sc-reveal-at="0.2 0.58" data-car="m4c">
+          <img src="assets/v-m4-int.jpg" width="1200" height="750" alt="BMW M4 Competition Convertible interior with carbon bucket seats and tan trim, roof down.">
           <figcaption>M4 Convertible</figcaption>
         </figure>
       </div>
-      <p class="note" style="margin-top: var(--sc-4);">Manufacturer figures throughout, for the model shown. Trim, colour and options vary by unit. Confirm the exact car on booking.</p>
-    </div>
-  </section>
-
-  <!-- 4 · FOUR WAYS. Labelled rows, one schema, no persuasion. -->
-  <section class="ways" id="ways" data-sc-act="flow" aria-labelledby="h-ways">
-    <div class="sc-wrap">
-      <h2 id="h-ways" data-sc-in>Four ways to use us.</h2>
-      <div data-sc-in data-sc-stagger="70" style="margin-top: var(--sc-5);">
-
-        <div class="way">
-          <p class="way__n">A</p>
-          <h3>Self-drive</h3>
-          <p class="way__fact">You drive. 24-hour minimum. Showroom pickup at Deer Park or delivery to your address. Licence, insurance and a deposit are checked before the keys move.</p>
-          <div class="way__side">
-            <p class="rate" style="border: 0; padding: 0;">Rate on request</p>
-            <button class="btn btn--primary" data-book="" data-service="Self-drive">Book now</button>
-          </div>
         </div>
 
         <div class="way">

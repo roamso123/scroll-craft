@@ -22,31 +22,30 @@ two typefaces are self-hosted in `assets/fonts/`.
 | `build-logo/` | The vectoriser and the original raster the mark was traced from. |
 | `verify/` | The verification scripts. Their screenshots land in `verify/out/`. |
 
-## Dropping in the remaining stills
+## The stills
 
-Nine frames are still slots. Drop a file at the path below and it appears; no
-markup change is needed, and until it lands the page shows a labelled slot
-rather than a broken image.
+21 frames, one studio shoot, named `v-<car>-<frame>.jpg` where frame is `ext`,
+`rear` or `int`. Seven vehicles: `maybach`, `m5`, `m4`, `g63`, `911`,
+`escalade`, `c63`.
 
-| File | Frame |
+Each vehicle card carries a frame strip so the visitor picks the view; the
+switcher swaps the alt text with the source, because a strip that leaves
+"three-quarter front view" on a rear shot is worse than no alt text at all.
+The cabin section uses the four interiors that are confirmed to be the car
+they are filed under.
+
+**Three files are uploaded but not placed**, because the frame is a different
+vehicle from the one its name claims and the page states vehicle identity
+beside every frame:
+
+| File | What is actually in it |
 |---|---|
-| `assets/m5-front.jpg` | BMW M5 Competition, three-quarter front |
-| `assets/m4-conv-front.jpg` | BMW M4 Competition Convertible, three-quarter front |
-| `assets/g63-front.jpg` | Mercedes-AMG G 63, three-quarter front |
-| `assets/911-front.jpg` | Porsche 911 Carrera S, three-quarter front |
-| `assets/escalade-front.jpg` | Cadillac Escalade ESV, three-quarter front |
-| `assets/c63-front.jpg` | Mercedes-AMG C 63 S, three-quarter front |
-| `assets/escalade-cabin.jpg` | Escalade interior |
-| `assets/g63-cabin.jpg` | G 63 interior |
-| `assets/m4-conv-cabin.jpg` | M4 Convertible interior |
+| `v-m5-int.jpg` | An Audi RS cabin: red and black RS seats, Audi wheel and MMI screen. Not an M5. |
+| `v-c63-int.jpg` | A Mercedes A-Class AMG cabin: turbine vents, compact dash. Not a C 63 W205. |
+| `v-911-int.jpg` | Not an interior. A dark coupe in side view with the door ajar, and a different car from the red Carrera S in `v-911-ext`. |
 
-Frames are cropped to 16:10 in the rail and to 16:10 or 21:9 in the cabin grid,
-so anything at or above 1400px wide works. Already in place: the logo, the
-Maybach front, rear and cabin, and the M5 rear.
-
-The Audi RS and A-Class cabin frames have no fleet entry yet. Add the vehicle to
-`FLEET` in `midtown.js`, add an `<article class="obj">` to the rail with a
-matching `data-car`, and both the index and the build sheet pick it up.
+To place them, either supply the matching frame under the same name, or say
+which vehicle each belongs to and it gets a card and a `FLEET` entry.
 
 ## The mark
 
