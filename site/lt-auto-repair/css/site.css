@@ -419,11 +419,26 @@ a { color: inherit; text-underline-offset: 0.22em; text-decoration-thickness: 1p
   filter: drop-shadow(0 0 8px rgba(177, 140, 255, 0.55));
 }
 
-/* two rates, so the disc reads as mass and the sweep as a pass over it */
-.rotor__disc  { transform-origin: 200px 200px; animation: rotorSpin 96s linear infinite; }
+/* The disc spins up on load and then turns with the scroll, both driven from
+   one angle in wireRotor(). This slow CSS spin is the fallback for a visitor
+   with JavaScript off, and the script switches it off when it takes over. */
+.rotor__disc {
+  transform-origin: 200px 200px;
+  animation: rotorSpin 96s linear infinite;
+  will-change: transform;
+}
+.rotor--driven .rotor__disc { animation: none; }
+
 .rotor__sweep { transform-origin: 200px 200px; animation: rotorSweep 7s cubic-bezier(0.62, 0, 0.38, 1) infinite; }
 
 @keyframes rotorSpin  { to { transform: rotate(360deg); } }
+
+/* the disc arrives: it fades and scales up while the script spins it in */
+.rotor { animation: rotorIn 1500ms var(--ease) both; }
+@keyframes rotorIn {
+  from { opacity: 0; transform: translate3d(0, -50%, 0) scale(0.88); }
+  to   { opacity: 1; transform: translate3d(0, -50%, 0) scale(1); }
+}
 @keyframes rotorSweep {
   0%   { transform: rotate(0deg);   opacity: 0; }
   12%  { opacity: 1; }
@@ -438,9 +453,12 @@ a { color: inherit; text-underline-offset: 0.22em; text-decoration-thickness: 1p
   .rotor { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
+  /* the disc still arrives, it just does not spin or travel to get here */
   .rotor__disc, .rotor__sweep { animation: none; }
   .rotor__sweep path { opacity: 1; }
   .rotor svg { transform: none; transition: none; }
+  .rotor { animation: rotorFade 700ms var(--ease) both; }
+  @keyframes rotorFade { from { opacity: 0; } to { opacity: 1; } }
 }
 
 /* ---------- status pill (open / closed, computed from real hours) ---------- */

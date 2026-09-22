@@ -128,23 +128,83 @@
   }
 
 
-  /* ---- the hero disc leans toward the pointer ----
-     A few pixels of travel is what makes it read as an object sitting in the
-     scene rather than a graphic pasted on the background. Fine pointers only,
-     and never when the visitor has asked for less motion. */
+  /* ---- the hero disc ----
+     One angle drives it. It spins up when the page opens, then keeps turning
+     with the scroll, the way a wheel does when the car is moving and stops
+     when it is not. The angle is smoothed toward its target so a flicked
+     scroll wheel does not make it jump. On a fine pointer the disc also leans
+     a few pixels toward the cursor, which is what makes it read as an object
+     in the scene rather than a graphic pasted on the background. */
   function wireRotor() {
     var rotor = document.querySelector('[data-rotor]');
+    var disc = document.querySelector('.rotor__disc');
     var hero = document.querySelector('.hero');
-    if (!rotor || !hero) return;
-    if (!window.matchMedia) return;
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!rotor || !disc || !hero || !window.matchMedia) return;
 
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (still) return;   /* the CSS fade brings it in; nothing should spin */
+
+    /* taking over from the fallback CSS spin */
+    rotor.classList.add('rotor--driven');
+
+    var DEG_PER_PX = 0.16;   /* a full turn roughly every two screens of scroll */
+    var SPIN_IN = -150;      /* where the disc starts before it settles */
+    var SPIN_MS = 1500;
+    var began = 0;
+    var angle = SPIN_IN;
     var frame = null;
+    var visible = true;
+
+    function easeOutQuint(t) { return 1 - Math.pow(1 - t, 5); }
+
+    function target(now) {
+      var entrance = SPIN_IN;
+      if (began) {
+        var t = Math.min((now - began) / SPIN_MS, 1);
+        entrance = SPIN_IN * (1 - easeOutQuint(t));
+      }
+      return entrance + window.scrollY * DEG_PER_PX;
+    }
+
+    function tick(now) {
+      frame = null;
+      var want = target(now);
+      angle += (want - angle) * 0.12;
+      disc.style.transform = 'rotate(' + angle.toFixed(2) + 'deg)';
+
+      var settling = Math.abs(want - angle) > 0.05;
+      var arriving = !began || (now - began) < SPIN_MS;
+      if (visible && (settling || arriving)) frame = requestAnimationFrame(tick);
+    }
+
+    function kick() {
+      if (!frame && visible) frame = requestAnimationFrame(tick);
+    }
+
+    /* the loop only runs while something is actually moving, and never while
+       the hero is off screen or the tab is in the background */
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+        if (visible) kick();
+      }, { threshold: 0 }).observe(hero);
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) kick();
+    });
+    window.addEventListener('scroll', kick, { passive: true });
+    window.addEventListener('resize', kick);
+
+    began = performance.now();
+    kick();
+
+    /* the pointer lean, fine pointers only */
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    var lean = null;
     hero.addEventListener('pointermove', function (e) {
-      if (frame) return;
-      frame = requestAnimationFrame(function () {
-        frame = null;
+      if (lean) return;
+      lean = requestAnimationFrame(function () {
+        lean = null;
         var x = (e.clientX / window.innerWidth) - 0.5;
         var y = (e.clientY / window.innerHeight) - 0.5;
         rotor.style.setProperty('--rx', (x * -30).toFixed(1) + 'px');

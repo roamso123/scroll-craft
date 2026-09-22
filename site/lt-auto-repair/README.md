@@ -58,9 +58,26 @@ purple arc sweeping the way a diagnostic pass would. It leans a few pixels
 toward the pointer on a mouse, which is what makes it read as an object in the
 scene rather than a graphic pasted on the background.
 
+It moves on two triggers, both driven from one angle in `wireRotor()`:
+
+- **On load** it spins in from 150 degrees back and settles, over 1.5 seconds
+  on an ease that decelerates hard at the end, while the whole disc fades and
+  scales up. It looks like a wheel spun by hand coming to rest.
+- **On scroll** it keeps turning, at 0.16 degrees per pixel, so about one full
+  turn for every two screens. Scrolling back up turns it back the other way,
+  which is what a wheel actually does.
+
+The angle is smoothed toward its target rather than set directly, so a flicked
+scroll wheel does not make it jump. The animation loop only runs while
+something is moving: it stops once the disc settles, parks when the hero
+scrolls off screen, and pauses when the tab is in the background. Scroll back
+up and it catches up to where it should be.
+
+A slow CSS spin stays in the stylesheet as the fallback for a visitor with
+JavaScript off; the script switches it off when it takes over.
+
 It is inline SVG in `index.html` with its geometry generated to exact polar
-coordinates, styled under `.rotor` in `css/site.css`, and the pointer lean is
-`wireRotor()` in `js/site.js`. Three deliberate limits:
+coordinates, styled under `.rotor` in `css/site.css`. Three deliberate limits:
 
 - **It carries no readout and no numbers.** A wireframe part is honest
   decoration. A dashboard with invented figures on it would not be.
@@ -68,7 +85,8 @@ coordinates, styled under `.rotor` in `css/site.css`, and the pointer lean is
   a screen reader and cannot intercept a click on the buttons near it.
 - **It is the first thing dropped.** It shrinks below 1080px and is removed
   entirely below 860px, where the space it fills does not exist. Under reduced
-  motion the rotation and the sweep stop but the composition stays.
+  motion the script does not run at all: the disc fades in once and then holds
+  still, with no spin and no scroll linkage.
 
 A horizontal mask fades it out toward the headline, so the type always sits on
 clean ground no matter how wide the window is.
@@ -156,9 +174,13 @@ confirmation, reduced motion leaves nothing faded out, one `h1` per page with no
 heading level jumps, every form control labelled, every tab stop carries a
 visible focus ring, and no console errors.
 
-The hero disc was checked separately: the pointer lean responds, no horizontal
-scrollbar appears at 1440, 1024 or 390, it is `display: none` on a phone, and
-reduced motion freezes it without removing it.
+The hero disc was checked separately by reading its computed rotation out of
+the page: it spins in from -142 degrees at 90ms to rest within a degree of zero
+by 1.2s, tracks the scroll to within 0.2 degrees of the expected angle at four
+positions, parks when the hero leaves the screen, catches back up on return,
+and holds a fixed angle when nothing is moving. The pointer lean responds, no
+horizontal scrollbar appears at 1440, 1024 or 390, it is `display: none` on a
+phone, and under reduced motion the driver never starts.
 
 Also checked opened straight from the folder over `file://`: Archivo and Outfit
 both render, page to page links work, the booking survey runs end to end to its
