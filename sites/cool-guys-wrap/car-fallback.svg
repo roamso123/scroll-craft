@@ -1,0 +1,257 @@
+<svg id="car" viewBox="0 0 1240 400" role="img" aria-labelledby="car-title" data-finish="gloss">
+  <title id="car-title">A supercar shown in the selected wrap colour and finish</title>
+  <defs>
+    <!-- Body silhouette. Heights are taken off a real mid-engine supercar:
+         ground 340, roof 1.165m, wheel OD 0.68m, 257 units per metre. -->
+    <path id="bodyShape" d="
+      M 40 206
+      C 84 176, 140 132, 196 112
+      C 220 104, 244 101, 266 101
+      C 300 104, 332 96, 360 88
+      C 396 74, 450 52, 512 44
+      C 556 39, 600 38, 642 42
+      C 700 48, 760 58, 818 66
+      C 872 72, 912 74, 952 74
+      C 1040 74, 1120 76, 1168 80
+      C 1186 82, 1196 90, 1198 104
+      L 1200 186
+      C 1198 204, 1188 218, 1166 226
+      C 1130 236, 1086 240, 1044 240
+      A 104 90 0 0 0 836 240
+      C 830 262, 822 286, 812 300
+      C 700 308, 520 312, 400 304
+      C 386 288, 378 268, 370 250
+      A 104 100 0 0 0 162 250
+      C 140 266, 116 284, 96 300
+      C 78 310, 58 316, 44 314
+      L 34 300
+      C 28 262, 30 228, 40 206 Z"/>
+
+    <clipPath id="bodyClip"><use href="#bodyShape"/></clipPath>
+
+    <!-- top-to-bottom shading: sky above, dark floor below -->
+    <linearGradient id="gShade" x1="0" y1="38" x2="0" y2="312" gradientUnits="userSpaceOnUse">
+      <stop offset="0"   stop-color="#fff" stop-opacity=".30"/>
+      <stop offset=".20" stop-color="#fff" stop-opacity=".05"/>
+      <stop offset=".52" stop-color="#000" stop-opacity=".10"/>
+      <stop offset="1"   stop-color="#000" stop-opacity=".66"/>
+    </linearGradient>
+
+    <!-- the travelling highlight -->
+    <linearGradient id="gSweep" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0"   stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".42" stop-color="#fff" stop-opacity=".5"/>
+      <stop offset=".5"  stop-color="#fff" stop-opacity=".95"/>
+      <stop offset=".58" stop-color="#fff" stop-opacity=".5"/>
+      <stop offset="1"   stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- chrome: a hard horizon, sky over ground -->
+    <linearGradient id="gChrome" x1="0" y1="38" x2="0" y2="312" gradientUnits="userSpaceOnUse">
+      <stop offset="0"    stop-color="#EDF1F5"/>
+      <stop offset=".22"  stop-color="#98A2AD"/>
+      <stop offset=".38"  stop-color="#F3F6F9"/>
+      <stop offset=".475" stop-color="#5A626B"/>
+      <stop offset=".50"  stop-color="#121417"/>
+      <stop offset=".56"  stop-color="#6E767F"/>
+      <stop offset=".72"  stop-color="#C6CDD4"/>
+      <stop offset=".88"  stop-color="#42484F"/>
+      <stop offset="1"    stop-color="#101215"/>
+    </linearGradient>
+
+    <!-- colour shift: the second hue rolls in across the body (stops are themed in CSS) -->
+    <linearGradient id="gShift" x1="120" y1="290" x2="1120" y2="60" gradientUnits="userSpaceOnUse">
+      <stop class="shift-a" offset="0"/>
+      <stop class="shift-b" offset=".48"/>
+      <stop class="shift-c" offset="1"/>
+    </linearGradient>
+
+    <pattern id="pCarbon" width="13" height="13" patternUnits="userSpaceOnUse">
+      <rect width="13" height="13" fill="#000" fill-opacity=".58"/>
+      <rect x="0" y="0" width="6.5" height="6.5" fill="#fff" fill-opacity=".16"/>
+      <rect x="6.5" y="6.5" width="6.5" height="6.5" fill="#fff" fill-opacity=".16"/>
+      <rect x="6.5" y="0" width="6.5" height="6.5" fill="#000" fill-opacity=".22"/>
+      <rect x="0" y="6.5" width="6.5" height="6.5" fill="#000" fill-opacity=".22"/>
+    </pattern>
+
+    <pattern id="pFlake" width="9" height="9" patternUnits="userSpaceOnUse">
+      <circle cx="2"   cy="2"   r="1"  fill="#fff" fill-opacity=".6"/>
+      <circle cx="6.5" cy="4.5" r=".8" fill="#fff" fill-opacity=".38"/>
+      <circle cx="4"   cy="7.5" r=".7" fill="#fff" fill-opacity=".48"/>
+      <circle cx="8"   cy="1"   r=".6" fill="#000" fill-opacity=".38"/>
+    </pattern>
+
+    <pattern id="pMesh" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="#07080A"/>
+      <path d="M0 0 L6 6 M6 0 L0 6" stroke="#1E2228" stroke-width="1"/>
+    </pattern>
+
+    <linearGradient id="gGlass" x1="380" y1="50" x2="620" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0"   stop-color="#2E353D"/>
+      <stop offset=".40" stop-color="#111418"/>
+      <stop offset=".70" stop-color="#1C2127"/>
+      <stop offset="1"   stop-color="#0B0D10"/>
+    </linearGradient>
+
+    <linearGradient id="gRim" x1="0" y1="-76" x2="0" y2="76" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#565D66"/>
+      <stop offset=".45" stop-color="#262A30"/>
+      <stop offset="1" stop-color="#131619"/>
+    </linearGradient>
+
+    <radialGradient id="gTyre" cx=".42" cy=".34" r=".68">
+      <stop offset="0"   stop-color="#23262B"/>
+      <stop offset=".74" stop-color="#101214"/>
+      <stop offset="1"   stop-color="#050607"/>
+    </radialGradient>
+
+    <linearGradient id="gReflFade" x1="0" y1="340" x2="0" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" stop-opacity=".34"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="mRefl"><rect x="0" y="340" width="1240" height="60" fill="url(#gReflFade)"/></mask>
+
+    <filter id="fSoft" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+
+    <!-- one wheel: five twin spokes, drawn once and used twice -->
+    <g id="spokePair">
+      <g transform="rotate(-9)"><path d="M -5 -62 L 5 -62 L 9 -20 L -9 -20 Z"/></g>
+      <g transform="rotate(9)"><path d="M -5 -62 L 5 -62 L 9 -20 L -9 -20 Z"/></g>
+    </g>
+    <g id="wheel">
+      <circle r="87" fill="url(#gTyre)"/>
+      <circle r="87" fill="none" stroke="#000" stroke-opacity=".85" stroke-width="2"/>
+      <circle r="76" fill="none" stroke="#1A1D21" stroke-width="3"/>
+      <circle r="68" fill="#0E1013"/>
+      <circle r="52" fill="#2B3036"/>
+      <circle r="52" fill="none" stroke="#3E454D" stroke-width="1.5"/>
+      <circle r="66" fill="url(#gRim)"/>
+      <circle r="66" fill="none" stroke="#000" stroke-opacity=".6" stroke-width="2"/>
+      <g fill="#343A42">
+        <use href="#spokePair"/>
+        <use href="#spokePair" transform="rotate(72)"/>
+        <use href="#spokePair" transform="rotate(144)"/>
+        <use href="#spokePair" transform="rotate(216)"/>
+        <use href="#spokePair" transform="rotate(288)"/>
+      </g>
+      <circle r="19" fill="#1B1F24" stroke="#434A53" stroke-width="1.5"/>
+      <circle r="6" fill="#0B0D0F"/>
+    </g>
+  </defs>
+
+  <!-- floor reflection -->
+  <g mask="url(#mRefl)" opacity=".3" aria-hidden="true">
+    <g transform="matrix(1,0,0,-1,0,680)" filter="url(#fSoft)">
+      <use href="#bodyShape" class="paint"/>
+    </g>
+  </g>
+
+  <!-- contact shadow -->
+  <ellipse cx="620" cy="342" rx="590" ry="16" fill="#000" opacity=".85" filter="url(#fSoft)"/>
+  <ellipse cx="266" cy="341" rx="92" ry="11" fill="#000" opacity=".9"/>
+  <ellipse cx="940" cy="341" rx="92" ry="11" fill="#000" opacity=".9"/>
+
+  <!-- wheels sit behind the shell so the arches cut them -->
+  <use href="#wheel" x="266" y="253"/>
+  <use href="#wheel" x="940" y="253"/>
+
+  <!-- the painted shell -->
+  <use href="#bodyShape" class="paint"/>
+
+  <!-- finish layers, clipped to the shell -->
+  <g clip-path="url(#bodyClip)" style="isolation:isolate">
+    <rect class="fx fx-shade" x="0" y="20" width="1240" height="310" fill="url(#gShade)"/>
+    <rect class="fx fx-carbon" x="0" y="20" width="1240" height="310" fill="url(#pCarbon)" style="mix-blend-mode:multiply"/>
+    <rect class="fx fx-metallic" x="0" y="20" width="1240" height="310" fill="url(#pFlake)" style="mix-blend-mode:overlay"/>
+    <rect class="fx fx-shift" x="0" y="20" width="1240" height="310" fill="url(#gShift)"/>
+    <rect class="fx fx-chrome" x="0" y="20" width="1240" height="310" fill="url(#gChrome)" style="mix-blend-mode:luminosity"/>
+    <g class="sweep" id="sweep">
+      <rect x="-190" y="10" width="140" height="330" fill="url(#gSweep)" transform="skewX(-13)"/>
+    </g>
+    <!-- shoulder crease: the line the light catches along the doors -->
+    <path class="fx fx-gloss" d="M 150 140 C 420 128, 740 152, 1170 118" fill="none" stroke="#fff" stroke-opacity=".26" stroke-width="3"/>
+    <path class="fx fx-satin" d="M 150 140 C 420 128, 740 152, 1170 118" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="5"/>
+    <!-- sill shadow, always on: keeps the car sitting on the ground -->
+    <path d="M 380 286 C 600 300, 760 296, 830 286 L 830 320 L 380 320 Z" fill="#000" opacity=".3"/>
+  </g>
+
+  <!-- greenhouse -->
+  <path class="glass" d="M 368 92 C 402 76, 454 56, 514 46 L 664 46 C 676 68, 680 90, 674 108 L 476 112 C 430 112, 396 104, 368 92 Z"/>
+  <path d="M 514 46 L 540 46 L 502 112 L 476 112 Z" fill="#0A0B0D" opacity=".92"/>
+  <path d="M 664 46 C 676 68, 680 90, 674 108 L 656 109 C 662 88, 660 66, 650 47 Z" fill="#0A0B0D" opacity=".85"/>
+  <path d="M 368 92 C 402 76, 454 56, 514 46" fill="none" stroke="#000" stroke-opacity=".7" stroke-width="3"/>
+  <path d="M 392 90 C 428 74, 470 60, 506 52" fill="none" stroke="#fff" stroke-opacity=".17" stroke-width="5"/>
+  <path d="M 556 60 L 648 58" fill="none" stroke="#fff" stroke-opacity=".09" stroke-width="5"/>
+
+  <!-- mirror -->
+  <path class="trim" d="M 378 76 L 416 68 L 421 83 L 383 90 Z"/>
+  <path class="trim" d="M 370 88 L 384 84 L 386 92 L 372 95 Z"/>
+
+  <!-- panel seams -->
+  <path class="seam" d="M 376 100 C 370 160, 370 230, 380 296"/>
+  <path class="seam" d="M 700 106 C 706 160, 708 224, 704 276"/>
+  <path class="seam" d="M 196 114 C 214 148, 218 186, 210 214"/>
+
+  <!-- engine intake behind the door -->
+  <path class="trim" d="M 708 138 L 806 126 L 830 158 L 814 196 L 728 200 L 702 166 Z"/>
+  <path class="mesh" d="M 720 148 L 800 137 L 820 160 L 806 188 L 736 191 L 714 165 Z"/>
+  <!-- sill intake -->
+  <path class="trim" d="M 618 236 L 700 228 L 712 254 L 630 260 Z"/>
+  <path class="mesh" d="M 628 242 L 694 235 L 703 251 L 638 256 Z"/>
+
+  <!-- side skirt -->
+  <path class="trim" d="M 392 296 C 560 306, 740 302, 822 292 L 826 308 C 742 320, 560 322, 396 312 Z"/>
+
+  <!-- front bumper intake + splitter -->
+  <path class="trim" d="M 60 252 C 92 250, 126 258, 152 268 L 140 290 C 112 280, 82 274, 56 274 Z"/>
+  <path class="mesh" d="M 70 258 C 96 257, 122 264, 144 272 L 137 283 C 112 275, 88 270, 66 270 Z"/>
+  <path class="trim-2" d="M 38 306 C 72 312, 112 302, 146 288 L 152 300 C 116 318, 74 326, 40 320 Z"/>
+  <!-- bonnet vent -->
+  <path class="trim" d="M 170 128 L 208 116 L 214 130 L 176 142 Z" opacity=".8"/>
+
+  <!-- headlight: the Y signature -->
+  <path d="M 62 200 C 92 180, 130 164, 164 158 L 176 184 C 140 192, 102 208, 74 226 Z" fill="#0C0E11"/>
+  <path d="M 74 202 C 100 186, 130 174, 158 168 L 165 182 C 134 189, 104 202, 82 216 Z" fill="#171B20"/>
+  <g stroke="#EDF3FF" stroke-width="4" stroke-linecap="round" fill="none" opacity=".95">
+    <path d="M 84 206 L 112 192"/>
+    <path d="M 112 192 L 142 180"/>
+    <path d="M 112 192 L 120 202"/>
+  </g>
+
+  <!-- taillight: the Y again, at the other end -->
+  <path d="M 1132 110 C 1160 108, 1182 116, 1192 130 L 1188 156 C 1166 162, 1144 160, 1128 152 Z" fill="#0C0E11"/>
+  <g stroke="#FF3B2F" stroke-width="4.5" stroke-linecap="round" fill="none" opacity=".95">
+    <path d="M 1138 124 L 1160 132"/>
+    <path d="M 1160 132 L 1180 126"/>
+    <path d="M 1160 132 L 1158 150"/>
+  </g>
+
+  <!-- engine cover slats -->
+  <g stroke="#0A0B0D" stroke-width="4" stroke-linecap="round" opacity=".75">
+    <path d="M 890 86 L 1040 86"/>
+    <path d="M 896 98 L 1036 98"/>
+    <path d="M 906 110 L 1028 110"/>
+  </g>
+  <!-- ducktail lip -->
+  <path class="trim" d="M 1140 78 L 1198 92 L 1198 102 L 1138 88 Z" opacity=".7"/>
+  <!-- rear diffuser -->
+  <path class="trim" d="M 1046 226 C 1092 230, 1134 222, 1164 206 L 1174 220 C 1140 240, 1094 250, 1044 244 Z"/>
+  <g stroke="#2A2F35" stroke-width="2" opacity=".9">
+    <path d="M 1072 230 L 1068 246"/>
+    <path d="M 1098 229 L 1094 245"/>
+    <path d="M 1124 224 L 1120 240"/>
+  </g>
+
+  <!-- wheel arch liners -->
+  <path d="M 370 250 A 104 100 0 0 1 162 250" fill="none" stroke="#000" stroke-opacity=".8" stroke-width="5"/>
+  <path d="M 1044 240 A 104 90 0 0 1 836 240" fill="none" stroke="#000" stroke-opacity=".8" stroke-width="5"/>
+
+  <!-- brake calipers, in the wrap colour -->
+  <path class="caliper" d="M 298 218 L 314 226 L 314 262 L 298 268 Z"/>
+  <path class="caliper" d="M 972 218 L 988 226 L 988 262 L 972 268 Z"/>
+
+  <!-- silhouette edge, keeps light colours crisp on the black ground -->
+  <use href="#bodyShape" fill="none" stroke="#000" stroke-opacity=".5" stroke-width="2"/>
+</svg>

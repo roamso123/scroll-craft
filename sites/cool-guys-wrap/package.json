@@ -1,0 +1,15 @@
+{
+  "name": "cool-guys-wrap",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cool Guys Wrap: a single-page car wrap site with a live colour and finish customizer.",
+  "type": "module",
+  "scripts": {
+    "generate": "node tools/generate.mjs",
+    "process": "node tools/process.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.35.5"
+  },
+  "license": "MIT"
+}
