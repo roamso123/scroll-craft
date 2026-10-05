@@ -1,0 +1,13 @@
+[project]
+name = "personaswap"
+version = "0.1.0"
+description = "Batch persona replacement over footage you hold the rights to, via kie.ai"
+requires-python = ">=3.11"
+dependencies = []          # stdlib only; ffmpeg/ffprobe optional on PATH
+
+[project.scripts]
+personaswap = "personaswap.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"

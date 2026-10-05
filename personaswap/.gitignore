@@ -1,0 +1,7 @@
+.env
+.personaswap/
+media/source/*
+media/output/*
+personaswap.toml
+__pycache__/
+*.pyc

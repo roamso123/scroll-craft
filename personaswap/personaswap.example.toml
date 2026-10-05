@@ -1,0 +1,65 @@
+# personaswap configuration.
+#
+# Copy to personaswap.toml and edit. The API key is NOT kept here — it is read
+# from the KIE_AI_API_KEY environment variable or a .env beside this file.
+
+[paths]
+source = "media/source"
+output = "media/output"
+state  = ".personaswap/state.db"
+
+[run]
+concurrency    = 2      # parallel clips; raise once you know your rate limit
+max_retries    = 3
+poll_timeout_s = 1800   # per clip, 30 min
+
+# ---------------------------------------------------------------- the model --
+# kie.ai's market catalogue changes, so the model id and its input field names
+# live here rather than in code. Read the id off the model's page in the kie.ai
+# dashboard, or try `personaswap models`.
+[swap]
+model = ""   # e.g. "genjutsu/motion-swap" — REQUIRED, no default is safe to guess
+
+# Map our three logical inputs onto whatever this model calls them. If the
+# model takes the driving video as "input_video" and the identity as
+# "face_image", say so here and nothing else has to change.
+[swap.fields]
+video  = "video_url"
+face   = "image_url"
+prompt = "prompt"
+
+# Anything else the model requires, passed through verbatim.
+[swap.extra]
+# resolution = "1080p"
+# fidelity   = 0.8
+
+[style]
+# Appended to every prompt. Use it for the house look of the whole roster.
+base = "natural colour grade, sharp focus on the subject"
+
+[provenance]
+tag_metadata = true   # write a synthetic-content tag into the output container
+sidecar      = true   # write <output>.mp4.json with the full recipe
+
+# ------------------------------------------------------------------ personas --
+# The synthetic identities you are swapping TO. `face` is your generated
+# reference still. Keep `synthetic = true` honest: if a face is based on a real
+# person, it needs that person's release, and this pipeline is not the place
+# for it.
+[personas.aurora]
+face      = "personas/aurora/face.png"
+look      = "warm olive skin, dark wavy hair, mid-20s, soft jawline"
+synthetic = true
+
+# ------------------------------------------------------------------ releases --
+# The paperwork behind each source clip. `covers_synthetic_alteration` is the
+# gate: the pipeline refuses to process a clip unless its release explicitly
+# grants the right to alter the performer's likeness synthetically. A standard
+# capture-and-distribute release usually does NOT. Check the signed document
+# before you set this to true.
+[releases.ROSTER-2026-01]
+talent                      = "Talent Name"
+signed                      = "2026-01-04"
+expires                     = "2027-01-04"
+covers_synthetic_alteration = false
+notes                       = "set true only after legal confirms the clause"
