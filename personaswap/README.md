@@ -4,8 +4,13 @@ Batch persona replacement over footage **you hold the rights to**, using the
 [kie.ai](https://kie.ai) unified jobs API.
 
 Point it at a folder of your own clips, give it one synthetic persona and one
-sentence describing what should change, and it swaps every clip, resumably,
+sentence describing what should change, and it processes every clip, resumably,
 with an audit trail beside each output.
+
+Default model is **Kling 3.0 motion-control**, so the operation is motion
+*transfer*: your persona performs the motion from your clip, and the scene is
+regenerated around it. It is not a frame-by-frame face replacement on the
+original footage — see [The model](#1-the-model).
 
 ```bash
 personaswap ingest local --release ROSTER-2026-01
@@ -55,32 +60,53 @@ default, so in practice you fill in two.
 
 ### 1. The model
 
-The swap model defaults to **`gpt-6-astra`**, applied even if `[swap].model`
-is absent or blank. Pin a different one per project when you need to:
+Defaults to **`kling-3.0/motion-control`**, applied even if `[swap].model` is
+absent or blank. Pin a different one per project when you need to:
 
 ```toml
 [swap]
-model = "gpt-6-astra"   # omit this key and the default still applies
+model = "kling-3.0/motion-control"
+array_fields = ["video", "face"]
 ```
 
-The input field names below are the common convention, **not a verified
-schema** for this model — `docs.kie.ai` was unreachable when this was built.
-If a run comes back rejecting a field, correct the mapping rather than the
-code. `personaswap models` tries to resolve the live catalogue with your key.
+**What this model actually does.** It takes a character still and a driving
+video and generates new footage of that character performing the driving
+video's motion. Three consequences worth knowing before you run a batch:
 
-If the model names its inputs differently, say so here rather than editing code:
+- Outfit, background and body changes come naturally, because the scene is
+  generated rather than patched.
+- `background_source = "input_video"` in `[swap.extra]` keeps the original
+  scene. **Drop that key if you want the prompt to change the background**, or
+  the prompt's background direction is ignored.
+- Output fidelity to the original frames is lower than a true face swap. If you
+  need the original footage preserved pixel-for-pixel with only the face
+  altered, that is a different model, and the mapping below is how you point at
+  it without touching code.
+
+Kling wants the identity still and the driving clip as single-element arrays.
+`array_fields` lists which logical inputs get wrapped; the field names
+themselves are mapped separately:
 
 ```toml
 [swap.fields]
-video  = "input_video"      # the driving clip
-face   = "identity_image"   # the persona reference still
-prompt = "instruction"
+video  = "video_urls"   # the driving clip: supplies the motion
+face   = "input_urls"   # the persona still: supplies the identity
+prompt = "prompt"
 
-[swap.extra]                # anything else the model requires, passed verbatim
-fidelity = 0.8
+[swap.extra]            # passed through verbatim
+mode                  = "720p"
+character_orientation = "image"
+background_source     = "input_video"
 ```
 
-This mapping is why swapping models later is a config edit, not a rewrite.
+Nothing is injected into the payload automatically — an unrecognised field is a
+400 on some models — so a negative prompt is opt-in via `[swap.extra]`. A
+starting value sits in `prompts.DEFAULT_NEGATIVE`; support on this model is
+unconfirmed.
+
+Between `model`, `fields`, `array_fields` and `extra`, changing models is a
+TOML edit rather than a rewrite. `personaswap models` tries to resolve the live
+catalogue with your key.
 
 ### 2. A persona
 
@@ -141,7 +167,8 @@ personaswap run --persona aurora \
   --changes "cooler grade, late afternoon"
 ```
 
-Every prompt also carries a motion lock (preserve original motion, timing,
+Every prompt opens with the motion-transfer lead (override with
+`[style].lead`), then carries a motion lock (preserve original motion, timing,
 framing, camera; no added cuts), a quality floor, a negative prompt targeting
 identity drift and flicker, and your `[style].base` house look. Check the
 composed prompt before spending credits:
@@ -190,9 +217,10 @@ them. Start with `--limit 1` on a new model or a new prompt.
 python3 tests/smoke.py
 ```
 
-38 checks across config, the default model, the rights gate, ingest, prompt
-assembly, field mapping, ledger idempotency, resume and provenance, with the
-network layer stubbed — no API key or credits needed.
+45 checks across config, the default model, the rights gate, ingest, prompt
+assembly, field mapping on both the array and scalar paths, ledger
+idempotency, resume and provenance, with the network layer stubbed — no API
+key or credits needed.
 
 ## Layout
 

@@ -11,6 +11,14 @@ from __future__ import annotations
 
 from .config import Config, Persona
 
+# Kling motion-control regenerates the scene with your character driven by the
+# reference clip, so the prompt opens by stating that relationship rather than
+# describing a face replacement.
+DEFAULT_LEAD = (
+    "The character in the reference image performs the motion from the "
+    "reference video."
+)
+
 # Holding the original performance steady is the whole point of a motion swap:
 # the body, timing and camera are the asset, only the identity changes.
 MOTION_LOCK = (
@@ -37,10 +45,10 @@ def build(cfg: Config, persona: Persona, changes: str = "", *,
     thing with labels, for when a batch wants one axis pinned and the rest left
     alone. Both styles can be combined.
     """
-    parts: list[str] = [f"Replace the performer's face with the reference identity: {persona.name}."]
+    parts: list[str] = [(cfg.style_lead or DEFAULT_LEAD).strip().rstrip(".") + "."]
 
     if persona.look:
-        parts.append(f"Target identity: {persona.look}.")
+        parts.append(f"The character: {persona.look}.")
 
     if outfit:
         parts.append(f"Wardrobe: {outfit}.")
@@ -61,16 +69,20 @@ def build(cfg: Config, persona: Persona, changes: str = "", *,
 
 
 def payload(cfg: Config, video_url: str, face_url: str, prompt: str) -> dict:
-    """Map our three logical inputs onto the model's own field names."""
+    """Map our three logical inputs onto the model's own field names.
+
+    Inputs named in [swap].array_fields are wrapped in a single-element list,
+    which is how Kling wants `input_urls` and `video_urls`.
+    """
     names = cfg.swap.fields
-    body = {
-        names["video"]: video_url,
-        names["face"]: face_url,
-        names["prompt"]: prompt,
-    }
-    # Anything the model needs beyond the three core fields rides in [swap.extra].
-    extra = dict(cfg.swap.extra)
-    extra.setdefault("negative_prompt", DEFAULT_NEGATIVE)
-    for key, value in extra.items():
+    arrays = set(cfg.swap.array_fields)
+    body: dict = {}
+    for logical, value in (("video", video_url), ("face", face_url), ("prompt", prompt)):
+        body[names[logical]] = [value] if logical in arrays else value
+
+    # Anything else the model requires rides in [swap.extra], verbatim. Nothing
+    # is injected automatically: an unrecognised field is a 400 on some models,
+    # and DEFAULT_NEGATIVE is only used if the config asks for it.
+    for key, value in cfg.swap.extra.items():
         body.setdefault(key, value)
     return body

@@ -8,9 +8,14 @@ from pathlib import Path
 
 CONFIG_NAME = "personaswap.toml"
 
-# House default for the swap model. Overridable per project with
+# House default: Kling 3.0 motion-control. Overridable per project with
 # [swap].model; this is what applies when the key is absent.
-DEFAULT_MODEL = "gpt-6-astra"
+DEFAULT_MODEL = "kling-3.0/motion-control"
+
+# Kling takes the identity still and the driving clip as single-element
+# arrays, so these logical inputs are wrapped before sending.
+DEFAULT_FIELDS = {"video": "video_urls", "face": "input_urls", "prompt": "prompt"}
+DEFAULT_ARRAY_FIELDS = ["video", "face"]
 
 
 class ConfigError(RuntimeError):
@@ -45,8 +50,9 @@ class Swap:
     calls them, so a new model is a config change rather than a code change.
     """
     model: str = DEFAULT_MODEL
-    fields: dict[str, str] = field(default_factory=lambda: {
-        "video": "video_url", "face": "image_url", "prompt": "prompt"})
+    fields: dict[str, str] = field(default_factory=lambda: dict(DEFAULT_FIELDS))
+    # Logical inputs the model wants as a list rather than a bare string.
+    array_fields: list[str] = field(default_factory=lambda: list(DEFAULT_ARRAY_FIELDS))
     extra: dict = field(default_factory=dict)
 
 
@@ -61,6 +67,7 @@ class Config:
     poll_timeout_s: int
     swap: Swap
     style_base: str
+    style_lead: str
     tag_metadata: bool
     sidecar: bool
     personas: dict[str, Persona]
@@ -125,7 +132,6 @@ def load(path: str | Path | None = None) -> Config:
             notes=body.get("notes", ""),
         )
 
-    default_fields = {"video": "video_url", "face": "image_url", "prompt": "prompt"}
     return Config(
         root=root,
         source_dir=under("source", "media/source"),
@@ -136,10 +142,12 @@ def load(path: str | Path | None = None) -> Config:
         poll_timeout_s=int(run.get("poll_timeout_s", 1800)),
         swap=Swap(
             model=swap_raw.get("model") or DEFAULT_MODEL,
-            fields={**default_fields, **(swap_raw.get("fields") or {})},
+            fields={**DEFAULT_FIELDS, **(swap_raw.get("fields") or {})},
+            array_fields=list(swap_raw.get("array_fields", DEFAULT_ARRAY_FIELDS)),
             extra=dict(swap_raw.get("extra") or {}),
         ),
         style_base=style.get("base", ""),
+        style_lead=style.get("lead", ""),
         tag_metadata=bool(prov.get("tag_metadata", True)),
         sidecar=bool(prov.get("sidecar", True)),
         personas=personas,

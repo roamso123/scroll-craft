@@ -10,32 +10,45 @@ state  = ".personaswap/state.db"
 
 [run]
 concurrency    = 2      # parallel clips; raise once you know your rate limit
-max_retries    = 3
 poll_timeout_s = 1800   # per clip, 30 min
+max_retries    = 3
 
 # ---------------------------------------------------------------- the model --
-# kie.ai's market catalogue changes, so the model id and its input field names
-# live here rather than in code. Omit `model` and the built-in default
-# (gpt-6-astra) applies; set it to pin a different one per project.
+# Defaults to Kling 3.0 motion-control, applied even if `model` is absent or
+# blank. Note what this model does: it regenerates the scene with your persona
+# performing the motion from your clip. It is motion transfer, not a frame-by-
+# frame face replacement on the original footage.
 [swap]
-model = "gpt-6-astra"
+model = "kling-3.0/motion-control"
 
-# Map our three logical inputs onto whatever this model calls them. These
-# names are the common convention, not a verified schema for gpt-6-astra: if
-# a run comes back rejecting a field, correct it here and nothing else has to
-# change.
+# Kling wants the identity still and the driving clip as single-element arrays,
+# so these two logical inputs get wrapped in a list before sending.
+array_fields = ["video", "face"]
+
+# Our three logical inputs mapped onto the model's own field names.
 [swap.fields]
-video  = "video_url"
-face   = "image_url"
+video  = "video_urls"   # the driving clip: supplies the motion
+face   = "input_urls"   # the persona reference still: supplies the identity
 prompt = "prompt"
 
-# Anything else the model requires, passed through verbatim.
+# Passed through verbatim. Nothing is injected automatically, because an
+# unrecognised field is a 400 on some models.
 [swap.extra]
-# resolution = "1080p"
-# fidelity   = 0.8
+mode                  = "720p"        # or "1080p"
+character_orientation = "image"       # "image" | "video"
+background_source     = "input_video" # keeps the original scene; DROP this key
+                                      # if you want the prompt to change the
+                                      # background, or it will be ignored
+# negative_prompt = "identity drift, face morphing, warping, flicker"
+                                      # support on this model is unconfirmed;
+                                      # see prompts.DEFAULT_NEGATIVE
 
 [style]
-# Appended to every prompt. Use it for the house look of the whole roster.
+# `lead` opens every prompt. The default states the motion-transfer
+# relationship; override it if you move to a face-replacement model.
+# lead = "The character in the reference image performs the motion from the reference video"
+#
+# `base` closes every prompt. Use it for the house look of the whole roster.
 base = "natural colour grade, sharp focus on the subject"
 
 [provenance]

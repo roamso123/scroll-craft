@@ -87,6 +87,7 @@ max_retries = 3
 
 [swap]
 model = "test/motion-swap"
+array_fields = []
 [swap.fields]
 video  = "input_video"
 face   = "identity_image"
@@ -161,16 +162,32 @@ def main() -> int:
     prompt = prompts.build(cfg, cfg.persona("aurora"),
                            "golden hour", outfit="navy slip dress",
                            background="rooftop terrace", body="taller frame")
-    for fragment in ("aurora", "navy slip dress", "rooftop terrace",
+    for fragment in ("navy slip dress", "rooftop terrace",
                      "taller frame", "golden hour", "natural colour grade"):
         check(f"prompt carries {fragment!r}", fragment in prompt)
     check("prompt locks motion", "Preserve the original motion" in prompt)
+    check("prompt opens with the motion-transfer lead",
+          prompt.startswith("The character in the reference image performs"))
+    check("prompt carries the persona look", "warm olive skin" in prompt)
 
     body = prompts.payload(cfg, "https://v", "https://f", prompt)
     check("payload uses mapped names",
-          set(body) == {"input_video", "identity_image", "instruction",
-                        "fidelity", "negative_prompt"}, str(sorted(body)))
+          set(body) == {"input_video", "identity_image", "instruction", "fidelity"},
+          str(sorted(body)))
     check("payload keeps extra passthrough", body["fidelity"] == 0.8)
+    check("payload injects nothing unasked", "negative_prompt" not in body)
+    check("scalar mapping stays scalar", body["input_video"] == "https://v")
+
+    # The shipped default is Kling 3.0 motion-control, which wants arrays.
+    kling = config_mod.load(bare)
+    check("default model is kling motion-control",
+          kling.swap.model == "kling-3.0/motion-control", kling.swap.model)
+    kbody = prompts.payload(kling, "https://v", "https://f", "p")
+    check("kling payload wraps the driving clip", kbody["video_urls"] == ["https://v"],
+          str(kbody.get("video_urls")))
+    check("kling payload wraps the identity still", kbody["input_urls"] == ["https://f"],
+          str(kbody.get("input_urls")))
+    check("kling payload keeps prompt scalar", kbody["prompt"] == "p")
 
     # -- run --------------------------------------------------------------
     fake = FakeKie(sample)
