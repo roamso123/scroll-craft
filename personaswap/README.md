@@ -50,20 +50,25 @@ export KIE_AI_API_KEY=...  # or put it in a .env beside the config
 personaswap init .
 ```
 
-That writes `personaswap.toml`. Three things to fill in.
+That writes `personaswap.toml`. Three sections; the model already has a
+default, so in practice you fill in two.
 
-### 1. The model id
+### 1. The model
 
-kie.ai's market catalogue moves, and **this is the one value no default can
-guess.** Read the id off the model's page in the kie.ai dashboard, or try
-`personaswap models`, then set it:
+The swap model defaults to **`gpt-6-astra`**, applied even if `[swap].model`
+is absent or blank. Pin a different one per project when you need to:
 
 ```toml
 [swap]
-model = "vendor/model-id"
+model = "gpt-6-astra"   # omit this key and the default still applies
 ```
 
-If the model names its inputs differently, say so rather than editing code:
+The input field names below are the common convention, **not a verified
+schema** for this model — `docs.kie.ai` was unreachable when this was built.
+If a run comes back rejecting a field, correct the mapping rather than the
+code. `personaswap models` tries to resolve the live catalogue with your key.
+
+If the model names its inputs differently, say so here rather than editing code:
 
 ```toml
 [swap.fields]
@@ -185,9 +190,9 @@ them. Start with `--limit 1` on a new model or a new prompt.
 python3 tests/smoke.py
 ```
 
-37 checks across config, the rights gate, ingest, prompt assembly, field
-mapping, ledger idempotency, resume and provenance, with the network layer
-stubbed — no API key or credits needed.
+38 checks across config, the default model, the rights gate, ingest, prompt
+assembly, field mapping, ledger idempotency, resume and provenance, with the
+network layer stubbed — no API key or credits needed.
 
 ## Layout
 

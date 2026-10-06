@@ -133,6 +133,13 @@ def main() -> int:
     check("field mapping read", cfg.swap.fields["video"] == "input_video")
     check("persona parsed", cfg.persona("aurora").look.startswith("warm olive"))
 
+    # The house default has to apply when the key is absent, not just blank.
+    bare = root / "bare.toml"
+    bare.write_text('[personas.x]\nface = "f.png"\n')
+    check("default model applies when unset",
+          config_mod.load(bare).swap.model == config_mod.DEFAULT_MODEL,
+          config_mod.load(bare).swap.model)
+
     # -- rights gate ------------------------------------------------------
     check("release without clause is refused",
           not _ok(lambda: rights.check(cfg, "NOCLAUSE")))

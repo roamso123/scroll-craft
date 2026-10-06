@@ -8,6 +8,10 @@ from pathlib import Path
 
 CONFIG_NAME = "personaswap.toml"
 
+# House default for the swap model. Overridable per project with
+# [swap].model; this is what applies when the key is absent.
+DEFAULT_MODEL = "gpt-6-astra"
+
 
 class ConfigError(RuntimeError):
     pass
@@ -40,7 +44,7 @@ class Swap:
     `fields` maps our three logical inputs onto whatever the model actually
     calls them, so a new model is a config change rather than a code change.
     """
-    model: str = ""
+    model: str = DEFAULT_MODEL
     fields: dict[str, str] = field(default_factory=lambda: {
         "video": "video_url", "face": "image_url", "prompt": "prompt"})
     extra: dict = field(default_factory=dict)
@@ -131,7 +135,7 @@ def load(path: str | Path | None = None) -> Config:
         max_retries=int(run.get("max_retries", 3)),
         poll_timeout_s=int(run.get("poll_timeout_s", 1800)),
         swap=Swap(
-            model=swap_raw.get("model", ""),
+            model=swap_raw.get("model") or DEFAULT_MODEL,
             fields={**default_fields, **(swap_raw.get("fields") or {})},
             extra=dict(swap_raw.get("extra") or {}),
         ),

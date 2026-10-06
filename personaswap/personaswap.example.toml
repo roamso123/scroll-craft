@@ -15,14 +15,15 @@ poll_timeout_s = 1800   # per clip, 30 min
 
 # ---------------------------------------------------------------- the model --
 # kie.ai's market catalogue changes, so the model id and its input field names
-# live here rather than in code. Read the id off the model's page in the kie.ai
-# dashboard, or try `personaswap models`.
+# live here rather than in code. Omit `model` and the built-in default
+# (gpt-6-astra) applies; set it to pin a different one per project.
 [swap]
-model = ""   # e.g. "genjutsu/motion-swap" — REQUIRED, no default is safe to guess
+model = "gpt-6-astra"
 
-# Map our three logical inputs onto whatever this model calls them. If the
-# model takes the driving video as "input_video" and the identity as
-# "face_image", say so here and nothing else has to change.
+# Map our three logical inputs onto whatever this model calls them. These
+# names are the common convention, not a verified schema for gpt-6-astra: if
+# a run comes back rejecting a field, correct it here and nothing else has to
+# change.
 [swap.fields]
 video  = "video_url"
 face   = "image_url"

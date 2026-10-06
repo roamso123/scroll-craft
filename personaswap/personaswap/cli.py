@@ -36,7 +36,7 @@ def cmd_init(args) -> int:
     for sub in ("media/source", "media/output", "personas"):
         (target / sub).mkdir(parents=True, exist_ok=True)
     print(f"wrote {dest}")
-    print("next: set [swap].model, add a persona, record a release, then `personaswap ingest`")
+    print("next: add a persona, record a release, then `personaswap ingest`")
     return 0
 
 
