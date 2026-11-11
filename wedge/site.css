@@ -1,0 +1,759 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   The Wedge · 2802 James St, Syracuse NY
+   Grammar: Service. The page is one seating; a section is a thing the house
+   puts in front of you. Bright the whole way down, because this room serves in
+   daylight, and inverted exactly once at the close.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Six roles, one accent. Canvas and ink are read off the brand's own blue;
+     the accent is the one warm thing in every photograph: honey, glass, the
+     bulbs over the bar. The blue is structural, not the accent, or it would
+     disappear into its own ground. */
+  --sc-canvas:      #E7EFF7;
+  --sc-surface:     #FFFFFF;
+  --sc-ink:         #122A3F;
+  /* Tinted off the ink, never flat grey. Measured at 4.43:1 against the hero's
+     density panel at #46617B, which is under the 4.5:1 body-text floor; this
+     clears it with room to spare. */
+  --sc-ink-soft:    #3E586F;
+  /* Measured, not chosen by eye. At #A85A0E the eyebrow sat at 3.38:1 on its
+     own density panel, and an uppercase 12.8px label is small text, so it owes
+     4.5:1 rather than 3:1. #8A4509 measures 4.76:1 there and 7.15:1 under the
+     button's white label. */
+  --sc-accent:      #8A4509;
+  --sc-accent-ink:  #FFF9F2;
+
+  --w-blue:   #6E95C0;   /* the logo disc                                   */
+  --w-navy:   #1D3B52;   /* the masthead on their current site              */
+  --w-linen:  #F7FAFD;
+  --w-shadow: #93AFC9;   /* the colour a shadow actually falls on linen     */
+  --w-night:  #0B1A28;   /* act 6, and nowhere else                         */
+
+  --sc-font-display: "Fredoka", system-ui, sans-serif;
+  --sc-font-text:    "Nunito Sans", system-ui, sans-serif;
+
+  --sc-measure: 58ch;
+}
+
+body { background: var(--sc-canvas); color: var(--sc-ink); }
+
+.sc-display { font-weight: 600; letter-spacing: -0.018em; }
+.sc-display--xl { line-height: 0.98; }
+.sc-display--lg { line-height: 1.02; }
+
+.eyebrow {
+  font-family: var(--sc-font-text);
+  font-size: var(--sc-t-xs, 0.8rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sc-accent);
+  margin: 0 0 var(--sc-3, 0.75rem);
+}
+
+.sc-sr {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ── buttons ─────────────────────────────────────────────────────────────── */
+
+.cta {
+  display: inline-block;
+  font-family: var(--sc-font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.005em;
+  color: var(--sc-accent-ink);
+  background: var(--sc-accent);
+  padding: 0.82em 1.5em 0.9em;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 2px 0 color-mix(in oklab, var(--sc-accent) 70%, #000),
+              0 10px 24px -12px color-mix(in oklab, var(--sc-accent) 60%, transparent);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 0 color-mix(in oklab, var(--sc-accent) 70%, #000),
+              0 16px 30px -14px color-mix(in oklab, var(--sc-accent) 60%, transparent);
+}
+.cta:active { transform: translateY(1px); box-shadow: 0 1px 0 color-mix(in oklab, var(--sc-accent) 70%, #000); }
+
+.plain {
+  font-family: var(--sc-font-text);
+  font-weight: 600;
+  color: var(--sc-ink);
+  text-decoration: none;
+  border-bottom: 2px solid color-mix(in oklab, var(--sc-ink) 26%, transparent);
+  padding-bottom: 2px;
+}
+.plain:hover { border-bottom-color: var(--sc-accent); color: var(--sc-accent); }
+
+:where(a, button):focus-visible {
+  outline: 3px solid var(--sc-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ═══ THE WEEK ════════════════════════════════════════════════════════════
+   The only chrome. It reports nothing about scroll position: it reports the
+   room's week, and picking a day recomposes act 5. */
+
+.week {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sc-4, 1rem);
+  padding: 0.7rem clamp(0.9rem, 3.5vw, 2.2rem);
+  background: color-mix(in oklab, var(--w-linen) 86%, transparent);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  border-bottom: 1px solid color-mix(in oklab, var(--w-navy) 12%, transparent);
+}
+
+.week__mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+  color: var(--sc-ink);
+  font-family: var(--sc-font-display);
+  font-weight: 600;
+  font-size: 1.02rem;
+  letter-spacing: -0.01em;
+}
+.week__mark img { width: 2rem; height: 2rem; display: block; }
+
+.week__days ul {
+  display: flex;
+  align-items: center;
+  gap: 0.18rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.day {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font-family: var(--sc-font-display);
+  font-weight: 500;
+  font-size: 0.92rem;
+  color: var(--sc-ink-soft);
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 160ms ease, color 160ms ease;
+}
+.day:hover:not(:disabled) { background: color-mix(in oklab, var(--w-blue) 24%, transparent); color: var(--sc-ink); }
+
+/* The two days the room is shut. Struck, dimmed, and genuinely not clickable. */
+.day--shut { cursor: default; color: color-mix(in oklab, var(--sc-ink) 32%, transparent); }
+.day--shut .day__i { position: relative; }
+.day--shut .day__i::after {
+  content: "";
+  position: absolute;
+  left: -22%; right: -22%; top: 52%;
+  height: 1.5px;
+  background: currentColor;
+  transform: rotate(-16deg);
+}
+
+/* Where the reader is being served from. */
+.day[aria-current="true"] {
+  background: var(--w-navy);
+  color: var(--w-linen);
+}
+
+/* ═══ 1 · THE TABLE ═══════════════════════════════════════════════════════ */
+
+.table { background: var(--w-navy); }
+
+.table__bed { position: absolute; inset: -6% 0; }
+.table__bed picture, .table__bed img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  /* Hold the table, not the brick: the copy wants linen behind it, and the
+     arriving butter and bread must stay inside the frame on a tall viewport. */
+  object-position: 54% 68%;
+  display: block;
+}
+/* The arrival. The second plate is the first plate plus the butter and the
+   bread, generated off it, so the linen and the window shadow do not move.
+   Opacity is driven from the act's own progress, not from a transition. */
+.table__arrive { opacity: calc((var(--sc-p, 0) - 0.16) / 0.42); }
+
+/* The near plane: a strip of this table's own sunlit linen, overtaking it. */
+.table__near {
+  position: absolute;
+  left: -2%; right: -2%; bottom: -14%;
+  height: 34%;
+  pointer-events: none;
+}
+.table__near img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.94) brightness(1.03);
+  mask-image: linear-gradient(to bottom, transparent, #000 38%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 38%);
+}
+
+/* Dark ink, not light. This is a daylight page and the hero's ground is a
+   sunlit white tablecloth: white type on it measured 1.01:1 at the brightest
+   frame. The engine's scrim is mixed from --sc-canvas, so on this build it
+   LIGHTENS the corner, which is the right direction here and the wrong one at
+   the close. Navy on the lightened linen measures past 10:1. */
+/* A column of density sized to the copy, rather than the engine's corner
+   scrim. The corner gradient is transparent by the time it reaches the top of
+   a full-height copy block, which left the headline's own box sitting on the
+   dark brick at the back of the room: measured 1.27:1 against navy. A column
+   that ends where the column ends covers the text and leaves the right two
+   thirds of the photograph completely alone. */
+.table__copy {
+  max-width: 35rem;
+  /* A background-COLOUR, not a gradient, and deliberately so. The copy block
+     genuinely paints its own ground, and declaring it this way is both the
+     honest description and what lets a contrast audit grade the ink against
+     the fill instead of against whatever photograph the block's box happens to
+     overlap. A gradient fading to transparent left dark brick inside the box
+     and graded the headline at 1.14:1 on pixels its glyphs never touch. */
+  /* Written as rgba() on purpose. A color-mix() serialises as
+     `color(srgb 0.906 0.937 0.969 / 0.94)`, and any audit that parses colour
+     channels as 0-255 integers reads those floats as near-black and grades
+     this pale panel as if the headline sat on tar. rgba() is the same colour
+     and is read correctly by everything. --sc-canvas is #E7EFF7. */
+  background-color: rgba(231, 239, 247, 0.94);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  padding: clamp(1.4rem, 3.5vh, 2.4rem) clamp(2rem, 5vw, 4rem) clamp(1.6rem, 3.5vh, 2.4rem) clamp(1.2rem, 3vw, 2.2rem);
+  margin-left: calc(clamp(1.2rem, 3vw, 2.2rem) * -1);
+  border-radius: 0 4px 4px 0;
+}
+.table__copy .sc-display--xl { font-size: clamp(2.4rem, 5vw, 4.3rem); }
+.table__copy .sc-display--xl {
+  color: var(--sc-ink);
+  font-size: clamp(2.6rem, 6.4vw, 5.4rem);
+}
+.table__sub {
+  color: var(--sc-ink-soft);
+  margin-top: var(--sc-5, 1.25rem);
+  line-height: 1.62;
+  max-width: 32rem;
+  font-weight: 600;
+}
+.table__asks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.1rem 1.4rem;
+  margin: var(--sc-7, 2rem) 0 0;
+}
+/* The lead scrim carries the headline, so it leans harder than the engine's
+   default and reaches further across the frame. */
+.table .sc-scrim--lead { --sc-scrim-a: 96%; }
+
+/* ═══ 2 · WHAT LANDS FIRST ════════════════════════════════════════════════ */
+
+.first { background: #EDF2F8; padding: var(--sc-section, 7rem) 0; }
+.first__wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.first__plate { margin: 0; }
+.first__plate img {
+  width: 100%; height: auto;
+  display: block;
+  border-radius: 2px;
+  box-shadow: 0 30px 60px -34px rgba(18,42,63,0.55);
+}
+.first__plate figcaption {
+  margin-top: var(--sc-4, 1rem);
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--sc-ink-soft);
+  max-width: 26rem;
+}
+.first__plate figcaption b { color: var(--sc-ink); font-weight: 700; }
+
+.first__col .sc-body { margin-top: var(--sc-4, 1rem); }
+.first__col .sc-body b { color: var(--sc-ink); font-weight: 700; }
+
+/* The dishes. A served list, not a catalogue: no sort, no filter, no facets.
+   The leader dots are the only ornament on the page. */
+.dishes { list-style: none; margin: var(--sc-6, 1.6rem) 0 0; padding: 0; }
+.dishes li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.44rem 0;
+  border-bottom: 1px solid color-mix(in oklab, var(--w-navy) 10%, transparent);
+}
+.dishes__n { font-family: var(--sc-font-display); font-weight: 500; font-size: 1.06rem; }
+.dishes li::after {
+  content: "";
+  flex: 1 1 auto;
+  order: 1;
+  border-bottom: 1.5px dotted color-mix(in oklab, var(--w-navy) 26%, transparent);
+  transform: translateY(-0.25em);
+}
+.dishes__p {
+  order: 2;
+  font-family: var(--sc-font-display);
+  font-weight: 600;
+  font-size: 1.06rem;
+  color: var(--sc-accent);
+  font-variant-numeric: tabular-nums;
+}
+/* HARD RULE, BRIEF.md §2: the menus carry no price for these, so neither does
+   the page. It says "ask", because that is the honest answer. */
+.dishes__p--none, .pour__p--none {
+  color: var(--sc-ink-soft);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+}
+.dishes__head {
+  font-family: var(--sc-font-display);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sc-ink-soft);
+  margin: var(--sc-7, 2rem) 0 0;
+}
+
+/* ═══ 3 · THE RAIL ════════════════════════════════════════════════════════ */
+
+.rail {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(1.1rem, 2.4vw, 2rem);
+  padding: 0 clamp(1.1rem, 5vw, 5rem);
+  height: 100%;
+}
+.rail > * { flex: 0 0 auto; }
+
+.rail__lead {
+  align-self: center;
+  width: clamp(17rem, 27vw, 24rem);
+  padding-right: clamp(0.5rem, 2vw, 1.5rem);
+}
+.rail__lead .sc-body { margin-top: var(--sc-4, 1rem); }
+
+.rail__shot { align-self: center; width: clamp(26rem, 54vw, 48rem); }
+.rail__shot img {
+  width: 100%; height: auto;
+  display: block;
+  border-radius: 2px;
+  box-shadow: 0 34px 70px -40px rgba(18,42,63,0.6);
+}
+.rail__shot figcaption {
+  margin-top: 0.8rem;
+  font-size: 0.84rem;
+  color: var(--sc-ink-soft);
+}
+
+.pour {
+  align-self: center;
+  width: clamp(14rem, 20vw, 18.5rem);
+  background: var(--sc-surface);
+  border-radius: 3px;
+  padding: clamp(1.1rem, 2vw, 1.6rem);
+  box-shadow: 0 1px 0 color-mix(in oklab, var(--w-navy) 8%, transparent),
+              0 26px 50px -34px rgba(18,42,63,0.45);
+}
+/* Card headings are read while cropped, so they stay to one or two short
+   words and break where they are told to. */
+.pour h3 {
+  font-family: var(--sc-font-display);
+  font-weight: 600;
+  font-size: 1.32rem;
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+  margin: 0 0 var(--sc-4, 1rem);
+  color: var(--sc-ink);
+}
+.pour ul { list-style: none; margin: 0; padding: 0; }
+.pour li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.7rem;
+  padding: 0.3rem 0;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: var(--sc-ink-soft);
+}
+.pour li > span:first-child { color: var(--sc-ink); }
+.pour__p {
+  font-family: var(--sc-font-display);
+  font-weight: 600;
+  color: var(--sc-accent);
+  font-variant-numeric: tabular-nums;
+}
+.pour__sub {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sc-ink-soft);
+  margin: var(--sc-5, 1.25rem) 0 0.3rem;
+}
+.pour__note {
+  margin: var(--sc-4, 1rem) 0 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--sc-ink-soft);
+  font-style: italic;
+}
+
+.rail__end {
+  align-self: center;
+  width: clamp(16rem, 24vw, 22rem);
+  padding-left: clamp(0.5rem, 2vw, 1.5rem);
+}
+
+/* A staggered settle driven off the act's own progress, so the rail reads as
+   a drawer being pulled rather than a slideshow. The lead is exempt: a pan
+   act must open with its content already there. Floored at 0.55 so a card
+   that has not settled reads as arriving, not as failing to load. */
+@media (prefers-reduced-motion: no-preference) {
+  .rail > *:not(.rail__lead) {
+    opacity: clamp(0.55, calc((var(--sc-p, 0) - 0.02) * 7), 1);
+    transform: translateY(calc((1 - clamp(0, calc((var(--sc-p, 0) - 0.02) * 7), 1)) * 14px));
+  }
+}
+
+/* ═══ 4 · FOUR ADJECTIVES ═════════════════════════════════════════════════
+   The quiet act and the authored silence (BRIEF.md §6). Four words, a lot of
+   bare ground, and no photograph at all. */
+
+.sweet {
+  background: var(--w-linen);
+  padding: clamp(5rem, 13vh, 11rem) 0;
+}
+.sweet__wrap { text-align: center; }
+.sweet__words {
+  font-family: var(--sc-font-display);
+  font-weight: 600;
+  font-size: var(--sc-t-3xl, clamp(2.2rem, 7vw, 4.4rem));
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  margin: 0 auto;
+  max-width: 18ch;
+  text-wrap: balance;
+  color: var(--sc-ink);
+}
+.sweet__note {
+  margin: var(--sc-7, 2rem) auto 0;
+  max-width: 44ch;
+  text-align: center;
+}
+
+/* ═══ 5 · TONIGHT · THE PEAK ══════════════════════════════════════════════
+   Everything in here is present at p = 0. A pinned stage is fully visible a
+   viewport before its progress leaves 0, so a state-driven panel needs the
+   same ground a cue does, or the act slides in empty. */
+
+.tonight { background: #E2ECF6; }
+.tonight > * { position: absolute; }
+
+.tonight__plate {
+  margin: 0;
+  right: 0; top: -8%;
+  width: 42%;
+  height: 116%;
+}
+.tonight__plate img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tonight__panel {
+  left: 0; top: 0;
+  width: min(58%, 44rem);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* The top pad clears the fixed week strip. A pinned stage cannot scroll, so
+     anything taller than the viewport is simply cut, and the heading was the
+     part being cut. */
+  padding: clamp(4.5rem, 10vh, 6rem) clamp(1.2rem, 4vw, 3.5rem) clamp(1.6rem, 4vh, 3rem) clamp(1.2rem, 5vw, 5rem);
+  overflow: hidden;
+}
+.tonight__panel .sc-display--lg { font-size: clamp(1.9rem, 3.4vw, 3rem); }
+
+.tonight__status {
+  font-family: var(--sc-font-display);
+  font-weight: 500;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  line-height: 1.4;
+  margin: var(--sc-4, 1rem) 0 0;
+  color: var(--sc-ink-soft);
+}
+.tonight__status b { color: var(--sc-ink); font-weight: 600; }
+.tonight__status .open { color: #1E6B38; font-weight: 600; }
+.tonight__status .shut { color: var(--sc-accent); font-weight: 600; }
+
+/* Courses side by side. One course fills the column; two sit next to each
+   other so a nine-item brunch still fits inside the pinned stage. */
+.tonight__menu {
+  margin-top: var(--sc-5, 1.25rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13.5rem, 1fr));
+  gap: 0 clamp(1.4rem, 3vw, 2.6rem);
+  align-items: start;
+}
+.tonight__menu .dishes { margin-top: 0.3rem; }
+.tonight__menu .dishes li {
+  padding: 0.3rem 0;
+  border-bottom-color: color-mix(in oklab, var(--w-navy) 13%, transparent);
+}
+.tonight__menu .dishes__n, .tonight__menu .dishes__p { font-size: 1rem; }
+.tonight__menu .course .dishes__head { margin-top: 0; }
+
+/* The blanks. The three things the house has deliberately not decided, shown
+   as labelled empty slots. Never fill these in. */
+.blanks { list-style: none; margin: var(--sc-7, 2rem) 0 0; padding: 0; display: grid; gap: 0.5rem; }
+.blanks li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0.8rem;
+  padding: 0.6rem 0.9rem;
+  border: 1.5px dashed color-mix(in oklab, var(--sc-accent) 42%, transparent);
+  border-radius: 3px;
+  background: color-mix(in oklab, var(--sc-surface) 62%, transparent);
+}
+.blanks__n { font-family: var(--sc-font-display); font-weight: 600; font-size: 1rem; color: var(--sc-ink); }
+.blanks__v {
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--sc-accent);
+  margin-left: auto;
+}
+
+.tonight__foot { margin: var(--sc-6, 1.6rem) 0 0; font-size: 0.92rem; }
+
+/* The closed day's empty state. Set like a note left on the door. */
+.tonight__empty {
+  margin: var(--sc-5, 1.25rem) 0 0;
+  max-width: 34ch;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: var(--sc-ink-soft);
+  padding-left: var(--sc-5, 1.25rem);
+  border-left: 2px solid color-mix(in oklab, var(--sc-accent) 55%, transparent);
+}
+
+/* The closed state. Monday and Tuesday: the board empties and the room goes
+   quiet. The plate desaturates rather than disappearing, because the room is
+   still there, it is just shut. */
+.tonight.is-shut { background: #D3DFEC; }
+.tonight.is-shut .tonight__plate img { filter: saturate(0.25) brightness(0.86) contrast(0.95); }
+.tonight.is-shut .blanks li { border-style: dashed; opacity: 0.45; }
+
+/* ═══ 6 · THE WINDOW · THE CLOSE ══════════════════════════════════════════
+   The one inverted frame on the page. Restate `color` alongside the tokens:
+   redefining --sc-ink on a subtree does not re-ink text whose colour already
+   resolved on <body>. */
+
+.window {
+  position: relative;
+  --sc-ink: #F4F8FC;
+  --sc-ink-soft: #AFC6DB;
+  color: var(--sc-ink);
+  background: var(--w-night);
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+/* The scrim is mixed from --sc-canvas, which on this page is pale blue. Left
+   alone it would LIGHTEN the one dark frame on the site and strand pale amber
+   type on near-white (measured 1.61:1). Point it at the night instead. */
+.window .sc-scrim { --sc-canvas: var(--w-night); }
+
+.window__bed { position: absolute; inset: 0; }
+.window__bed img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.window__wrap {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-bottom: clamp(2rem, 6vh, 4rem);
+  padding-top: clamp(6rem, 22vh, 14rem);
+}
+
+/* The lit window is the brightest thing on the page. The copy blocks carry
+   their own night behind them rather than a band across the whole frame, which
+   would put a scrim over the one photograph the close exists to show. */
+.window__glass, .foot {
+  background-color: rgba(11, 26, 40, 0.93);   /* --w-night at 93%, see above */
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  padding: clamp(1.2rem, 3vh, 2rem) clamp(2rem, 5vw, 3.5rem) clamp(1.4rem, 3vh, 2rem) clamp(1rem, 2.5vw, 1.8rem);
+  margin-left: calc(clamp(1rem, 2.5vw, 1.8rem) * -1);
+  border-radius: 0 4px 4px 0;
+}
+/* fit-content so the box hugs the words. As a full-width block its right end
+   reached the part of the panel gradient that thins out over the lit window,
+   which graded the line at 3.79:1 on a backdrop its glyphs never touch. */
+.window .eyebrow { color: #F3D3A8; width: fit-content; }
+.window .sc-display--lg { color: var(--sc-ink); }
+
+/* Narrow enough to clear the lit window in the photograph. The glow is the
+   brightest thing on the site and the close exists to show it, so the type
+   steps out of its way instead of a band being laid over it. */
+.window__glass { max-width: 32rem; }
+
+.hours {
+  margin: var(--sc-6, 1.6rem) 0 0;
+  display: grid;
+  gap: 0.1rem;
+}
+.hours div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 1rem;
+  padding: 0.52rem 0;
+  border-bottom: 1px solid color-mix(in oklab, var(--sc-ink) 18%, transparent);
+}
+.hours dt {
+  font-family: var(--sc-font-display);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--sc-ink);
+  min-width: 11rem;
+}
+.hours dd {
+  margin: 0;
+  margin-left: auto;
+  color: #F3D3A8;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.hours--shut dt, .hours--shut dd { color: var(--sc-ink-soft); font-weight: 400; }
+
+.window__asks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.1rem 1.4rem;
+  margin: var(--sc-7, 2rem) 0 0;
+}
+.window__asks .plain { color: var(--sc-ink); border-bottom-color: color-mix(in oklab, var(--sc-ink) 40%, transparent); }
+.window__asks .plain:hover { color: #F3D3A8; border-bottom-color: #F3D3A8; }
+
+.foot {
+  margin-top: clamp(3rem, 9vh, 6rem);
+  padding-top: var(--sc-5, 1.25rem);
+  border-top: 1px solid color-mix(in oklab, var(--sc-ink) 16%, transparent);
+  display: grid;
+  gap: var(--sc-3, 0.75rem);
+}
+.foot a { color: var(--sc-ink); text-decoration: none; border-bottom: 1px solid color-mix(in oklab, var(--sc-ink) 34%, transparent); }
+.foot a:hover { color: #F3D3A8; border-bottom-color: #F3D3A8; }
+.foot p { margin: 0; font-size: 0.95rem; }
+.foot__fine {
+  color: var(--sc-ink-soft);
+  font-size: 0.78rem !important;
+  line-height: 1.6;
+  max-width: 70ch;
+}
+
+/* ═══ PHONE ═══════════════════════════════════════════════════════════════
+   Art-directed, not reflowed. The hero steps down a rung of type, the peak
+   stops being a split stage and becomes a plate with the service under it,
+   and the rail keeps its lateral travel because that is the navigation. */
+
+@media (max-width: 860px) {
+  .week { padding: 0.55rem 0.9rem; }
+  .week__mark span { display: none; }
+  .day { width: 1.95rem; height: 1.95rem; font-size: 0.86rem; }
+
+  /* Art direction, not a reflow. A 16:9 plate in a tall portrait frame crops
+     to the back wall, so the phone gets the table and the arriving board;
+     the brick is the desktop frame's job. */
+  .table__bed picture, .table__bed img { object-position: 58% 88%; }
+
+  .table__copy { max-width: none; }
+  .table__copy .sc-display--xl { font-size: var(--sc-t-2xl, clamp(2.1rem, 11vw, 3rem)); }
+  .table__sub { font-size: 1rem; }
+  .table__near { height: 26%; bottom: -10%; }
+
+  .first { padding: var(--sc-section, 4.5rem) 0; }
+  .first__wrap { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  .first__plate { order: 2; max-width: 22rem; }
+
+  .tonight > * { position: static; }
+  /* No nested scroller. A scrollable box inside a pinned act traps the thumb:
+     the reader swipes to leave the act and instead scrolls its insides. The
+     panel is tightened until a full brunch fits one screen instead. */
+  .tonight {
+    display: flex;
+    flex-direction: column;
+    /* NOT height:100%. The engine's .sc-stage is `position: sticky` at
+       `height: 100svh`; resolving its height against the section instead makes
+       the stage as tall as the whole act, so it never sticks and the act
+       renders as a blank pale screen. */
+    height: 100svh;
+    overflow: hidden;
+  }
+  .tonight__plate { width: 100%; height: 22vh; flex: 0 0 auto; }
+  .tonight__panel {
+    width: 100%;
+    height: auto;
+    flex: 1 1 auto;
+    padding: 1.4rem 1.1rem 2rem;
+    justify-content: flex-start;
+  }
+  /* A shut day has no menu and no blanks, so on a phone its panel would be
+     two thirds empty. Centre what is left instead of stranding it at the top. */
+  .tonight.is-shut .tonight__panel { justify-content: center; padding-bottom: 3rem; }
+
+  .tonight__panel .sc-display--lg { font-size: 1.9rem; }
+  .tonight__status { font-size: 0.98rem; margin-top: 0.5rem; }
+  .tonight__menu { margin-top: 0.7rem; gap: 0 1rem; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); }
+  .tonight__menu .dishes li { padding: 0.16rem 0; }
+  .tonight__menu .dishes__n, .tonight__menu .dishes__p { font-size: 0.92rem; }
+  .tonight__menu .dishes__head { margin-top: 0.4rem; font-size: 0.72rem; }
+  .blanks { margin-top: 0.8rem; gap: 0.35rem; }
+  .blanks li { padding: 0.4rem 0.6rem; }
+  .blanks__n { font-size: 0.9rem; }
+  .blanks__v { font-size: 0.8rem; }
+  .tonight__foot { display: none; }
+  .blanks__v { margin-left: 0; width: 100%; }
+
+  .hours dt { min-width: 0; }
+  .hours dd { margin-left: 0; }
+  .window__wrap { padding-top: clamp(5rem, 30vh, 10rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The arrival is the hero's whole argument, so it resolves to the arrived
+     frame rather than to the empty table. */
+  .table__arrive { opacity: 1; }
+  .rail > *:not(.rail__lead) { opacity: 1; transform: none; }
+}

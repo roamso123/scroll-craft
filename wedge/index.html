@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Wedge · 2802 James St, Syracuse NY</title>
+<meta name="description" content="A cheese bar on James Street. Dinner Wednesday to Saturday, brunch on Sunday. The mac is a different cheese every day and we are not going to tell you which one until you sit down.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='15' fill='%236E95C0'/><path d='M4 21 L26 10 L27 18 L6 23 Z' fill='%23fff' stroke='%23122A3F' stroke-width='1.4' stroke-linejoin='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="scrollcraft.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<div class="sc-grain" aria-hidden="true"></div>
+
+<!-- ═══ THE WEEK ═══════════════════════════════════════════════════════════
+     The only chrome on the page, and the only nav in this registry that
+     changes what the page is SHOWING rather than where the reader is in it.
+     Monday and Tuesday are struck because the room is shut. Picking a day
+     recomposes act 5. There is no CTA in here and no section list: the
+     courses are not jumpable, because a service has an order.              -->
+<header class="week" aria-label="The week at The Wedge">
+  <a class="week__mark" href="#top">
+    <img src="assets/logo.png" width="96" height="96" alt="">
+    <span>The Wedge</span>
+  </a>
+  <nav class="week__days">
+    <ul role="list">
+      <li><button type="button" class="day day--shut" data-day="1" disabled><span class="day__i">M</span><span class="sc-sr">Monday, closed</span></button></li>
+      <li><button type="button" class="day day--shut" data-day="2" disabled><span class="day__i">T</span><span class="sc-sr">Tuesday, closed</span></button></li>
+      <li><button type="button" class="day" data-day="3"><span class="day__i">W</span><span class="sc-sr">Wednesday, dinner</span></button></li>
+      <li><button type="button" class="day" data-day="4"><span class="day__i">T</span><span class="sc-sr">Thursday, dinner</span></button></li>
+      <li><button type="button" class="day" data-day="5"><span class="day__i">F</span><span class="sc-sr">Friday, dinner</span></button></li>
+      <li><button type="button" class="day" data-day="6"><span class="day__i">S</span><span class="sc-sr">Saturday, dinner</span></button></li>
+      <li><button type="button" class="day" data-day="0"><span class="day__i">S</span><span class="sc-sr">Sunday, brunch</span></button></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ═══ 1 · THE TABLE ════════════════════════════════════════════════════
+       The hero is an ARRIVAL, not a camera move. One held frame; two matched
+       plates (the second generated off the first so the creases and the
+       window shadow survive); the butter and the bread land in it as the
+       reader descends. Three planes: the bed lags at -1.0, the copy rides at
+       1x, and a near strip of sunlit linen at +0.75 overtakes the table.  -->
+  <section id="top" data-sc-act="pin" data-sc-span="2.4" data-sc-drift="#E7EFF7">
+    <div data-sc-stage class="table">
+
+      <div class="table__bed" data-sc-parallax="-1">
+        <picture>
+          <source media="(max-width: 860px)" srcset="assets/bare-p.jpg">
+          <img src="assets/bare.jpg" width="1920" height="1080" alt="A small two-top laid with bone-white linen in hard late afternoon sun, nothing on it yet.">
+        </picture>
+        <picture class="table__arrive">
+          <source media="(max-width: 860px)" srcset="assets/set-p.jpg">
+          <img src="assets/set.jpg" width="1920" height="1080" alt="The same table a moment later: a board of three compound butters, a torn half loaf of focaccia and a butter knife.">
+        </picture>
+      </div>
+
+      <div class="table__near" data-sc-parallax="0.75" aria-hidden="true">
+        <img src="assets/linen.jpg" width="1920" height="420" alt="">
+      </div>
+
+      <div class="sc-copy sc-copy--lead table__copy" data-sc-cue="0 0.84 0 0.16">
+        <p class="eyebrow">2802 James Street, Syracuse</p>
+        <h1 class="sc-display sc-display--xl">Sit down.<br>We'll take it<br>from here.</h1>
+        <p class="sc-body table__sub">A cheese bar on the near east side. Dinner Wednesday
+          to Saturday, brunch on Sunday, and a mac that is a different cheese
+          every single day.</p>
+        <p class="table__asks">
+          <a class="cta" href="https://www.opentable.com/r/the-wedge-syracuse" target="_blank" rel="noopener">Book a table</a>
+          <a class="plain" href="tel:+13156308169">(315) 630-8169</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 2 · WHAT LANDS FIRST ═════════════════════════════════════════════
+       The small plates and the vegetables, in the order they reach a table.
+       Not a catalogue: no filter, no sort, no column of options. A reveal
+       because the plates are arriving, and a staggered settle on the list. -->
+  <section id="first" class="first" data-sc-act="flow" data-sc-span="1.6" data-sc-drift="#EDF2F8">
+    <div class="sc-wrap first__wrap">
+
+      <figure class="first__plate" data-sc-reveal="up" data-sc-reveal-at="0.08 0.52">
+        <img src="assets/butter.jpg" width="900" height="1200" alt="Macro of a thick quenelle of compound butter flecked with herbs and sundried pepper, shaped by the back of a spoon.">
+        <figcaption>Butter for the Table, three house-made compound butters with
+          focaccia and pickled peppers. On the Sunday brunch menu, <b>12</b>.</figcaption>
+      </figure>
+
+      <div class="first__col" data-sc-in data-sc-stagger="60">
+        <p class="eyebrow">First on the table</p>
+        <h2 class="sc-display sc-display--lg">Things to put<br>in the middle.</h2>
+        <p class="sc-body">The cheese comes from <b>The Curd Nerd</b> a mile up the road,
+          the bread from <b>BreadHead</b>. Neither of those is our doing and we are
+          not going to pretend otherwise.</p>
+
+        <ul class="dishes" role="list">
+          <li><span class="dishes__n">Cheese Board</span><span class="dishes__p">14</span></li>
+          <li><span class="dishes__n">Warm Olives</span><span class="dishes__p">5</span></li>
+          <li><span class="dishes__n">Fries For The Table</span><span class="dishes__p">12</span></li>
+          <li><span class="dishes__n">Pimento And Chips</span><span class="dishes__p">14</span></li>
+          <li><span class="dishes__n">Tinned Fish Platter</span><span class="dishes__p dishes__p--none" title="Ask your server">ask</span></li>
+        </ul>
+
+        <p class="dishes__head">Wedge Veg</p>
+        <ul class="dishes" role="list">
+          <li><span class="dishes__n">Caesar Salad</span><span class="dishes__p">14</span></li>
+          <li><span class="dishes__n">Sumac Turnips</span><span class="dishes__p">14</span></li>
+          <li><span class="dishes__n">Carrot Soup</span><span class="dishes__p">12</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 3 · THE RAIL ═════════════════════════════════════════════════════
+       Lateral, because breadth is not an argument. Forty-odd pours for a
+       forty-seat room is the one place this house is immodest. The heading
+       rides in the rail as item one and the note closes it, which is also
+       where the overflow comes from.                                       -->
+  <section id="drink" data-sc-act="pan" data-sc-span="2.8" data-sc-drift="#E7EFF7">
+    <div data-sc-stage>
+      <div class="rail" data-sc-pan="0.04">
+
+        <div class="rail__lead">
+          <p class="eyebrow">To drink</p>
+          <h2 class="sc-display sc-display--lg">Forty-odd<br>pours.</h2>
+          <p class="sc-body">Ciders from people who grow the apples, orange wine by
+            the glass, and a five dollar draft that we will not identify.</p>
+        </div>
+
+        <figure class="rail__shot">
+          <img src="assets/drinks.jpg" width="1920" height="1080" alt="Seven drinks in a row along the bar in low afternoon sun: pilsner, cider, orange wine, a cocktail over one cube, a highball, red wine and an espresso, each throwing a long blue shadow.">
+          <figcaption>Left to right, roughly what a Wednesday looks like.</figcaption>
+        </figure>
+
+        <article class="pour">
+          <h3>Drafts</h3>
+          <ul role="list">
+            <li><span>Surprise, Surprise</span><span class="pour__p">5</span></li>
+            <li><span>Mango Goseface Killah</span><span class="pour__p">12</span></li>
+            <li><span>Cold Brook Pilsner</span><span class="pour__p pour__p--none">ask</span></li>
+            <li><span>Cream Ale</span><span class="pour__p">5</span></li>
+          </ul>
+          <p class="pour__note">Free Wave Hazy IPA, no alcohol.</p>
+        </article>
+
+        <article class="pour">
+          <h3>Ciders</h3>
+          <ul role="list">
+            <li><span>Goldwin</span><span class="pour__p">10</span></li>
+            <li><span>Hickster</span><span class="pour__p">10</span></li>
+            <li><span>Autumn's Gold</span><span class="pour__p pour__p--none">ask</span></li>
+            <li><span>Farmhouse Dry</span><span class="pour__p pour__p--none">ask</span></li>
+            <li><span>Porter's Perfection</span><span class="pour__p">14</span></li>
+            <li><span>Harrison</span><span class="pour__p">14</span></li>
+            <li><span>Perry</span><span class="pour__p">11</span></li>
+          </ul>
+        </article>
+
+        <article class="pour">
+          <h3>Seasonals</h3>
+          <ul role="list">
+            <li><span>Golden Hour</span><span class="pour__p">13</span></li>
+            <li><span>Deep Roots</span><span class="pour__p">13</span></li>
+            <li><span>Stolat</span><span class="pour__p">13</span></li>
+            <li><span>Hot Stepper</span><span class="pour__p">13</span></li>
+            <li><span>Just A Fungi</span><span class="pour__p">13</span></li>
+          </ul>
+        </article>
+
+        <article class="pour">
+          <h3>Shaken<br>and stirred</h3>
+          <ul role="list">
+            <li><span>Bayley Hazen Blue</span><span class="pour__p">13</span></li>
+            <li><span>Chili Crisp Spicy</span><span class="pour__p">13</span></li>
+            <li><span>Espresso</span><span class="pour__p">13</span></li>
+            <li><span>May Flower</span><span class="pour__p">13</span></li>
+          </ul>
+          <p class="pour__note">Yes, one of the cocktails is named after a blue cheese.</p>
+        </article>
+
+        <article class="pour">
+          <h3>Spritz<br>and vermouth</h3>
+          <ul role="list">
+            <li><span>Aspide Spritz</span><span class="pour__p">8</span></li>
+            <li><span>Mirto Pilloni</span><span class="pour__p">14</span></li>
+            <li><span>Sirene</span><span class="pour__p">14</span></li>
+            <li><span>Vermut Rojo</span><span class="pour__p">10</span></li>
+            <li><span>Method Vermouth</span><span class="pour__p">7</span></li>
+            <li><span>Cappeletti</span><span class="pour__p">8</span></li>
+          </ul>
+        </article>
+
+        <article class="pour">
+          <h3>Wine</h3>
+          <p class="pour__sub">Bubbles</p>
+          <ul role="list">
+            <li><span>Cremant</span><span class="pour__p">13</span></li>
+            <li><span>Lambrusco</span><span class="pour__p pour__p--none">ask</span></li>
+          </ul>
+          <p class="pour__sub">Whites</p>
+          <ul role="list">
+            <li><span>Riesling</span><span class="pour__p pour__p--none">ask</span></li>
+            <li><span>Albarino</span><span class="pour__p">12</span></li>
+            <li><span>Sauvignon Blanc</span><span class="pour__p pour__p--none">ask</span></li>
+            <li><span>Chablis</span><span class="pour__p">18</span></li>
+            <li><span>Gewurztraminer</span><span class="pour__p">12</span></li>
+          </ul>
+        </article>
+
+        <article class="pour">
+          <h3>Red<br>and orange</h3>
+          <ul role="list">
+            <li><span>Cab Franc</span><span class="pour__p">13</span></li>
+            <li><span>Pinot Noir</span><span class="pour__p pour__p--none">ask</span></li>
+            <li><span>Sangiovese</span><span class="pour__p pour__p--none">ask</span></li>
+            <li><span>Malbec</span><span class="pour__p pour__p--none">ask</span></li>
+            <li><span>Cabernet Sauvignon</span><span class="pour__p pour__p--none">ask</span></li>
+          </ul>
+          <p class="pour__sub">Others</p>
+          <ul role="list">
+            <li><span>Gulp Orange Blend</span><span class="pour__p pour__p--none">ask</span></li>
+            <li><span>Monje Orange Blend</span><span class="pour__p pour__p--none">ask</span></li>
+            <li><span>Saperavi</span><span class="pour__p pour__p--none">ask</span></li>
+          </ul>
+        </article>
+
+        <article class="pour">
+          <h3>Nothing<br>in it</h3>
+          <ul role="list">
+            <li><span>Phony Negroni</span><span class="pour__p">10</span></li>
+            <li><span>Surely Na</span><span class="pour__p">7</span></li>
+            <li><span>Le Spritz Lime And Salt</span><span class="pour__p pour__p--none">ask</span></li>
+          </ul>
+          <p class="pour__sub">Coffee</p>
+          <ul role="list">
+            <li><span>Espresso</span><span class="pour__p">3</span></li>
+            <li><span>Cappucino</span><span class="pour__p pour__p--none">ask</span></li>
+            <li><span>French Press</span><span class="pour__p pour__p--none">ask</span></li>
+            <li><span>Pot Of Tea</span><span class="pour__p pour__p--none">ask</span></li>
+          </ul>
+        </article>
+
+        <figure class="rail__shot">
+          <img src="assets/room.jpg" width="1920" height="1080" alt="The dining room before service: bentwood chairs, bone linen, a pale blue wainscot under bare brick and a marble bar at the far end, all of it in hard window light.">
+          <figcaption>An hour before service, with the sun still on the brick.</figcaption>
+        </figure>
+
+        <div class="rail__end">
+          <p class="sc-body">Happy hour is Wednesday and Thursday, four until five.
+            Small plates and drink specials, and the bar is the best seat for it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 4 · FOUR ADJECTIVES ══════════════════════════════════════════════
+       The quiet act, and the authored silence. Four words and a lot of bare
+       linen. This is the entire printed dessert menu and it is the clearest
+       statement of the thesis on the page, so it gets no photograph, no
+       movement beyond the assemble, and the smallest span.                 -->
+  <section id="dessert" class="sweet" data-sc-act="flow" data-sc-span="0.8" data-sc-drift="#F4F8FC">
+    <div class="sc-wrap sweet__wrap">
+      <p class="eyebrow">The entire dessert menu</p>
+      <p class="sweet__words" data-sc-cue="0.16 1 0.3 0" data-sc-kinetic="words">Cheesey. Chocolatey. Fruity. Cakey.</p>
+      <p class="sc-body sweet__note">That is all of it. You pick an adjective and the
+        kitchen picks the dessert. Nobody has sent one back yet.</p>
+    </div>
+  </section>
+
+  <!-- ═══ 5 · TONIGHT · THE PEAK ═══════════════════════════════════════════
+       The page stops moving and starts answering. site.js resolves the real
+       calendar and the real clock against the two real menus and composes
+       the service that is actually on. The week strip up top is its control.
+       Everything in here is present at p=0 (the pinned act's ground), so the
+       stage is never empty while it slides in.
+
+       HARD RULE, see BRIEF.md: the three slots the house has not decided
+       stay blank on purpose, and the page says so. No invented cheese.    -->
+  <section id="tonight" data-sc-act="pin" data-sc-span="4" data-sc-drift="#E2ECF6">
+    <div data-sc-stage class="tonight">
+
+      <figure class="tonight__plate" data-sc-parallax="-0.5">
+        <img src="assets/mac.jpg" width="900" height="1200" alt="A cast-iron skillet of baked macaroni and cheese, crust broken open at the near side, one thread of cheese still stretching from the spoon.">
+      </figure>
+
+      <div class="tonight__panel">
+        <p class="eyebrow" id="tn-when">Today</p>
+        <h2 class="sc-display sc-display--lg" id="tn-head">Tonight</h2>
+        <!-- The dinner service, written out statically, so the act has a real
+             ground before site.js resolves the day and so the page still says
+             something true with scripting off. -->
+        <p class="tonight__status" id="tn-status">Dinner, <b>4pm until 10pm</b>, Wednesday to Saturday.</p>
+
+        <div class="tonight__menu" id="tn-menu">
+          <p class="dishes__head">Mains</p>
+          <ul class="dishes" role="list">
+            <li><span class="dishes__n">Truffle Caramelle</span><span class="dishes__p">24</span></li>
+            <li><span class="dishes__n">Tagliatelle</span><span class="dishes__p dishes__p--none" title="Ask your server">ask</span></li>
+            <li><span class="dishes__n">Spaghetti</span><span class="dishes__p">25</span></li>
+            <li><span class="dishes__n">Mustard Chicken</span><span class="dishes__p">28</span></li>
+          </ul>
+        </div>
+
+        <!-- The blanks. The brand's own refusals, named. -->
+        <ul class="blanks" role="list" id="tn-blanks">
+          <li>
+            <span class="blanks__n">Mac &amp; Cheese Of The Day</span>
+            <span class="blanks__v">named at the table</span>
+          </li>
+          <li>
+            <span class="blanks__n">Dessert</span>
+            <span class="blanks__v">you pick an adjective</span>
+          </li>
+          <li>
+            <span class="blanks__n">Surprise, Surprise &middot; 5</span>
+            <span class="blanks__v">they won't say</span>
+          </li>
+        </ul>
+
+        <p class="tonight__foot sc-body" data-sc-cue="0.52 1 0.2 0.12">Three things on this page
+          have no answer on them, and that is not an oversight. Ask whoever brings
+          the water.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 6 · THE WINDOW · THE CLOSE ═══════════════════════════════════════
+       The reader steps outside. The one inverted frame on the whole page:
+       everything above this is daylight. The hours are set on the glass as
+       real markup. Footer inside the stage. The cue holds, because this is
+       the last act and the final screen must not fade to nothing.         -->
+  <section id="visit" class="window" data-sc-act="flow" data-sc-span="1.2" data-sc-drift="#0B1A28">
+    <div class="window__bed" aria-hidden="true">
+      <img src="assets/window.jpg" width="1920" height="1080" alt="">
+    </div>
+    <div class="sc-scrim sc-scrim--band" aria-hidden="true"></div>
+
+    <div class="sc-wrap window__wrap">
+      <div class="window__glass" data-sc-cue="0 1 0 0">
+        <p class="eyebrow">2802 James Street</p>
+        <h2 class="sc-display sc-display--lg">The light's on.</h2>
+        <dl class="hours">
+          <div><dt>Wednesday &ndash; Saturday</dt><dd>Dinner, 4pm &ndash; 10pm</dd></div>
+          <div><dt>Wednesday &amp; Thursday</dt><dd>Happy hour, 4pm &ndash; 5pm</dd></div>
+          <div><dt>Sunday</dt><dd>Brunch, 11am &ndash; 4pm</dd></div>
+          <div class="hours--shut"><dt>Monday &amp; Tuesday</dt><dd>Closed</dd></div>
+        </dl>
+        <p class="window__asks">
+          <a class="cta" href="https://www.opentable.com/r/the-wedge-syracuse" target="_blank" rel="noopener">Book a table</a>
+          <a class="plain" href="tel:+13156308169">(315) 630-8169</a>
+        </p>
+      </div>
+
+      <footer class="foot" data-sc-cue="0 1 0 0">
+        <p><a href="https://maps.google.com/?q=2802+James+St+Syracuse+NY+13206" target="_blank" rel="noopener">2802 James St, Syracuse, NY 13206</a></p>
+        <p class="foot__fine">Please let your server know about any food allergies. Our fryer
+          is kept gluten free. Consuming raw or undercooked meats, poultry, seafood,
+          shellfish or eggs may increase your risk of food borne illness. All parties
+          of five and over will have a 20% auto gratuity.</p>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="scrollcraft.js"></script>
+<script>ScrollCraft.mount(document.body);</script>
+<script src="site.js"></script>
+</body>
+</html>
