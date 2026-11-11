@@ -1,0 +1,463 @@
+/* ==========================================================================
+   BIG FELLAS — Syracuse NY
+   Grammar: rhythmic cutlist. No pinned act anywhere on this page.
+   Three grounds (bone / black / red), one accent, two faces.
+   ========================================================================== */
+
+:root {
+  --sc-canvas:     #F4EAD2;   /* bone, off the logo's cream */
+  --sc-surface:    #121010;
+  --sc-ink:        #15110E;
+  --sc-ink-soft:   #6B5B49;
+  --sc-accent:     #BE1E24;   /* the logo red. 5.1:1 on bone */
+  --sc-accent-ink: #F4EAD2;
+
+  --bf-bone:   #F4EAD2;
+  --bf-black:  #121010;
+  --bf-red:    #BE1E24;
+  --bf-soft-k: #B9A98F;       /* soft ink on the dark grounds, 7.4:1 */
+  --bf-soft-r: #F0D6D3;       /* soft ink on red */
+
+  --sc-font-display: "Anton", "Archivo Black", Impact, system-ui, sans-serif;
+  --sc-font-text:    "Instrument Sans", system-ui, -apple-system, sans-serif;
+
+  /* The size switch drives this, and this drives every display size on the
+     page. LITTLE is 1; BIG is a full step up. */
+  --bf-step: 1;
+
+  --bf-bar: 58px;
+  --bf-mq: 30px;
+  --bf-chrome: calc(var(--bf-bar) + var(--bf-mq));
+}
+
+html[data-size="big"] { --bf-step: 1.16; }
+
+/* The type step is NOT suppressed under reduced motion, on purpose. Nothing
+   animates it, there is no transition on it, and the size being bigger is part
+   of what the page is saying. The things that do move are suppressed below. */
+
+body { background: var(--bf-bone); overflow-x: hidden; }
+
+/* Anton has one weight and sits low in its box. Pull it up optically. */
+.sc-display,
+.bf-huge, .bf-big, .bf-mid {
+  font-family: var(--sc-font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.012em;
+  line-height: 0.86;
+  text-wrap: balance;
+  margin: 0;
+}
+.bf-huge { font-size: calc(clamp(3.2rem, 1.1rem + 9.4vw, 8.4rem) * var(--bf-step)); }
+.bf-big  { font-size: calc(clamp(2.5rem, 1.2rem + 5.6vw, 5.4rem) * var(--bf-step)); }
+.bf-mid  { font-size: calc(clamp(1.7rem, 1.2rem + 2.4vw, 2.9rem) * var(--bf-step)); }
+
+.bf-kicker {
+  font: 400 clamp(0.72rem, 0.68rem + 0.2vw, 0.84rem)/1 var(--sc-font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--bf-red);
+  margin: 0 0 var(--sc-4);
+}
+.bf-say {
+  font: 500 clamp(0.98rem, 0.94rem + 0.3vw, 1.12rem)/1.5 var(--sc-font-text);
+  max-width: 44ch;
+  color: var(--sc-ink-soft);
+  margin: var(--sc-4) 0 0;
+  text-wrap: pretty;
+}
+.bf-say strong { color: var(--sc-ink); font-weight: 700; }
+
+/* ---------- the loud bar ------------------------------------------------ */
+
+.bf-bar {
+  position: fixed; inset: 0 0 auto 0; z-index: 70;
+  height: var(--bf-bar);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--sc-4);
+  padding-inline: clamp(0.6rem, 2vw, 1.4rem);
+  background: var(--bf-red);
+  color: var(--bf-bone);
+  border-bottom: 3px solid var(--bf-black);
+  transition: background 180ms steps(2, end), color 180ms steps(2, end);
+}
+html[data-size="big"] .bf-bar { background: var(--bf-black); }
+
+.bf-bar__mark { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: inherit; }
+.bf-bar__mark img { width: 40px; height: 40px; display: block; border-radius: 50%; }
+.bf-bar__mark span {
+  font: 400 1.02rem/1 var(--sc-font-display);
+  letter-spacing: 0.01em; text-transform: uppercase;
+}
+@media (max-width: 760px) { .bf-bar__mark span { display: none; } }
+
+/* the switch: both halves at wordmark weight, per the grammar's loud bar */
+.bf-sizer {
+  justify-self: center;
+  display: flex; align-items: stretch;
+  border: 2px solid currentColor;
+  background: transparent;
+}
+.bf-sizer__btn {
+  appearance: none; border: 0; background: transparent; cursor: pointer;
+  color: inherit;
+  font: 400 clamp(0.74rem, 0.6rem + 0.5vw, 1rem)/1 var(--sc-font-display);
+  text-transform: uppercase; letter-spacing: 0.02em;
+  padding: 0.44rem 0.7rem;
+  white-space: nowrap;
+}
+.bf-sizer__btn[aria-pressed="true"] { background: var(--bf-bone); color: var(--bf-black); }
+html[data-size="big"] .bf-sizer__btn[aria-pressed="true"] { background: var(--bf-red); color: var(--bf-bone); }
+/* Locked, not greyed. Bone at 50% over this red is 1.8:1 and at 85% is still
+   4.2:1, so dimming the one control on the page to say "not yet" costs more
+   than it buys. It stays at full contrast and carries a dotted rule instead. */
+.bf-sizer__btn[aria-disabled="true"] {
+  cursor: default;
+  text-decoration: underline dotted currentColor 2px;
+  text-underline-offset: 3px;
+}
+.bf-sizer__btn:focus-visible { outline: 3px solid var(--bf-bone); outline-offset: 2px; }
+
+.bf-bar__cta {
+  font: 400 clamp(0.8rem, 0.7rem + 0.4vw, 1.05rem)/1 var(--sc-font-display);
+  text-transform: uppercase; letter-spacing: 0.04em;
+  text-decoration: none;
+  background: var(--bf-bone); color: var(--bf-black);
+  padding: 0.5rem 0.9rem;
+  border: 2px solid var(--bf-black);
+  box-shadow: 3px 3px 0 var(--bf-black);
+}
+html[data-size="big"] .bf-bar__cta { background: var(--bf-red); color: var(--bf-bone); border-color: var(--bf-bone); box-shadow: 3px 3px 0 var(--bf-bone); }
+.bf-bar__cta:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0 var(--bf-black); }
+.bf-bar__cta:focus-visible { outline: 3px solid var(--bf-bone); outline-offset: 3px; }
+
+/* the marquee, directly under the bar. It also carries the peak. */
+.bf-mq {
+  position: fixed; inset: var(--bf-bar) 0 auto 0; z-index: 69;
+  height: var(--bf-mq);
+  overflow: hidden;
+  background: var(--bf-black);
+  color: var(--bf-bone);
+  border-bottom: 3px solid var(--bf-red);
+  display: flex; align-items: center;
+}
+html[data-size="big"] .bf-mq { background: var(--bf-red); border-bottom-color: var(--bf-black); }
+.bf-mq__track {
+  display: flex; flex: none; gap: 0;
+  will-change: transform;
+  animation: bf-roll 26s linear infinite;
+}
+html[data-size="big"] .bf-mq__track { animation-duration: 13s; }
+.bf-mq__track > span {
+  font: 400 0.76rem/1 var(--sc-font-display);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding-inline: 1.1rem;
+  white-space: nowrap;
+}
+@keyframes bf-roll { to { transform: translate3d(-50%, 0, 0); } }
+@media (prefers-reduced-motion: reduce) {
+  .bf-mq__track { animation: none; }
+}
+/* the house talking back, printed over the marquee */
+.bf-mq.is-shout .bf-mq__track { visibility: hidden; }
+.bf-mq__shout {
+  position: absolute; inset: 0;
+  display: none; align-items: center; justify-content: center;
+  font: 400 0.82rem/1 var(--sc-font-display);
+  text-transform: uppercase; letter-spacing: 0.16em;
+}
+.bf-mq.is-shout .bf-mq__shout { display: flex; }
+
+/* red/bone checker, lifted from the storefront glass */
+.bf-checker {
+  height: 14px;
+  background:
+    repeating-conic-gradient(var(--bf-red) 0% 25%, var(--bf-bone) 0% 50%) 0 0 / 28px 28px;
+}
+.bf-checker--k {
+  background:
+    repeating-conic-gradient(var(--bf-black) 0% 25%, var(--bf-bone) 0% 50%) 0 0 / 28px 28px;
+}
+
+/* ---------- cuts -------------------------------------------------------- */
+
+.cut {
+  position: relative;
+  display: grid;
+  align-content: center;
+  padding: clamp(2rem, 5vw, 4rem) var(--sc-gutter);
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Grid items default to min-width:auto, so a cut holding a wider-than-screen
+   rail stretches its own content box to the rail's max-content width and every
+   centred child inside it is centred against THAT. Pin it to the column. */
+.cut > * { position: relative; z-index: 2; min-width: 0; }
+.cut__in { width: 100%; max-width: var(--sc-maxw); margin-inline: auto; }
+
+.cut--k { background: var(--bf-black); color: var(--bf-bone); }
+.cut--k .bf-say { color: var(--bf-soft-k); }
+.cut--k .bf-say strong { color: var(--bf-bone); }
+.cut--k .bf-kicker { color: #F06A62; }          /* red lifted to 5.0:1 on black */
+.cut--r { background: var(--bf-red); color: var(--bf-bone); }
+.cut--r .bf-say { color: var(--bf-soft-r); }
+.cut--r .bf-say strong { color: var(--bf-bone); }
+.cut--r .bf-kicker { color: var(--bf-black); }
+
+/* Width/height attributes are on every img for layout stability, so anything
+   sized by CSS has to release the height or the attribute wins. */
+.cut figure img, .bf-bottles img, .bf-rail__item img { height: auto; }
+
+/* full-bleed media behind a cut */
+.cut__media { position: absolute; inset: 0; z-index: 0; }
+.cut__media img, .cut__media video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.cut__shade {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(var(--bf-shade-dir, 90deg),
+    rgba(10,8,7,0.86) 0%, rgba(10,8,7,0.62) 38%, rgba(10,8,7,0) 72%);
+}
+.cut__shade--up { --bf-shade-dir: 0deg; }
+.cut__shade--down { --bf-shade-dir: 180deg; }
+
+/* ---------- 1 · the door ------------------------------------------------ */
+
+#open { min-height: 100svh; padding-top: calc(var(--bf-chrome) + 1.5rem); align-content: end; }
+#open .cut__in { display: grid; gap: var(--sc-3); }
+.bf-lockup { display: flex; align-items: flex-end; gap: clamp(0.8rem, 2.4vw, 2rem); flex-wrap: wrap; }
+.bf-lockup img {
+  width: clamp(92px, 13vw, 164px); height: auto; display: block;
+  filter: drop-shadow(0 10px 24px rgba(0,0,0,0.6));
+}
+#open h1 { color: var(--bf-bone); }
+#open .bf-sub {
+  font: 400 clamp(0.9rem, 0.8rem + 0.6vw, 1.3rem)/1 var(--sc-font-display);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--bf-bone); margin: 0;
+}
+#open .bf-sub em { font-style: normal; color: #F06A62; }
+.bf-where {
+  font: 500 0.9rem/1.5 var(--sc-font-text);
+  color: var(--bf-soft-k); margin: 0;
+}
+
+/* ---------- 2 · court to kitchen ---------------------------------------- */
+
+#court { min-height: 84svh; }
+#court .cut__in { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: center; }
+#court h2 .bf-swap { color: var(--bf-red); }
+.bf-stats { display: grid; gap: var(--sc-3); margin: 0; }
+.bf-stats div { display: flex; align-items: baseline; gap: 0.6rem; border-top: 2px solid var(--sc-ink); padding-top: 0.4rem; }
+.bf-stats dt { font: 500 0.8rem/1.3 var(--sc-font-text); color: var(--sc-ink-soft); text-transform: uppercase; letter-spacing: 0.06em; }
+.bf-stats dd { margin: 0 0 0 auto; font: 400 1.6rem/1 var(--sc-font-display); }
+#court figure { margin: 0; }
+#court figure img { width: 100%; height: auto; display: block; border: 3px solid var(--sc-ink); }
+#court figcaption { font: 500 0.74rem/1.4 var(--sc-font-text); color: var(--sc-ink-soft); margin-top: 0.5rem; }
+
+/* ---------- 3 · the wall ------------------------------------------------ */
+
+#wall { min-height: 104svh; align-content: end; }
+#wall .cut__in { display: grid; gap: var(--sc-3); max-width: 46rem; }
+
+/* ---------- 4 · the plate ----------------------------------------------- */
+
+#plate { min-height: 94svh; }
+#plate .cut__in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: center; }
+#plate figure { margin: 0; border: 3px solid var(--sc-ink); }
+#plate figure img { width: 100%; height: auto; display: block; }
+
+/* a priced line: name left, price right, rule between */
+.bf-line {
+  display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 0.8rem;
+  border-top: 3px solid currentColor; padding-top: 0.5rem; margin-top: var(--sc-4);
+}
+.bf-line__name { font: 400 clamp(1rem, 0.9rem + 0.6vw, 1.4rem)/1.05 var(--sc-font-display); text-transform: uppercase; }
+.bf-line__price { font: 400 clamp(1.2rem, 1rem + 1vw, 2rem)/1 var(--sc-font-display); }
+
+/* ---------- 5 · the proof ----------------------------------------------- */
+
+#proof { min-height: 66svh; text-align: center; }
+#proof .cut__in { display: grid; gap: var(--sc-4); justify-items: center; }
+.bf-score { font: 400 clamp(3.4rem, 1.8rem + 8.6vw, 8.4rem)/0.82 var(--sc-font-display); color: var(--bf-bone); }
+.bf-score span { color: #F06A62; }
+.bf-src { font: 500 0.78rem/1.5 var(--sc-font-text); color: var(--bf-soft-k); max-width: 46ch; }
+
+/* ---------- 6 · two sizes ----------------------------------------------- */
+
+#sizes { min-height: 88svh; }
+#sizes .cut__in { display: grid; gap: var(--sc-5); }
+.bf-pairs { display: grid; gap: 0; margin: 0; }
+.bf-pairs__row {
+  display: grid; grid-template-columns: minmax(0, 1fr) 6.5rem 6.5rem;
+  gap: 0.8rem; align-items: baseline;
+  border-top: 2px solid var(--sc-ink); padding: 0.52rem 0;
+}
+.bf-pairs__row--head { border-top: 0; }
+.bf-pairs__row--head span { font: 400 0.78rem/1 var(--sc-font-display); text-transform: uppercase; letter-spacing: 0.1em; color: var(--sc-ink-soft); }
+.bf-pairs__row th { text-align: left; font: 400 clamp(0.95rem, 0.9rem + 0.4vw, 1.25rem)/1.1 var(--sc-font-display); text-transform: uppercase; font-weight: 400; }
+.bf-pairs__row td { font: 400 clamp(1rem, 0.9rem + 0.5vw, 1.35rem)/1 var(--sc-font-display); }
+/* The table answers the switch: the size you are being shown is the lit one. */
+.bf-pairs__row td:nth-child(2) { color: var(--bf-red); }
+.bf-pairs__row td:last-child    { color: var(--sc-ink-soft); }
+html[data-size="big"] .bf-pairs__row td:nth-child(2) { color: var(--sc-ink-soft); }
+html[data-size="big"] .bf-pairs__row td:last-child    { color: var(--bf-red); }
+@media (max-width: 620px) {
+  .bf-pairs__row { grid-template-columns: minmax(0, 1fr) 4.4rem 4.4rem; }
+}
+
+/* ---------- 7 · the wings, and the flip --------------------------------- */
+
+#wings { min-height: 108svh; align-content: end; }
+#wings .cut__in { display: grid; gap: var(--sc-3); }
+.bf-count {
+  display: flex; align-items: baseline; gap: clamp(0.6rem, 2vw, 1.6rem); flex-wrap: wrap;
+}
+.bf-count__n {
+  font: 400 calc(clamp(5rem, 2rem + 16vw, 15rem) * var(--bf-step))/0.78 var(--sc-font-display);
+  color: var(--bf-bone);
+  transition: none;
+}
+.bf-count__u { font: 400 clamp(1.2rem, 0.9rem + 1.4vw, 2.4rem)/1 var(--sc-font-display); text-transform: uppercase; color: #F06A62; }
+
+/* ---------- 8 + 11 · the unlocked cuts ---------------------------------- */
+
+.cut--locked { display: none; }
+
+#fifty { min-height: 90svh; }
+#fifty .cut__in { display: grid; gap: var(--sc-4); }
+.bf-ladder {
+  list-style: none; margin: var(--sc-2) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(0.4rem, 1.4vw, 1rem);
+}
+.bf-ladder li { border-top: 4px solid var(--bf-bone); padding-top: 0.4rem; }
+.bf-ladder span {
+  display: block;
+  font: 400 clamp(2rem, 1rem + 4.4vw, 4.6rem)/0.84 var(--sc-font-display);
+}
+/* Bone, not black: black on this red is 3.1:1, which is fine for the numeral
+   above it and fails for a price this size. */
+.bf-ladder b {
+  display: block; margin-top: 0.2rem;
+  font: 400 clamp(0.8rem, 0.7rem + 0.5vw, 1.1rem)/1 var(--sc-font-display);
+  color: var(--bf-bone);
+}
+@media (max-width: 620px) { .bf-ladder { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+#chubs { min-height: 96svh; }
+#chubs .cut__in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: center; }
+#chubs figure { margin: 0; border: 3px solid var(--bf-bone); }
+#chubs figure img { width: 100%; height: auto; display: block; }
+.bf-rule-line {
+  font: 400 clamp(1rem, 0.9rem + 0.6vw, 1.5rem)/1.15 var(--sc-font-display);
+  text-transform: uppercase;
+  border: 3px solid var(--bf-bone); padding: 0.7rem 0.9rem; margin-top: var(--sc-5);
+}
+
+/* ---------- 9 · the range rail ------------------------------------------ */
+
+#range { min-height: 96svh; align-content: center; padding-inline: 0; }
+#range .cut__in { max-width: none; padding: 0; width: 100%; }
+#range header { padding-inline: var(--sc-gutter); max-width: var(--sc-maxw); margin: 0 auto var(--sc-5); }
+.bf-rail { display: flex; gap: clamp(0.8rem, 2vw, 1.6rem); will-change: transform; padding-inline: var(--sc-gutter); }
+.bf-rail__item { flex: 0 0 clamp(230px, 24vw, 330px); }
+.bf-rail__item img { width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover; display: block; border: 3px solid var(--sc-ink); }
+.bf-rail__item h3 { font: 400 clamp(1rem, 0.9rem + 0.4vw, 1.25rem)/1.05 var(--sc-font-display); text-transform: uppercase; margin: 0.6rem 0 0.2rem; }
+.bf-rail__item p { font: 500 0.82rem/1.4 var(--sc-font-text); color: var(--sc-ink-soft); margin: 0; }
+.bf-rail__item .bf-rail__price { font: 400 1.1rem/1 var(--sc-font-display); display: block; margin-top: 0.35rem; }
+
+/* ---------- 10 · the bottles -------------------------------------------- */
+
+#drinks { min-height: 92svh; }
+#drinks .cut__in { display: grid; gap: var(--sc-5); }
+.bf-bottles { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(0.5rem, 1.6vw, 1.1rem); margin: 0; padding: 0; list-style: none; }
+.bf-bottles li { text-align: center; }
+.bf-bottles img { width: 100%; height: auto; display: block; }
+.bf-bottles span {
+  display: block; margin-top: 0.4rem;
+  font: 400 0.76rem/1.15 var(--sc-font-display); text-transform: uppercase;
+  color: var(--bf-bone);
+}
+.bf-bottles em { display: block; font: 500 0.68rem/1.3 var(--sc-font-text); font-style: normal; color: var(--bf-soft-k); }
+@media (max-width: 760px) { .bf-bottles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* ---------- 12 · sweet --------------------------------------------------- */
+
+#sweet { min-height: 82svh; }
+#sweet .cut__in { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: center; }
+#sweet figure { margin: 0; border: 3px solid var(--sc-ink); }
+#sweet figure img { width: 100%; height: auto; display: block; }
+.bf-sweets { margin: var(--sc-4) 0 0; padding: 0; list-style: none; display: grid; gap: 0.3rem; }
+.bf-sweets li { display: grid; grid-template-columns: 1fr auto; gap: 0.8rem; border-top: 1px solid var(--sc-hairline-strong); padding-top: 0.3rem; font: 500 0.92rem/1.4 var(--sc-font-text); }
+.bf-sweets b { font-weight: 600; }
+
+/* ---------- 13 · the room ------------------------------------------------ */
+
+#room { min-height: 92svh; align-content: end; }
+#room .cut__in { display: grid; gap: var(--sc-3); max-width: 44rem; }
+.bf-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: var(--sc-4) 0 0; padding: 0; list-style: none; }
+.bf-tags li {
+  font: 400 0.76rem/1 var(--sc-font-display); text-transform: uppercase; letter-spacing: 0.06em;
+  border: 2px solid var(--bf-bone); padding: 0.35rem 0.6rem;
+}
+
+/* ---------- 14 · order --------------------------------------------------- */
+
+#order { min-height: 100svh; align-content: center; }
+#order .cut__in { display: grid; gap: var(--sc-6); }
+#order h2 { color: var(--bf-bone); }
+.bf-places { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.2rem, 3vw, 3rem); }
+.bf-place { border-top: 4px solid var(--bf-bone); padding-top: 0.8rem; }
+.bf-place h3 { font: 400 clamp(1.2rem, 1rem + 0.8vw, 1.8rem)/1 var(--sc-font-display); text-transform: uppercase; margin: 0 0 0.5rem; }
+.bf-place p { font: 500 0.92rem/1.6 var(--sc-font-text); color: var(--bf-soft-r); margin: 0 0 0.3rem; }
+.bf-place a:not(.bf-go) { color: var(--bf-bone); }
+.bf-place dl { display: grid; grid-template-columns: auto 1fr; gap: 0.1rem 0.8rem; margin: 0.7rem 0 1rem; font: 500 0.84rem/1.5 var(--sc-font-text); color: var(--bf-soft-r); }
+.bf-place dt { font-weight: 700; color: var(--bf-bone); }
+.bf-place dd { margin: 0; }
+.bf-go {
+  display: inline-block;
+  font: 400 clamp(1rem, 0.9rem + 0.6vw, 1.4rem)/1 var(--sc-font-display);
+  text-transform: uppercase; letter-spacing: 0.04em; text-decoration: none;
+  background: var(--bf-bone); color: var(--bf-black);
+  padding: 0.65rem 1.1rem; border: 3px solid var(--bf-black);
+  box-shadow: 5px 5px 0 var(--bf-black);
+}
+.bf-go:hover { transform: translate(2px, 2px); box-shadow: 3px 3px 0 var(--bf-black); }
+.bf-go:focus-visible { outline: 3px solid var(--bf-bone); outline-offset: 3px; }
+
+.bf-foot {
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; align-items: center;
+  border-top: 2px solid var(--bf-bone); padding-top: 0.9rem;
+  font: 500 0.78rem/1.5 var(--sc-font-text); color: var(--bf-soft-r);
+}
+.bf-foot a { color: var(--bf-bone); }
+.bf-foot__mark { width: 34px; height: 34px; border-radius: 50%; display: block; }
+
+/* ---------- mobile ------------------------------------------------------- */
+
+@media (max-width: 860px) {
+  #court .cut__in, #plate .cut__in, #chubs .cut__in, #sweet .cut__in,
+  .bf-places { grid-template-columns: minmax(0, 1fr); }
+  /* The figure carries the season figures in its caption, so hoisting it above
+     the heading puts three numbers before the sentence they belong to. */
+  #court figure { max-width: 72%; }
+  .bf-lockup { align-items: center; }
+  :root { --bf-bar: 52px; --bf-mq: 26px; }
+  .bf-rail__item { flex: 0 0 70vw; }
+  .bf-bar__cta, .bf-sizer__btn { padding-inline: 0.55rem; }
+  /* Tap targets: 44px minimum. The bar is 52px, so its controls fill it. */
+  .bf-sizer, .bf-bar__cta { min-height: 44px; }
+  .bf-sizer__btn { display: flex; align-items: center; min-height: 40px; }
+  .bf-bar__cta { display: flex; align-items: center; }
+  .bf-bar__mark { min-height: 44px; }
+  .bf-foot a, .bf-place a:not(.bf-go) { display: inline-flex; align-items: center; min-height: 44px; }
+  .bf-go { padding: 0.9rem 1.2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bf-rail { transform: none !important; }
+  .bf-go:hover, .bf-bar__cta:hover { transform: none; }
+}
